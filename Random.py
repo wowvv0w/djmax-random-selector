@@ -475,40 +475,10 @@ class SelectorUI(QWidget, RandomSelector):
     # 무작위 뽑기
     def randomStart(self):
         bt_list, st_list, sr_list, min_int, max_int, input_delay, isFreestyle = self.filterInputData()
-        try:
-            if len(bt_list) == 0:
-                raise ButtonTunesError
-            if min_int > max_int:
-                raise MinMaxError
-            if len(st_list) == 0:
-                raise StyleError
-            if len(sr_list) == 0:
-                raise SeriesError
-            selected_music, bt_input, init_input, down_input, right_input = \
-                self.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
-            print(selected_music)
-            self.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
-        except Exception as e:
-            print('오류:', e)
-
-
-
-# 에러 메세지 모음
-class ButtonTunesError(Exception):
-    def __init__(self):
-        super().__init__('선택된 버튼이 없습니다.')
-
-class MinMaxError(Exception):
-    def __init__(self):
-        super().__init__('최소 난이도가 최대 난이도보다 큽니다.')
-
-class StyleError(Exception):
-    def __init__(self):
-        super().__init__('선택된 난이도가 없습니다.')
-
-class SeriesError(Exception):
-    def __init__(self):
-        super().__init__('선택된 카테고리가 없습니다.')
+        selected_music, bt_input, init_input, down_input, right_input = \
+            self.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
+        print(selected_music)
+        self.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
