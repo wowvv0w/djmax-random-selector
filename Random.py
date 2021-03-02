@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QTabWidget, QPushButton, QGroupBox, QCheckBox, \
-    QSlider, QGridLayout, QLabel, QMessageBox
+    QSlider, QGridLayout, QLabel, QMessageBox, QButtonGroup, QRadioButton
 from PyQt5.QtCore import Qt
 import pandas as pd
 import random
@@ -28,18 +28,21 @@ class RandomSelector():
         return data
 
     # 곡 무작위 선정
-    def selectingMusic(self, data, buttons, styles, series, diff_min, diff_max):
+    def selectingMusic(self, data, buttons, styles, series, diff_min, diff_max, isFreestyle):
 
         diff_list = ['{0}B{1}'.format(i, j) for i in buttons for j in styles]
 
         filtered = data[data['Series'].isin(series)]
-        filtered = filtered.reset_index(drop=True)
-        candidate_list = ['{0} {1}'.format(filtered.loc[i, 'Title'], j) for i in range(len(filtered))
-                for j in diff_list if filtered.loc[i, j] >= diff_min and filtered.loc[i, j] <= diff_max]
+        if isFreestyle:
+            filtered = filtered.reset_index(drop=True)
+            candidate_list = ['{0} {1}'.format(filtered.loc[i, 'Title'], j) for i in range(len(filtered))
+                    for j in diff_list if filtered.loc[i, j] >= diff_min and filtered.loc[i, j] <= diff_max]
+        else:
+            candidate_list = filtered['Title'].tolist()
         
+
         selected = random.choice(candidate_list)
 
-        bt_input = selected[-4]
 
         if self.isnt_alphabet(selected[0]):
             init_input = 'a'
@@ -54,18 +57,22 @@ class RandomSelector():
                                                                         or find_sinit[i][0] == selected[0].upper()]
         down_input = sinit_list.index(selected[:-5])
 
-        find_btst = ['{0}B{1}'.format(selected[-4], self._styles[i]) for i in range(self._styles.index(selected[-2:]) + 1)]
-        find_smusic = filtered[filtered['Title'] == selected[:-5]]
-        find_smusic = find_smusic[[*find_btst]]
-        find_smusic = find_smusic.values.tolist()[0][:len(find_btst)]
-        sub_count = find_smusic.count(0)
-        right_input = len(find_btst) - sub_count - 1
+        if isFreestyle:
+            bt_input = selected[-4]
+            find_btst = ['{0}B{1}'.format(selected[-4], self._styles[i]) for i in range(self._styles.index(selected[-2:]) + 1)]
+            find_smusic = filtered[filtered['Title'] == selected[:-5]]
+            find_smusic = find_smusic[[*find_btst]]
+            find_smusic = find_smusic.values.tolist()[0][:len(find_btst)]
+            sub_count = find_smusic.count(0)
+            right_input = len(find_btst) - sub_count - 1
+        else:
+            bt_input, right_input = None, None
 
         return selected, bt_input, init_input, down_input, right_input
 
     # 키보드 자동 입력
-    def inputKeyboard(self, music, bt, init, down, right, input_delay):
-
+    def inputKeyboard(self, music, bt, init, down, right, input_delay, isFreestyle):
+        
         delay = lambda: time.sleep(input_delay)
         press = lambda key: kb.press_and_release(key)
 
@@ -149,7 +156,7 @@ class SelectorUI(QWidget, RandomSelector):
         tab1 = QWidget()
         tab2 = QWidget()
 
-        tabs.addTab(tab1, '필터'); tabs.addTab(tab2, '데이터')
+        tabs.addTab(tab1, 'Filter'); tabs.addTab(tab2, 'Data')
 
         tab1.layout = QVBoxLayout()
         tab1.layout.addLayout(self.createFilterTab())
@@ -180,6 +187,7 @@ class SelectorUI(QWidget, RandomSelector):
 
         vbox_l.addWidget(self.createButtonTunesGroup())
         vbox_l.addWidget(self.createDifficultyGroup())
+        vbox_l.addWidget(self.createModeGroup())
         vbox_l.addWidget(self.createInputDelayGroup())
         vbox_l.addWidget(startLabel)
         vbox_r.addWidget(self.createSeriesGroup())
@@ -296,6 +304,20 @@ class SelectorUI(QWidget, RandomSelector):
 
         return groupbox
 
+    def createModeGroup(self):
+        groupbox = QGroupBox('MODE')
+        self.cb_freestyle = QRadioButton('FREESTYLE', self)
+        self.cb_online = QRadioButton('ONLINE', self)
+
+        self.cb_freestyle.toggle()
+
+        hbox = QHBoxLayout()
+        hbox.addWidget(self.cb_freestyle); hbox.addWidget(self.cb_online)
+
+        groupbox.setLayout(hbox)
+
+        return groupbox
+
     # 데이터 탭 생성
     def createDataTab(self):
         
@@ -399,7 +421,13 @@ class SelectorUI(QWidget, RandomSelector):
         # 입력 지연값
         input_delay = self.slider_delay.value()
 
-        return fil_bt, fil_st, fil_sr, fil_min, fil_max, input_delay/1000
+        # 모드 선택값
+        if self.cb_freestyle:
+            isFreestyle = True
+        elif self.cb_online:
+            isFreestyle = False
+
+        return fil_bt, fil_st, fil_sr, fil_min, fil_max, input_delay/1000, isFreestyle
 
     # 데이터 생성 인풋 데이터 & YourData.csv 생성
     def createDataInputData(self):
@@ -440,10 +468,10 @@ class SelectorUI(QWidget, RandomSelector):
         self.createYourData(fil_yd_sr)
 
         msgBox = QMessageBox.information(self, ' ', 'Success!')
-
+        
     # 무작위 뽑기
     def randomStart(self):
-        bt_list, st_list, sr_list, min_int, max_int, input_delay = self.filterInputData()
+        bt_list, st_list, sr_list, min_int, max_int, input_delay, isFreestyle = self.filterInputData()
         try:
             if len(bt_list) == 0:
                 raise ButtonTunesError
@@ -454,9 +482,9 @@ class SelectorUI(QWidget, RandomSelector):
             if len(sr_list) == 0:
                 raise SeriesError
             selected_music, bt_input, init_input, down_input, right_input = \
-                self.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int)
+                self.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
             print(selected_music)
-            self.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay)
+            self.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
         except Exception as e:
             print('오류:', e)
 
