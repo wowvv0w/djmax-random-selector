@@ -1,7 +1,8 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QTabWidget, QPushButton, QGroupBox, QCheckBox, \
-    QSlider, QGridLayout, QLabel, QMessageBox
+    QSlider, QGridLayout, QLabel, QMessageBox, QRadioButton
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 import pandas as pd
 import random
 import keyboard as kb
@@ -24,22 +25,28 @@ class RandomSelector():
     def readYourData(self):
 
         data = pd.read_csv("YourData.csv", names = self.name)
+        # data = pd.read_csv("test_data.csv", names = self.name)
 
         return data
 
     # 곡 무작위 선정
-    def selectingMusic(self, data, buttons, styles, series, diff_min, diff_max):
-
-        diff_list = ['{0}B{1}'.format(i, j) for i in buttons for j in styles]
+    def selectingMusic(self, data, buttons, styles, series, diff_min, diff_max, isFreestyle):
 
         filtered = data[data['Series'].isin(series)]
-        filtered = filtered.reset_index(drop=True)
-        candidate_list = ['{0} {1}'.format(filtered.loc[i, 'Title'], j) for i in range(len(filtered))
-                for j in diff_list if filtered.loc[i, j] >= diff_min and filtered.loc[i, j] <= diff_max]
+        if isFreestyle:
+            diff_list = ['{0}B{1}'.format(i, j) for i in buttons for j in styles]
+            filtered = filtered.reset_index(drop=True)
+            candidate_list = ['{0} {1}'.format(filtered.loc[i, 'Title'], j) for i in range(len(filtered))
+                    for j in diff_list if filtered.loc[i, j] >= diff_min and filtered.loc[i, j] <= diff_max]
+        else:
+            candidate_list = filtered['Title'].tolist()
         
-        selected = random.choice(candidate_list)
 
-        bt_input = selected[-4]
+        try:
+            selected = random.choice(candidate_list)
+        except IndexError:
+            return 'None', None, None, None, None
+
 
         if self.isnt_alphabet(selected[0]):
             init_input = 'a'
@@ -52,37 +59,52 @@ class RandomSelector():
         else:
             sinit_list = [find_sinit[i] for i in range(len(find_sinit)) if find_sinit[i][0] == selected[0].lower()
                                                                         or find_sinit[i][0] == selected[0].upper()]
-        down_input = sinit_list.index(selected[:-5])
+        if isFreestyle:
+            down_input = sinit_list.index(selected[:-5])
+        else:
+            down_input = sinit_list.index(selected)
+        
 
-        find_btst = ['{0}B{1}'.format(selected[-4], self._styles[i]) for i in range(self._styles.index(selected[-2:]) + 1)]
-        find_smusic = filtered[filtered['Title'] == selected[:-5]]
-        find_smusic = find_smusic[[*find_btst]]
-        find_smusic = find_smusic.values.tolist()[0][:len(find_btst)]
-        sub_count = find_smusic.count(0)
-        right_input = len(find_btst) - sub_count - 1
+        if isFreestyle:
+            bt_input = selected[-4]
+            find_btst = ['{0}B{1}'.format(selected[-4], self._styles[i]) for i in range(self._styles.index(selected[-2:]) + 1)]
+            find_smusic = filtered[filtered['Title'] == selected[:-5]]
+            find_smusic = find_smusic[[*find_btst]]
+            find_smusic = find_smusic.values.tolist()[0][:len(find_btst)]
+            sub_count = find_smusic.count(0)
+            right_input = len(find_btst) - sub_count - 1
+        else:
+            bt_input, right_input = None, None
 
         return selected, bt_input, init_input, down_input, right_input
 
     # 키보드 자동 입력
-    def inputKeyboard(self, music, bt, init, down, right):
+    def inputKeyboard(self, music, bt, init, down, right, input_delay, isFreestyle):
+        
+        delay = lambda: time.sleep(input_delay)
+        press = lambda key: kb.press_and_release(key)
 
-        kb.press_and_release(bt)
-        time.sleep(.03)
-        kb.press_and_release(init)
-        time.sleep(.03)
+        if isFreestyle:
+            press(bt)
+            delay()
+        press('page up')
+        delay()
+        press(init)
+        delay()
         if self.isnt_alphabet(music[0]):
-            kb.press_and_release('page up')
-            time.sleep(.03)
-            kb.press_and_release('page up')
-            time.sleep(.03)
-            kb.press_and_release('page down')
-            time.sleep(.03)
+            press('page up')
+            delay()
+            press('page up')
+            delay()
+            press('page down')
+            delay()
         for i in range(down):
-            kb.press_and_release("down arrow")
-            time.sleep(.03)
-        for i in range(right):
-            kb.press_and_release("right arrow")
-            time.sleep(.03)
+            press("down arrow")
+            delay()
+        if isFreestyle:
+            for i in range(right):
+                press("right arrow")
+                delay()
 
     # YourData 생성
     def createYourData(self, series):
@@ -94,7 +116,7 @@ class RandomSelector():
         filtered = self.specialMusicFilter(filtered, series)
         
         filtered.to_csv("YourData.csv", index=None, header=None)
-        # filtered.to_csv("text_data.csv", index=None, header=None)
+        # filtered.to_csv("test_data.csv", index=None, header=None)
     
     def specialMusicFilter(self, df, series):
 
@@ -124,6 +146,9 @@ class RandomSelector():
 
 
 
+
+
+
 # UI
 class SelectorUI(QWidget, RandomSelector):
 
@@ -141,7 +166,7 @@ class SelectorUI(QWidget, RandomSelector):
         tab1 = QWidget()
         tab2 = QWidget()
 
-        tabs.addTab(tab1, '필터'); tabs.addTab(tab2, '데이터')
+        tabs.addTab(tab1, 'Filter'); tabs.addTab(tab2, 'Data')
 
         tab1.layout = QVBoxLayout()
         tab1.layout.addLayout(self.createFilterTab())
@@ -157,6 +182,7 @@ class SelectorUI(QWidget, RandomSelector):
         self.setWindowTitle('DJMAX RESPECT V MUSIC RANDOM SELECTOR')
         self.setFixedSize(self.sizeHint())
         self.move(300, 300)
+        self.setWindowIcon(QIcon('icon.ico'))
         self.show()
 
         kb.add_hotkey('f7', lambda: self.randomStart(), suppress=True, trigger_on_release=True)
@@ -170,9 +196,15 @@ class SelectorUI(QWidget, RandomSelector):
         startLabel = QLabel('Press F7 to Start Random Selector', self)
         startLabel.setAlignment(Qt.AlignCenter)
 
+        self.selectedLabel = QLabel('', self)
+        self.selectedLabel.setAlignment(Qt.AlignCenter)
+
         vbox_l.addWidget(self.createButtonTunesGroup())
         vbox_l.addWidget(self.createDifficultyGroup())
+        vbox_l.addWidget(self.createModeGroup())
+        vbox_l.addWidget(self.createInputDelayGroup())
         vbox_l.addWidget(startLabel)
+        vbox_l.addWidget(self.selectedLabel)
         vbox_r.addWidget(self.createSeriesGroup())
 
         hbox.addLayout(vbox_l); hbox.addLayout(vbox_r)
@@ -180,7 +212,7 @@ class SelectorUI(QWidget, RandomSelector):
         return hbox
 
     def createButtonTunesGroup(self):
-        groupbox = QGroupBox("BUTTON TUNES")
+        self.bt_groupbox = QGroupBox("BUTTON TUNES")
 
         self.cb_4b = QCheckBox('4B', self); self.cb_5b = QCheckBox('5B', self)
         self.cb_6b = QCheckBox('6B', self); self.cb_8b = QCheckBox('8B', self)
@@ -190,12 +222,12 @@ class SelectorUI(QWidget, RandomSelector):
         hbox = QHBoxLayout()
         hbox.addWidget(self.cb_4b); hbox.addWidget(self.cb_5b); hbox.addWidget(self.cb_6b); hbox.addWidget(self.cb_8b)
 
-        groupbox.setLayout(hbox)
+        self.bt_groupbox.setLayout(hbox)
 
-        return groupbox
+        return self.bt_groupbox
 
     def createDifficultyGroup(self):
-        groupbox = QGroupBox("DIFFICULTY")
+        self.df_groupbox = QGroupBox("DIFFICULTY")
 
         self.lvl_min = QSlider(Qt.Horizontal, self)
         self.lvl_max = QSlider(Qt.Horizontal, self)
@@ -213,7 +245,10 @@ class SelectorUI(QWidget, RandomSelector):
         self.lvl_max.valueChanged.connect(lambda: label2.setText(str(self.lvl_max.value())))
         label_min = QLabel('MIN', self); label1 = QLabel((str(self.lvl_min.value())), self)
         label_max = QLabel('MAX', self); label2 = QLabel((str(self.lvl_max.value())), self)
-        label1.setMinimumWidth(20); label2.setMinimumWidth(20)
+        label1.setFixedSize(16, 15); label2.setFixedSize(16, 15)
+        label_min.setFixedSize(30, 15); label_max.setFixedSize(30, 15)
+        label1.setAlignment(Qt.AlignRight); label2.setAlignment(Qt.AlignRight);
+        label_min.setAlignment(Qt.AlignLeft); label_max.setAlignment(Qt.AlignLeft);
 
         hbox_style = QHBoxLayout()
         hbox_style.addWidget(self.cb_nm); hbox_style.addWidget(self.cb_hd)
@@ -227,8 +262,8 @@ class SelectorUI(QWidget, RandomSelector):
         hbox_max.addWidget(label_max); hbox_max.addWidget(self.lvl_max); hbox_max.addWidget(label2)
         vbox.addLayout(hbox_min); vbox.addLayout(hbox_max); vbox.addLayout(hbox_style)
 
-        groupbox.setLayout(vbox)
-        return groupbox
+        self.df_groupbox.setLayout(vbox)
+        return self.df_groupbox
 
     def createSeriesGroup(self):
         groupbox = QGroupBox("CATEGORIES")
@@ -265,10 +300,59 @@ class SelectorUI(QWidget, RandomSelector):
 
         return groupbox
 
+    def createInputDelayGroup(self):
+        groupbox = QGroupBox("INPUT DELAY")
+
+        self.slider_delay = QSlider(Qt.Horizontal, self)
+        self.slider_delay.setValue(30)
+        self.slider_delay.setRange(10, 100)
+        self.slider_delay.setTickPosition(2)
+        self.slider_delay.setTickInterval(10)
+        label_ms = QLabel('{0}ms'.format(self.slider_delay.value()))
+        label_ms.setFixedSize(43,15)
+        label_ms.setAlignment(Qt.AlignRight)
+
+        self.slider_delay.valueChanged.connect(lambda: label_ms.setText('{0}ms'.format(self.slider_delay.value())))
+
+        hbox = QHBoxLayout()
+        vbox = QVBoxLayout()
+        hbox.addWidget(self.slider_delay)
+        hbox.addWidget(label_ms)
+
+        vbox.addLayout(hbox)
+        groupbox.setLayout(vbox)
+
+        return groupbox
+
+    def createModeGroup(self):
+        groupbox = QGroupBox('MODE')
+        self.cb_freestyle = QRadioButton('FREESTYLE', self)
+        self.cb_online = QRadioButton('ONLINE\n(categories filter only)', self)
+
+        self.cb_freestyle.toggle()
+        
+        self.cb_online.toggled.connect(self.onlineSignal)
+
+        hbox = QHBoxLayout()
+        hbox.addWidget(self.cb_freestyle); hbox.addWidget(self.cb_online)
+
+        groupbox.setLayout(hbox)
+
+        return groupbox
+    
+    def onlineSignal(self):
+        if self.cb_online.isChecked():
+            self.bt_groupbox.setEnabled(False)
+            self.df_groupbox.setEnabled(False)
+        else:
+            self.bt_groupbox.setEnabled(True)
+            self.df_groupbox.setEnabled(True)
+
+
     # 데이터 탭 생성
     def createDataTab(self):
         
-        how2use = QLabel("가지고 있는 DLC를 선택한 후 'Create' 버튼을 눌러주세요.")
+        how2use = QLabel("Select Your Own DLCs and Press 'Create'\n\nDo it at initial execution or when you purchase new DLC")
         how2use.setAlignment(Qt.AlignCenter)
         self.yd_cb_tr = QCheckBox('TRILOGY', self); self.yd_cb_ce = QCheckBox('CLAZZIQUAI', self); self.yd_cb_bs = QCheckBox('BLACK SQUARE', self)
         self.yd_cb_ve = QCheckBox('V EXTENSION', self); self.yd_cb_es = QCheckBox('EMOTIONAL S.', self)
@@ -365,7 +449,16 @@ class SelectorUI(QWidget, RandomSelector):
         fil_min = self.lvl_min.value()
         fil_max = self.lvl_max.value()
 
-        return fil_bt, fil_st, fil_sr, fil_min, fil_max
+        # 입력 지연값
+        input_delay = self.slider_delay.value()
+
+        # 모드 선택값
+        if self.cb_freestyle.isChecked():
+            isFreestyle = True
+        else:
+            isFreestyle = False
+
+        return fil_bt, fil_st, fil_sr, fil_min, fil_max, input_delay/1000, isFreestyle
 
     # 데이터 생성 인풋 데이터 & YourData.csv 생성
     def createDataInputData(self):
@@ -406,44 +499,16 @@ class SelectorUI(QWidget, RandomSelector):
         self.createYourData(fil_yd_sr)
 
         msgBox = QMessageBox.information(self, ' ', 'Success!')
-
+        
     # 무작위 뽑기
     def randomStart(self):
-        bt_list, st_list, sr_list, min_int, max_int = self.filterInputData()
-        try:
-            if len(bt_list) == 0:
-                raise ButtonTunesError
-            if min_int > max_int:
-                raise MinMaxError
-            if len(st_list) == 0:
-                raise StyleError
-            if len(sr_list) == 0:
-                raise SeriesError
-            selected_music, bt_input, init_input, down_input, right_input = \
-                self.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int)
-            print(selected_music)
-            self.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input)
-        except Exception as e:
-            print('오류:', e)
-
-
-
-# 에러 메세지 모음
-class ButtonTunesError(Exception):
-    def __init__(self):
-        super().__init__('선택된 버튼이 없습니다.')
-
-class MinMaxError(Exception):
-    def __init__(self):
-        super().__init__('최소 난이도가 최대 난이도보다 큽니다.')
-
-class StyleError(Exception):
-    def __init__(self):
-        super().__init__('선택된 난이도가 없습니다.')
-
-class SeriesError(Exception):
-    def __init__(self):
-        super().__init__('선택된 카테고리가 없습니다.')
+        bt_list, st_list, sr_list, min_int, max_int, input_delay, isFreestyle = self.filterInputData()
+        selected_music, bt_input, init_input, down_input, right_input = \
+            self.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
+        print(selected_music)
+        self.selectedLabel.setText(selected_music)
+        if selected_music != 'None':
+            self.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
