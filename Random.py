@@ -66,23 +66,28 @@ class RandomSelector():
     # 키보드 자동 입력
     def inputKeyboard(self, music, bt, init, down, right, input_delay):
 
-        kb.press_and_release(bt)
-        time.sleep(input_delay)
-        kb.press_and_release(init)
-        time.sleep(input_delay)
+        delay = lambda: time.sleep(input_delay)
+        press = lambda key: kb.press_and_release(key)
+
+        press(bt)
+        delay()
+        press('page up')
+        delay()
+        press(init)
+        delay()
         if self.isnt_alphabet(music[0]):
-            kb.press_and_release('page up')
-            time.sleep(input_delay)
-            kb.press_and_release('page up')
-            time.sleep(input_delay)
-            kb.press_and_release('page down')
-            time.sleep(input_delay)
+            press('page up')
+            delay()
+            press('page up')
+            delay()
+            press('page down')
+            delay()
         for i in range(down):
-            kb.press_and_release("down arrow")
-            time.sleep(input_delay)
+            press("down arrow")
+            delay()
         for i in range(right):
-            kb.press_and_release("right arrow")
-            time.sleep(input_delay)
+            press("right arrow")
+            delay()
 
     # YourData 생성
     def createYourData(self, series):
