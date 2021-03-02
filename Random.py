@@ -394,7 +394,7 @@ class SelectorUI(QWidget, RandomSelector):
         # 입력 지연값
         input_delay = self.slider_delay.value()
 
-        return fil_bt, fil_st, fil_sr, fil_min, fil_max, input_delay
+        return fil_bt, fil_st, fil_sr, fil_min, fil_max, input_delay/1000
 
     # 데이터 생성 인풋 데이터 & YourData.csv 생성
     def createDataInputData(self):
