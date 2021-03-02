@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QTabWidget, QPushButton, QGroupBox, QCheckBox, \
     QSlider, QGridLayout, QLabel, QMessageBox, QButtonGroup, QRadioButton
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 import pandas as pd
 import random
 import keyboard as kb
@@ -180,6 +181,7 @@ class SelectorUI(QWidget, RandomSelector):
         self.setWindowTitle('DJMAX RESPECT V MUSIC RANDOM SELECTOR')
         self.setFixedSize(self.sizeHint())
         self.move(300, 300)
+        self.setWindowIcon(QIcon('icon.ico'))
         self.show()
 
         kb.add_hotkey('f7', lambda: self.randomStart(), suppress=True, trigger_on_release=True)
@@ -209,7 +211,7 @@ class SelectorUI(QWidget, RandomSelector):
         return hbox
 
     def createButtonTunesGroup(self):
-        groupbox = QGroupBox("BUTTON TUNES")
+        self.bt_groupbox = QGroupBox("BUTTON TUNES")
 
         self.cb_4b = QCheckBox('4B', self); self.cb_5b = QCheckBox('5B', self)
         self.cb_6b = QCheckBox('6B', self); self.cb_8b = QCheckBox('8B', self)
@@ -219,12 +221,12 @@ class SelectorUI(QWidget, RandomSelector):
         hbox = QHBoxLayout()
         hbox.addWidget(self.cb_4b); hbox.addWidget(self.cb_5b); hbox.addWidget(self.cb_6b); hbox.addWidget(self.cb_8b)
 
-        groupbox.setLayout(hbox)
+        self.bt_groupbox.setLayout(hbox)
 
-        return groupbox
+        return self.bt_groupbox
 
     def createDifficultyGroup(self):
-        groupbox = QGroupBox("DIFFICULTY")
+        self.df_groupbox = QGroupBox("DIFFICULTY")
 
         self.lvl_min = QSlider(Qt.Horizontal, self)
         self.lvl_max = QSlider(Qt.Horizontal, self)
@@ -259,8 +261,8 @@ class SelectorUI(QWidget, RandomSelector):
         hbox_max.addWidget(label_max); hbox_max.addWidget(self.lvl_max); hbox_max.addWidget(label2)
         vbox.addLayout(hbox_min); vbox.addLayout(hbox_max); vbox.addLayout(hbox_style)
 
-        groupbox.setLayout(vbox)
-        return groupbox
+        self.df_groupbox.setLayout(vbox)
+        return self.df_groupbox
 
     def createSeriesGroup(self):
         groupbox = QGroupBox("CATEGORIES")
@@ -324,9 +326,11 @@ class SelectorUI(QWidget, RandomSelector):
     def createModeGroup(self):
         groupbox = QGroupBox('MODE')
         self.cb_freestyle = QRadioButton('FREESTYLE', self)
-        self.cb_online = QRadioButton('ONLINE', self)
+        self.cb_online = QRadioButton('ONLINE\n(categories filter only)', self)
 
         self.cb_freestyle.toggle()
+        
+        self.cb_online.toggled.connect(self.onlineSignal)
 
         hbox = QHBoxLayout()
         hbox.addWidget(self.cb_freestyle); hbox.addWidget(self.cb_online)
@@ -334,11 +338,20 @@ class SelectorUI(QWidget, RandomSelector):
         groupbox.setLayout(hbox)
 
         return groupbox
+    
+    def onlineSignal(self):
+        if self.cb_online.isChecked():
+            self.bt_groupbox.setEnabled(False)
+            self.df_groupbox.setEnabled(False)
+        else:
+            self.bt_groupbox.setEnabled(True)
+            self.df_groupbox.setEnabled(True)
+
 
     # 데이터 탭 생성
     def createDataTab(self):
         
-        how2use = QLabel("가지고 있는 DLC를 선택한 후 'Create' 버튼을 눌러주세요.")
+        how2use = QLabel("Select Your Own DLCs and Press 'Create'\n\nDo it on initial execution or when you purchase new DLC")
         how2use.setAlignment(Qt.AlignCenter)
         self.yd_cb_tr = QCheckBox('TRILOGY', self); self.yd_cb_ce = QCheckBox('CLAZZIQUAI', self); self.yd_cb_bs = QCheckBox('BLACK SQUARE', self)
         self.yd_cb_ve = QCheckBox('V EXTENSION', self); self.yd_cb_es = QCheckBox('EMOTIONAL S.', self)
