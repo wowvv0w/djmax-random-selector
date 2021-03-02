@@ -40,7 +40,10 @@ class RandomSelector():
             candidate_list = filtered['Title'].tolist()
         
 
-        selected = random.choice(candidate_list)
+        try:
+            selected = random.choice(candidate_list)
+        except (IndexError):
+            return 
 
 
         if self.isnt_alphabet(selected[0]):
@@ -188,11 +191,15 @@ class SelectorUI(QWidget, RandomSelector):
         startLabel = QLabel('Press F7 to Start Random Selector', self)
         startLabel.setAlignment(Qt.AlignCenter)
 
+        self.selectedLabel = QLabel('', self)
+        self.selectedLabel.setAlignment(Qt.AlignCenter)
+
         vbox_l.addWidget(self.createButtonTunesGroup())
         vbox_l.addWidget(self.createDifficultyGroup())
         vbox_l.addWidget(self.createModeGroup())
         vbox_l.addWidget(self.createInputDelayGroup())
         vbox_l.addWidget(startLabel)
+        vbox_l.addWidget(self.selectedLabel)
         vbox_r.addWidget(self.createSeriesGroup())
 
         hbox.addLayout(vbox_l); hbox.addLayout(vbox_r)
@@ -234,6 +241,7 @@ class SelectorUI(QWidget, RandomSelector):
         label_min = QLabel('MIN', self); label1 = QLabel((str(self.lvl_min.value())), self)
         label_max = QLabel('MAX', self); label2 = QLabel((str(self.lvl_max.value())), self)
         label1.setMinimumWidth(20); label2.setMinimumWidth(20)
+        label1.setAlignment(Qt.AlignRight); label2.setAlignment(Qt.AlignRight);
 
         hbox_style = QHBoxLayout()
         hbox_style.addWidget(self.cb_nm); hbox_style.addWidget(self.cb_hd)
@@ -290,10 +298,11 @@ class SelectorUI(QWidget, RandomSelector):
 
         self.slider_delay = QSlider(Qt.Horizontal, self)
         self.slider_delay.setValue(30)
-        self.slider_delay.setRange(1, 100)
+        self.slider_delay.setRange(10, 100)
         self.slider_delay.setTickPosition(2)
-        label_ms = QLabel('{0}ms'.format(self.slider_delay.value()), self)
-        label_ms.setMinimumWidth(45)
+        self.slider_delay.setTickInterval(10)
+        label_ms.setText('{0}ms'.format(self.slider_delay.value()))
+        label_ms.setAlignment(Qt.AlignRight)
 
         self.slider_delay.valueChanged.connect(lambda: label_ms.setText('{0}ms'.format(self.slider_delay.value())))
 
@@ -477,7 +486,7 @@ class SelectorUI(QWidget, RandomSelector):
         bt_list, st_list, sr_list, min_int, max_int, input_delay, isFreestyle = self.filterInputData()
         selected_music, bt_input, init_input, down_input, right_input = \
             self.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
-        print(selected_music)
+        self.selectedLabel.setText('<b>{0}</b>'.format(selected_music))
         self.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
 
 if __name__ == '__main__':
