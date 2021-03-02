@@ -64,25 +64,25 @@ class RandomSelector():
         return selected, bt_input, init_input, down_input, right_input
 
     # 키보드 자동 입력
-    def inputKeyboard(self, music, bt, init, down, right):
+    def inputKeyboard(self, music, bt, init, down, right, input_delay):
 
         kb.press_and_release(bt)
-        time.sleep(.03)
+        time.sleep(input_delay)
         kb.press_and_release(init)
-        time.sleep(.03)
+        time.sleep(input_delay)
         if self.isnt_alphabet(music[0]):
             kb.press_and_release('page up')
-            time.sleep(.03)
+            time.sleep(input_delay)
             kb.press_and_release('page up')
-            time.sleep(.03)
+            time.sleep(input_delay)
             kb.press_and_release('page down')
-            time.sleep(.03)
+            time.sleep(input_delay)
         for i in range(down):
             kb.press_and_release("down arrow")
-            time.sleep(.03)
+            time.sleep(input_delay)
         for i in range(right):
             kb.press_and_release("right arrow")
-            time.sleep(.03)
+            time.sleep(input_delay)
 
     # YourData 생성
     def createYourData(self, series):
@@ -121,6 +121,9 @@ class RandomSelector():
             df = df.drop(df[df['Title'] == 'SON OF SUN ~Extended Mix~'].index)
         
         return df
+
+
+
 
 
 
@@ -172,6 +175,7 @@ class SelectorUI(QWidget, RandomSelector):
 
         vbox_l.addWidget(self.createButtonTunesGroup())
         vbox_l.addWidget(self.createDifficultyGroup())
+        vbox_l.addWidget(self.createInputDelayGroup())
         vbox_l.addWidget(startLabel)
         vbox_r.addWidget(self.createSeriesGroup())
 
@@ -261,6 +265,28 @@ class SelectorUI(QWidget, RandomSelector):
 
         self.gb_collab.setLayout(vbox_col)
         vbox.addWidget(self.gb_collab)
+        groupbox.setLayout(vbox)
+
+        return groupbox
+
+    def createInputDelayGroup(self):
+        groupbox = QGroupBox("INPUT DELAY")
+
+        self.slider_delay = QSlider(Qt.Horizontal, self)
+        self.slider_delay.setValue(30)
+        self.slider_delay.setRange(1, 100)
+        self.slider_delay.setTickPosition(2)
+        label_ms = QLabel('{0}ms'.format(self.slider_delay.value()), self)
+        label_ms.setMinimumWidth(45)
+
+        self.slider_delay.valueChanged.connect(lambda: label_ms.setText('{0}ms'.format(self.slider_delay.value())))
+
+        hbox = QHBoxLayout()
+        vbox = QVBoxLayout()
+        hbox.addWidget(self.slider_delay)
+        hbox.addWidget(label_ms)
+
+        vbox.addLayout(hbox)
         groupbox.setLayout(vbox)
 
         return groupbox
@@ -365,7 +391,10 @@ class SelectorUI(QWidget, RandomSelector):
         fil_min = self.lvl_min.value()
         fil_max = self.lvl_max.value()
 
-        return fil_bt, fil_st, fil_sr, fil_min, fil_max
+        # 입력 지연값
+        input_delay = self.slider_delay.value()
+
+        return fil_bt, fil_st, fil_sr, fil_min, fil_max, input_delay
 
     # 데이터 생성 인풋 데이터 & YourData.csv 생성
     def createDataInputData(self):
@@ -409,7 +438,7 @@ class SelectorUI(QWidget, RandomSelector):
 
     # 무작위 뽑기
     def randomStart(self):
-        bt_list, st_list, sr_list, min_int, max_int = self.filterInputData()
+        bt_list, st_list, sr_list, min_int, max_int, input_delay = self.filterInputData()
         try:
             if len(bt_list) == 0:
                 raise ButtonTunesError
@@ -422,7 +451,7 @@ class SelectorUI(QWidget, RandomSelector):
             selected_music, bt_input, init_input, down_input, right_input = \
                 self.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int)
             print(selected_music)
-            self.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input)
+            self.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay)
         except Exception as e:
             print('오류:', e)
 
