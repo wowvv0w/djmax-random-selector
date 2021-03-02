@@ -30,10 +30,9 @@ class RandomSelector():
     # 곡 무작위 선정
     def selectingMusic(self, data, buttons, styles, series, diff_min, diff_max, isFreestyle):
 
-        diff_list = ['{0}B{1}'.format(i, j) for i in buttons for j in styles]
-
         filtered = data[data['Series'].isin(series)]
         if isFreestyle:
+            diff_list = ['{0}B{1}'.format(i, j) for i in buttons for j in styles]
             filtered = filtered.reset_index(drop=True)
             candidate_list = ['{0} {1}'.format(filtered.loc[i, 'Title'], j) for i in range(len(filtered))
                     for j in diff_list if filtered.loc[i, j] >= diff_min and filtered.loc[i, j] <= diff_max]
@@ -52,10 +51,12 @@ class RandomSelector():
         find_sinit = data['Title'].tolist()
         if self.isnt_alphabet(selected[0]):
             sinit_list = [find_sinit[i] for i in range(len(find_sinit)) if self.isnt_alphabet(find_sinit[i][0])]
+            down_input = sinit_list.index(selected[:-5])
         else:
             sinit_list = [find_sinit[i] for i in range(len(find_sinit)) if find_sinit[i][0] == selected[0].lower()
                                                                         or find_sinit[i][0] == selected[0].upper()]
-        down_input = sinit_list.index(selected[:-5])
+            down_input = sinit_list.index(selected)
+        
 
         if isFreestyle:
             bt_input = selected[-4]
@@ -76,8 +77,9 @@ class RandomSelector():
         delay = lambda: time.sleep(input_delay)
         press = lambda key: kb.press_and_release(key)
 
-        press(bt)
-        delay()
+        if isFreestyle:
+            press(bt)
+            delay()
         press('page up')
         delay()
         press(init)
@@ -92,9 +94,10 @@ class RandomSelector():
         for i in range(down):
             press("down arrow")
             delay()
-        for i in range(right):
-            press("right arrow")
-            delay()
+        if isFreestyle:
+            for i in range(right):
+                press("right arrow")
+                delay()
 
     # YourData 생성
     def createYourData(self, series):
@@ -422,9 +425,9 @@ class SelectorUI(QWidget, RandomSelector):
         input_delay = self.slider_delay.value()
 
         # 모드 선택값
-        if self.cb_freestyle:
+        if self.cb_freestyle.isChecked():
             isFreestyle = True
-        elif self.cb_online:
+        else:
             isFreestyle = False
 
         return fil_bt, fil_st, fil_sr, fil_min, fil_max, input_delay/1000, isFreestyle
