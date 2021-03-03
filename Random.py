@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QTabWidget, QPushButton, QGroupBox, QCheckBox, \
-    QSlider, QGridLayout, QLabel, QMessageBox, QButtonGroup, QRadioButton
+    QSlider, QGridLayout, QLabel, QMessageBox, QRadioButton
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 import pandas as pd
@@ -43,8 +43,8 @@ class RandomSelector():
 
         try:
             selected = random.choice(candidate_list)
-        except (IndexError):
-            return 
+        except IndexError:
+            return 'None', None, None, None, None
 
 
         if self.isnt_alphabet(selected[0]):
@@ -351,7 +351,7 @@ class SelectorUI(QWidget, RandomSelector):
     # 데이터 탭 생성
     def createDataTab(self):
         
-        how2use = QLabel("Select Your Own DLCs and Press 'Create'\n\nDo it on initial execution or when you purchase new DLC")
+        how2use = QLabel("Select Your Own DLCs and Press 'Create'\n\nDo it at initial execution or when you purchase new DLC")
         how2use.setAlignment(Qt.AlignCenter)
         self.yd_cb_tr = QCheckBox('TRILOGY', self); self.yd_cb_ce = QCheckBox('CLAZZIQUAI', self); self.yd_cb_bs = QCheckBox('BLACK SQUARE', self)
         self.yd_cb_ve = QCheckBox('V EXTENSION', self); self.yd_cb_es = QCheckBox('EMOTIONAL S.', self)
@@ -505,7 +505,8 @@ class SelectorUI(QWidget, RandomSelector):
         selected_music, bt_input, init_input, down_input, right_input = \
             self.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
         self.selectedLabel.setText(selected_music)
-        self.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
+        if selected_music != 'None':
+            self.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
