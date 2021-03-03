@@ -25,6 +25,7 @@ class RandomSelector():
     def readYourData(self):
 
         data = pd.read_csv("YourData.csv", names = self.name)
+        # data = pd.read_csv("test_data.csv", names = self.name)
 
         return data
 
@@ -115,7 +116,7 @@ class RandomSelector():
         filtered = self.specialMusicFilter(filtered, series)
         
         filtered.to_csv("YourData.csv", index=None, header=None)
-        # filtered.to_csv("text_data.csv", index=None, header=None)
+        # filtered.to_csv("test_data.csv", index=None, header=None)
     
     def specialMusicFilter(self, df, series):
 
@@ -504,6 +505,7 @@ class SelectorUI(QWidget, RandomSelector):
         bt_list, st_list, sr_list, min_int, max_int, input_delay, isFreestyle = self.filterInputData()
         selected_music, bt_input, init_input, down_input, right_input = \
             self.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
+        print(selected_music)
         self.selectedLabel.setText(selected_music)
         if selected_music != 'None':
             self.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
