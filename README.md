@@ -20,6 +20,8 @@
 If there are any other issues, please tell me.
 
 ## Update
+### v0.2.1
+* Fixed problem about csv file
 ### v0.2.0
 * Fixed problem that was not selected correctly when an initial letter of music is the same as that of previously selected music
 * Added 'Mode' filter
