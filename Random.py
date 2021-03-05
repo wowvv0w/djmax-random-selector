@@ -19,16 +19,19 @@ class SelectorUI(QMainWindow, form_class):
         self.yourdata = sM.readYourData()
         kb.add_hotkey('f7', lambda: self.randomStart(), suppress=True, trigger_on_release=True)
 
-    # UI 생성
+    # 시그널, 스타일
     def initUI(self):
-        self.lvl_min.valueChanged.connect(lambda: label_min.setText(str(self.lvl_min.value())))
-        self.lvl_max.valueChanged.connect(lambda: label_max.setText(str(self.lvl_max.value())))
-        label_min = QLabel((str(self.lvl_min.value())), self)
-        label_max = QLabel((str(self.lvl_max.value())), self)
+        # self.statusBar().showMessage('Press F7 to Start Random Selector')
+        self.lvl_min.valueChanged.connect(lambda: self.label_lvl_min.setText(str(self.lvl_min.value())))
+        self.lvl_max.valueChanged.connect(lambda: self.label_lvl_max.setText(str(self.lvl_max.value())))
+        self.label_lvl_min.setText(str(self.lvl_min.value()))
+        self.label_lvl_max.setText(str(self.lvl_max.value()))
         # label_ms = QLabel('{0}ms'.format(self.slider_delay.value()))
         # self.slider_delay.valueChanged.connect(lambda: label_ms.setText('{0}ms'.format(self.slider_delay.value())))
         self.cb_online.toggled.connect(self.onlineSignal)
         # createButton.clicked.connect(self.createDataInputData)
+
+
     
     # 모드
     def onlineSignal(self):
@@ -106,17 +109,17 @@ class SelectorUI(QMainWindow, form_class):
         fil_yd_sr.add('P1')
         fil_yd_sr.add('P2')
         fil_yd_sr.add('GG')
-        self.createYourData(fil_yd_sr)
+        sM.modifyYourData(fil_yd_sr)
         
     # 무작위 뽑기
     def randomStart(self):
         bt_list, st_list, sr_list, min_int, max_int, input_delay, isFreestyle = self.filterInputData()
         selected_music, bt_input, init_input, down_input, right_input = \
-            self.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
+            sM.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
         print(selected_music)
         self.selectedLabel.setText(selected_music)
         if selected_music != 'None':
-            self.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
+            sM.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

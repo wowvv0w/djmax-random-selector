@@ -30,6 +30,9 @@
   <property name="windowTitle">
    <string>DJMAX Random Selector v0.3.0</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background: #2d2e2f</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
@@ -46,6 +49,9 @@
       <weight>50</weight>
       <bold>false</bold>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background:#2d2e2f</string>
     </property>
     <property name="tabPosition">
      <enum>QTabWidget::West</enum>
@@ -79,6 +85,11 @@
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background: #242424;
+color: #ffffff;
+border: #00000000</string>
+      </property>
       <property name="title">
        <string>CATEGORIES</string>
       </property>
@@ -99,10 +110,21 @@
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
-         <weight>50</weight>
-         <bold>false</bold>
+         <family>Lato Black</family>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	color: #594713;
+    background-color: #181819;
+}
+
+QPushButton:checked {
+ 	color: #000000;
+    background-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0.1 rgba(249, 103, 117, 255), stop:0.9 rgba(240, 180, 5, 255));
+}</string>
        </property>
        <property name="text">
         <string>RESPECT</string>
@@ -134,10 +156,21 @@
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
-         <weight>50</weight>
-         <bold>false</bold>
+         <family>Lato Black</family>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	color: #0e6677;
+    background-color: #181819;
+}
+
+QPushButton:checked {
+ 	color: #000000;
+    background-color: qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgba(170, 69, 249, 255), stop:1 rgba(0, 180, 210, 255))
+}</string>
        </property>
        <property name="text">
         <string>PORTABLE 1</string>
@@ -160,10 +193,21 @@
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
-         <weight>50</weight>
-         <bold>false</bold>
+         <family>Lato Black</family>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	color: #761a3f;
+    background-color: #181819;
+}
+
+QPushButton:checked {
+ 	color: #000000;
+    background-color:qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgba(255, 55, 175, 255), stop:1 rgba(255, 30, 70, 255));
+}</string>
        </property>
        <property name="text">
         <string>PORTABLE 2</string>
@@ -186,10 +230,21 @@
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
-         <weight>50</weight>
-         <bold>false</bold>
+         <family>Lato Black</family>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	color: #3a4175;
+    background-color: #181819;
+}
+
+QPushButton:checked {
+ 	color: #000000;
+    background-color:qlineargradient(spread:pad, x1:0.0100503, y1:0.5, x2:1, y2:0.5, stop:0 rgba(104, 224, 255, 255), stop:0.78 rgba(74, 121, 255, 255))
+}</string>
        </property>
        <property name="text">
         <string>TRILOGY</string>
@@ -212,10 +267,21 @@
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
-         <weight>50</weight>
-         <bold>false</bold>
+         <family>Lato Black</family>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	color: #747475;
+    background-color: #181819;
+}
+
+QPushButton:checked {
+ 	color: #000000;
+    background-color:qlineargradient(spread:pad, x1:0, y1:0.4, x2:1, y2:0.5, stop:0 rgba(255, 255, 255, 255), stop:0.779209 rgba(255, 255, 255, 255), stop:0.781049 rgba(245, 216, 79, 255), stop:0.849 rgba(245, 216, 79, 255), stop:0.851 rgba(169, 125, 31, 255), stop:0.894 rgba(169, 125, 31, 255), stop:0.896 rgba(203, 148, 49, 255), stop:1 rgba(203, 148, 49, 255));
+}</string>
        </property>
        <property name="text">
         <string>CLAZZIQUAI</string>
@@ -238,10 +304,21 @@
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
-         <weight>50</weight>
-         <bold>false</bold>
+         <family>Lato Black</family>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	color: #5b1010;
+    background-color: #181819;
+}
+
+QPushButton:checked {
+ 	color: #000000;
+    background-color:qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0.25 rgba(236, 0, 67, 255), stop:1 rgba(127, 23, 33, 255));
+}</string>
        </property>
        <property name="text">
         <string>BLACK SQUARE</string>
@@ -264,10 +341,21 @@
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
-         <weight>50</weight>
-         <bold>false</bold>
+         <family>Lato Black</family>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	color: #5e321a;
+    background-color: #181819;
+}
+
+QPushButton:checked {
+ 	color: #000000;
+    background-color:qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0.25 rgba(255, 111, 27, 255), stop:0.5 rgba(233, 114, 44, 255), stop:1 rgba(44, 139, 193, 255))
+}</string>
        </property>
        <property name="text">
         <string>V EXTENSION</string>
@@ -290,10 +378,21 @@
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
-         <weight>50</weight>
-         <bold>false</bold>
+         <family>Lato Black</family>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	color: #20541d;
+    background-color: #181819;
+}
+
+QPushButton:checked {
+ 	color: #000000;
+    background-color:qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgba(12, 130, 204, 255), stop:0.5 rgba(47, 212, 58, 255), stop:1 rgba(52, 223, 38, 255));
+}</string>
        </property>
        <property name="text">
         <string>EMOTIONAL S.</string>
@@ -316,10 +415,21 @@
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
-         <weight>50</weight>
-         <bold>false</bold>
+         <family>Lato Black</family>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	color: #5e275b;
+    background-color: #181819;
+}
+
+QPushButton:checked {
+ 	color: #000000;
+    background-color:qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0.1 rgba(255, 0, 150, 255), stop:0.9 rgba(127, 99, 234, 255));
+}</string>
        </property>
        <property name="text">
         <string>TECHNIKA 1</string>
@@ -342,10 +452,21 @@
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
-         <weight>50</weight>
-         <bold>false</bold>
+         <family>Lato Black</family>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	color: #5e2b13;
+    background-color: #181819;
+}
+
+QPushButton:checked {
+ 	color: #000000;
+    background-color:qlineargradient(spread:pad, x1:0, y1:0.48, x2:1, y2:0.5, stop:0 rgba(255, 8, 211, 255), stop:0.189278 rgba(255, 109, 0, 255), stop:0.27 rgba(255, 109, 0, 255), stop:0.493435 rgba(255, 196, 1, 255), stop:0.613786 rgba(255, 196, 1, 255), stop:0.799781 rgba(98, 220, 99, 255), stop:1 rgba(0, 210, 255, 255));
+}</string>
        </property>
        <property name="text">
         <string>TECHNIKA 2</string>
@@ -368,10 +489,21 @@
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
-         <weight>50</weight>
-         <bold>false</bold>
+         <family>Lato Black</family>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	color: #1d365e;
+    background-color: #181819;
+}
+
+QPushButton:checked {
+ 	color: #000000;
+    background-color:qlineargradient(spread:pad, x1:0.000777605, y1:0.42, x2:1, y2:0.5, stop:0 rgba(80, 49, 240, 255), stop:0.276827 rgba(101, 32, 228, 255), stop:0.286936 rgba(63, 67, 255, 255), stop:1 rgba(12, 123, 255, 255))
+}</string>
        </property>
        <property name="text">
         <string>TECHNIKA 3</string>
@@ -520,6 +652,12 @@
          <bool>false</bool>
         </property>
        </widget>
+       <zorder>cb_gg</zorder>
+       <zorder>cb_gc</zorder>
+       <zorder>cb_dm</zorder>
+       <zorder>cb_cy</zorder>
+       <zorder>cb_gf</zorder>
+       <zorder>cb_chu</zorder>
       </widget>
       <widget class="QPushButton" name="cb_collab">
        <property name="geometry">
@@ -532,10 +670,21 @@
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
-         <weight>50</weight>
-         <bold>false</bold>
+         <family>Lato Black</family>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	color: #5e5e5e;
+    background-color: #181819;
+}
+
+QPushButton:checked {
+ 	color: #a9a9a9;
+    background-color:#1e1e1e
+}</string>
        </property>
        <property name="text">
         <string>COLLABORATION</string>
@@ -599,6 +748,11 @@
         <bold>true</bold>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background: #242424;
+color: #ffffff;
+border: #00000000</string>
+      </property>
       <property name="title">
        <string>BUTTON TUNES</string>
       </property>
@@ -617,6 +771,9 @@
          <weight>50</weight>
          <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">image: url(images/4BMX.png);</string>
        </property>
        <property name="text">
         <string>4B</string>
@@ -723,6 +880,11 @@
         <bold>true</bold>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background: #242424;
+color: #ffffff;
+border: #00000000</string>
+      </property>
       <property name="title">
        <string>DIFFICULTY</string>
       </property>
@@ -799,7 +961,7 @@
         <number>1</number>
        </property>
       </widget>
-      <widget class="QLabel" name="label1">
+      <widget class="QLabel" name="label_lvl_min">
        <property name="geometry">
         <rect>
          <x>330</x>
@@ -832,7 +994,7 @@
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
-      <widget class="QLabel" name="label2">
+      <widget class="QLabel" name="label_lvl_max">
        <property name="geometry">
         <rect>
          <x>330</x>
@@ -911,18 +1073,17 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton{
-	background-color: #00000000;
+        <string notr="true">QPushButton {
+    border: 3px solid #ffcc25;
 	color: #ffcc25;
-	border-style: solid;
-	border-width: 3px;
-}
-QPushButton:pressed{
-	background-color: #ffcc25
-	color: #ffffff
+    background-color: #00000000;
 }
 
-</string>
+QPushButton:checked {
+	border-color: #ffcc25;
+ 	color: #ffffff;
+    background-color: #ffcc25;
+}</string>
        </property>
        <property name="text">
         <string>NORMAL</string>
@@ -931,7 +1092,7 @@ QPushButton:pressed{
         <bool>true</bool>
        </property>
        <property name="checked">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="cb_hd">
@@ -945,11 +1106,24 @@ QPushButton:pressed{
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
+         <family>Lato Black</family>
          <pointsize>8</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    border: 3px solid #fe7724;
+	color: #fe7724;
+    background-color: #00000000;
+}
+
+QPushButton:checked {
+	border-color: #fe7724;
+ 	color: #ffffff;
+    background-color: #fe7724;
+}</string>
        </property>
        <property name="text">
         <string>HARD</string>
@@ -958,7 +1132,7 @@ QPushButton:pressed{
         <bool>true</bool>
        </property>
        <property name="checked">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="cb_mx">
@@ -972,11 +1146,24 @@ QPushButton:pressed{
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
+         <family>Lato Black</family>
          <pointsize>8</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    border: 3px solid #f91c55;
+	color: #f91c55;
+    background-color: #00000000;
+}
+
+QPushButton:checked {
+	border-color: #f91c55;
+ 	color: #ffffff;
+    background-color: #f91c55;
+}</string>
        </property>
        <property name="text">
         <string>MAXIMUM</string>
@@ -985,7 +1172,7 @@ QPushButton:pressed{
         <bool>true</bool>
        </property>
        <property name="checked">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="cb_sc">
@@ -999,11 +1186,24 @@ QPushButton:pressed{
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
+         <family>Lato Black</family>
          <pointsize>8</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    border: 3px solid #ff11e6;
+	color: #ff11e6;
+    background-color: #00000000;
+}
+
+QPushButton:checked {
+	border-color: #ff11e6;
+ 	color: #ffffff;
+    background-color: #ff11e6;
+}</string>
        </property>
        <property name="text">
         <string>SC</string>
@@ -1012,7 +1212,7 @@ QPushButton:pressed{
         <bool>true</bool>
        </property>
        <property name="checked">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </widget>
@@ -1031,6 +1231,11 @@ QPushButton:pressed{
         <weight>75</weight>
         <bold>true</bold>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: #242424;
+color: #ffffff;
+border:#00000000</string>
       </property>
       <property name="title">
        <string>MODE</string>
@@ -1086,9 +1291,9 @@ QPushButton:pressed{
    <widget class="QFrame" name="frame_2">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>104</x>
       <y>410</y>
-      <width>711</width>
+      <width>651</width>
       <height>60</height>
      </rect>
     </property>
@@ -1101,10 +1306,10 @@ QPushButton:pressed{
     <widget class="QLabel" name="selectedLabel">
      <property name="geometry">
       <rect>
-       <x>80</x>
-       <y>10</y>
-       <width>251</width>
-       <height>21</height>
+       <x>10</x>
+       <y>0</y>
+       <width>361</width>
+       <height>30</height>
       </rect>
      </property>
      <property name="font">
@@ -1113,6 +1318,9 @@ QPushButton:pressed{
        <pointsize>12</pointsize>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">color: #ffffff</string>
+     </property>
      <property name="text">
       <string>RANDOM</string>
      </property>
@@ -1120,9 +1328,9 @@ QPushButton:pressed{
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>10</x>
        <y>30</y>
-       <width>251</width>
+       <width>241</width>
        <height>21</height>
       </rect>
      </property>
@@ -1133,23 +1341,42 @@ QPushButton:pressed{
        <bold>true</bold>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">color: #ffffff</string>
+     </property>
      <property name="text">
       <string>???</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>60</width>
-       <height>60</height>
+       <x>530</x>
+       <y>15</y>
+       <width>112</width>
+       <height>22</height>
       </rect>
      </property>
      <property name="text">
-      <string>image</string>
+      <string/>
      </property>
     </widget>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>410</y>
+      <width>60</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(images/icon.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar">

@@ -95,8 +95,8 @@ def inputKeyboard(music, bt, init, down, right, input_delay, isFreestyle):
             press("right arrow")
             delay()
 
-# YourData 생성
-def createYourData(series):
+# YourData 수정
+def modifyYourData(series):
 
     data = pd.read_csv("AllTrackData.csv", names = name)
 
