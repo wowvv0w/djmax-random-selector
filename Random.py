@@ -181,6 +181,7 @@ class SelectorUI(QWidget, RandomSelector):
         
         self.setWindowTitle('DJMAX RESPECT V MUSIC RANDOM SELECTOR')
         self.setFixedSize(self.sizeHint())
+        print(self.sizeHint())
         self.move(300, 300)
         self.setWindowIcon(QIcon('icon.ico'))
         self.show()
