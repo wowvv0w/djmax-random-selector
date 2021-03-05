@@ -558,6 +558,7 @@
        </property>
        <property name="font">
         <font>
+         <family>Lato</family>
          <pointsize>8</pointsize>
          <weight>50</weight>
          <bold>false</bold>
@@ -903,11 +904,25 @@
        </property>
        <property name="font">
         <font>
-         <family>Lato</family>
+         <family>Lato Black</family>
          <pointsize>8</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color: #00000000;
+	color: #ffcc25;
+	border-style: solid;
+	border-width: 3px;
+}
+QPushButton:pressed{
+	background-color: #ffcc25
+	color: #ffffff
+}
+
+</string>
        </property>
        <property name="text">
         <string>NORMAL</string>
