@@ -40,28 +40,51 @@
       <x>10</x>
       <y>10</y>
       <width>751</width>
-      <height>391</height>
+      <height>401</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Lato</family>
-      <weight>50</weight>
-      <bold>false</bold>
+      <family>Lato Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background:#2d2e2f</string>
+     <string notr="true">QTabWidget::pane { /* The tab widget frame */
+    border: 2px solid #818282;
+}
+
+QTabBar::tab {
+    background: #161717;
+    border: 2px solid #818282;
+    border-bottom-color: #818282;
+	color: #818282;
+    border-top-left-radius: 8px;
+	border-bottom-left-radius: 8px;
+    border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+    
+}
+
+QTabBar::tab:selected {
+    border-color: #ffb400;
+    border-bottom-color: #ffb400;
+	color:#ffb400;
+}</string>
     </property>
     <property name="tabPosition">
      <enum>QTabWidget::West</enum>
+    </property>
+    <property name="tabShape">
+     <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
     <widget class="QWidget" name="filter_tab">
      <attribute name="title">
-      <string>Random Selector</string>
+      <string>  Random Selector  </string>
      </attribute>
      <widget class="QGroupBox" name="sr_groupbox">
       <property name="geometry">
@@ -69,14 +92,15 @@
         <x>390</x>
         <y>10</y>
         <width>321</width>
-        <height>361</height>
+        <height>371</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Lato</family>
-        <weight>75</weight>
-        <bold>true</bold>
+        <pointsize>14</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
       <property name="focusPolicy">
@@ -87,7 +111,7 @@
       </property>
       <property name="styleSheet">
        <string notr="true">background: #242424;
-color: #ffffff;
+color: #afb0b0;
 border: #00000000</string>
       </property>
       <property name="title">
@@ -104,8 +128,8 @@ border: #00000000</string>
         <rect>
          <x>10</x>
          <y>30</y>
-         <width>151</width>
-         <height>31</height>
+         <width>150</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="font">
@@ -150,8 +174,8 @@ QPushButton:checked {
         <rect>
          <x>10</x>
          <y>60</y>
-         <width>151</width>
-         <height>31</height>
+         <width>150</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="font">
@@ -187,8 +211,8 @@ QPushButton:checked {
         <rect>
          <x>10</x>
          <y>90</y>
-         <width>151</width>
-         <height>31</height>
+         <width>150</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="font">
@@ -224,8 +248,8 @@ QPushButton:checked {
         <rect>
          <x>10</x>
          <y>120</y>
-         <width>151</width>
-         <height>31</height>
+         <width>150</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="font">
@@ -261,8 +285,8 @@ QPushButton:checked {
         <rect>
          <x>10</x>
          <y>150</y>
-         <width>151</width>
-         <height>31</height>
+         <width>150</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="font">
@@ -298,8 +322,8 @@ QPushButton:checked {
         <rect>
          <x>10</x>
          <y>180</y>
-         <width>151</width>
-         <height>31</height>
+         <width>150</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="font">
@@ -335,8 +359,8 @@ QPushButton:checked {
         <rect>
          <x>160</x>
          <y>30</y>
-         <width>151</width>
-         <height>31</height>
+         <width>150</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="font">
@@ -372,8 +396,8 @@ QPushButton:checked {
         <rect>
          <x>160</x>
          <y>60</y>
-         <width>151</width>
-         <height>31</height>
+         <width>150</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="font">
@@ -409,8 +433,8 @@ QPushButton:checked {
         <rect>
          <x>160</x>
          <y>90</y>
-         <width>151</width>
-         <height>31</height>
+         <width>150</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="font">
@@ -446,8 +470,8 @@ QPushButton:checked {
         <rect>
          <x>160</x>
          <y>120</y>
-         <width>151</width>
-         <height>31</height>
+         <width>150</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="font">
@@ -483,8 +507,8 @@ QPushButton:checked {
         <rect>
          <x>160</x>
          <y>150</y>
-         <width>151</width>
-         <height>31</height>
+         <width>150</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="font">
@@ -519,9 +543,9 @@ QPushButton:checked {
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>220</y>
-         <width>301</width>
-         <height>131</height>
+         <y>240</y>
+         <width>300</width>
+         <height>121</height>
         </rect>
        </property>
        <property name="font">
@@ -532,6 +556,9 @@ QPushButton:checked {
          <bold>false</bold>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background: #181819;</string>
+       </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
        </property>
@@ -541,11 +568,32 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_gg">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>30</y>
-          <width>141</width>
-          <height>31</height>
+          <x>20</x>
+          <y>10</y>
+          <width>120</width>
+          <height>25</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Lato Black</family>
+          <pointsize>7</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    border: 3px solid #5e5e5e;
+	color: #5e5e5e;
+    background-color: #00000000;
+}
+
+QPushButton:checked {
+	border-color: #d83e0e;
+ 	color: #d83e0e;
+    background-color: #181819;
+}</string>
         </property>
         <property name="text">
          <string>GUILTY GEAR</string>
@@ -560,11 +608,32 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_gc">
         <property name="geometry">
          <rect>
-          <x>150</x>
-          <y>30</y>
-          <width>141</width>
-          <height>31</height>
+          <x>160</x>
+          <y>10</y>
+          <width>120</width>
+          <height>25</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Lato Black</family>
+          <pointsize>7</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    border: 3px solid #5e5e5e;
+	color: #5e5e5e;
+    background-color: #00000000;
+}
+
+QPushButton:checked {
+	border-color: #51eefe;
+ 	color: #51eefe;
+    background-color: #181819;
+}</string>
         </property>
         <property name="text">
          <string>GROOVE COASTER</string>
@@ -579,11 +648,32 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_chu">
         <property name="geometry">
          <rect>
-          <x>150</x>
-          <y>90</y>
-          <width>141</width>
-          <height>31</height>
+          <x>160</x>
+          <y>80</y>
+          <width>120</width>
+          <height>25</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Lato Black</family>
+          <pointsize>7</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    border: 3px solid #5e5e5e;
+	color: #5e5e5e;
+    background-color: #00000000;
+}
+
+QPushButton:checked {
+	border-color: #ffd700;
+ 	color: #ffd700;
+    background-color: #181819;
+}</string>
         </property>
         <property name="text">
          <string>CHUNITHM</string>
@@ -598,11 +688,32 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_dm">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>60</y>
-          <width>141</width>
-          <height>31</height>
+          <x>20</x>
+          <y>45</y>
+          <width>120</width>
+          <height>25</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Lato Black</family>
+          <pointsize>7</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    border: 3px solid #5e5e5e;
+	color: #5e5e5e;
+    background-color: #00000000;
+}
+
+QPushButton:checked {
+	border-color: #99e5d8;
+ 	color: #99e5d8;
+    background-color: #181819;
+}</string>
         </property>
         <property name="text">
          <string>DEEMO</string>
@@ -617,11 +728,32 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_cy">
         <property name="geometry">
          <rect>
-          <x>150</x>
-          <y>60</y>
-          <width>141</width>
-          <height>31</height>
+          <x>160</x>
+          <y>45</y>
+          <width>120</width>
+          <height>25</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Lato Black</family>
+          <pointsize>7</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    border: 3px solid #5e5e5e;
+	color: #5e5e5e;
+    background-color: #00000000;
+}
+
+QPushButton:checked {
+	border-color: #ee1538;
+ 	color: #ee1538;
+    background-color: #181819;
+}</string>
         </property>
         <property name="text">
          <string>CYTUS</string>
@@ -636,11 +768,32 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_gf">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>90</y>
-          <width>141</width>
-          <height>31</height>
+          <x>20</x>
+          <y>80</y>
+          <width>120</width>
+          <height>25</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Lato Black</family>
+          <pointsize>7</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    border: 3px solid #5e5e5e;
+	color: #5e5e5e;
+    background-color: #00000000;
+}
+
+QPushButton:checked {
+	border-color: #fdb426;
+ 	color: #fdb426;
+    background-color: #181819;
+}</string>
         </property>
         <property name="text">
          <string>GIRLS' FRONTLINE</string>
@@ -664,8 +817,8 @@ QPushButton:checked {
         <rect>
          <x>160</x>
          <y>210</y>
-         <width>151</width>
-         <height>31</height>
+         <width>150</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="font">
@@ -744,13 +897,14 @@ QPushButton:checked {
       <property name="font">
        <font>
         <family>Lato</family>
-        <weight>75</weight>
-        <bold>true</bold>
+        <pointsize>14</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
       <property name="styleSheet">
        <string notr="true">background: #242424;
-color: #ffffff;
+color: #afb0b0;
 border: #00000000</string>
       </property>
       <property name="title">
@@ -771,9 +925,6 @@ border: #00000000</string>
          <weight>50</weight>
          <bold>false</bold>
         </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">image: url(images/4BMX.png);</string>
        </property>
        <property name="text">
         <string>4B</string>
@@ -876,13 +1027,14 @@ border: #00000000</string>
       <property name="font">
        <font>
         <family>Lato</family>
-        <weight>75</weight>
-        <bold>true</bold>
+        <pointsize>14</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
       <property name="styleSheet">
        <string notr="true">background: #242424;
-color: #ffffff;
+color: #afb0b0;
 border: #00000000</string>
       </property>
       <property name="title">
@@ -1081,7 +1233,7 @@ border: #00000000</string>
 
 QPushButton:checked {
 	border-color: #ffcc25;
- 	color: #ffffff;
+ 	color: #242424;
     background-color: #ffcc25;
 }</string>
        </property>
@@ -1121,7 +1273,7 @@ QPushButton:checked {
 
 QPushButton:checked {
 	border-color: #fe7724;
- 	color: #ffffff;
+ 	color: #242424;
     background-color: #fe7724;
 }</string>
        </property>
@@ -1161,7 +1313,7 @@ QPushButton:checked {
 
 QPushButton:checked {
 	border-color: #f91c55;
- 	color: #ffffff;
+ 	color: #242424;
     background-color: #f91c55;
 }</string>
        </property>
@@ -1201,7 +1353,7 @@ QPushButton:checked {
 
 QPushButton:checked {
 	border-color: #ff11e6;
- 	color: #ffffff;
+ 	color: #242424;
     background-color: #ff11e6;
 }</string>
        </property>
@@ -1222,19 +1374,20 @@ QPushButton:checked {
         <x>10</x>
         <y>290</y>
         <width>371</width>
-        <height>81</height>
+        <height>91</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Lato</family>
-        <weight>75</weight>
-        <bold>true</bold>
+        <pointsize>14</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
       <property name="styleSheet">
        <string notr="true">background: #242424;
-color: #ffffff;
+color: #afb0b0;
 border:#00000000</string>
       </property>
       <property name="title">
@@ -1244,7 +1397,7 @@ border:#00000000</string>
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>20</y>
+         <y>30</y>
          <width>151</width>
          <height>51</height>
         </rect>
@@ -1267,7 +1420,7 @@ border:#00000000</string>
        <property name="geometry">
         <rect>
          <x>200</x>
-         <y>20</y>
+         <y>30</y>
          <width>151</width>
          <height>51</height>
         </rect>
@@ -1287,12 +1440,30 @@ border:#00000000</string>
       </widget>
      </widget>
     </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>쪽</string>
+     </attribute>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>210</y>
+        <width>64</width>
+        <height>15</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QFrame" name="frame_2">
     <property name="geometry">
      <rect>
       <x>104</x>
-      <y>410</y>
+      <y>420</y>
       <width>651</width>
       <height>60</height>
      </rect>
@@ -1366,7 +1537,7 @@ border:#00000000</string>
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>410</y>
+      <y>420</y>
       <width>60</width>
       <height>60</height>
      </rect>
