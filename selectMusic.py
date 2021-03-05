@@ -11,7 +11,7 @@ name = ('Title', 'Artist', 'Genre', 'Series', '4BNM', '4BHD', '4BMX', '4BSC',
 _styles = ('NM', 'HD', 'MX', 'SC')
 
 # YourData 읽기
-def readYourData(self):
+def readYourData():
 
     data = pd.read_csv("YourData.csv", names = name)
     # data = pd.read_csv("test_data.csv", names = name)
@@ -19,7 +19,7 @@ def readYourData(self):
     return data
 
 # 곡 무작위 선정
-def selectingMusic(self, data, buttons, styles, series, diff_min, diff_max, isFreestyle):
+def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyle):
 
     filtered = data[data['Series'].isin(series)]
     if isFreestyle:
@@ -68,7 +68,7 @@ def selectingMusic(self, data, buttons, styles, series, diff_min, diff_max, isFr
     return selected, bt_input, init_input, down_input, right_input
 
 # 키보드 자동 입력
-def inputKeyboard(self, music, bt, init, down, right, input_delay, isFreestyle):
+def inputKeyboard(music, bt, init, down, right, input_delay, isFreestyle):
     
     delay = lambda: time.sleep(input_delay)
     press = lambda key: kb.press_and_release(key)
@@ -96,7 +96,7 @@ def inputKeyboard(self, music, bt, init, down, right, input_delay, isFreestyle):
             delay()
 
 # YourData 생성
-def createYourData(self, series):
+def createYourData(series):
 
     data = pd.read_csv("AllTrackData.csv", names = name)
 
@@ -107,7 +107,7 @@ def createYourData(self, series):
     filtered.to_csv("YourData.csv", index=None, header=None)
     # filtered.to_csv("test_data.csv", index=None, header=None)
 
-def specialMusicFilter(self, df, series):
+def specialMusicFilter(df, series):
 
     # RP in DLC 삭제 조건
     if not series > {'TR'}:

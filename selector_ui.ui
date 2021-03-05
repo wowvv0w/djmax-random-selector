@@ -707,7 +707,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="df_groupbox">
+     <widget class="QGroupBox" name="diff_groupbox">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1035,7 +1035,7 @@ QPushButton:pressed{
       <property name="title">
        <string>MODE</string>
       </property>
-      <widget class="QRadioButton" name="radioButton">
+      <widget class="QRadioButton" name="cb_freestyle">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -1058,7 +1058,7 @@ QPushButton:pressed{
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QRadioButton" name="radioButton_2">
+      <widget class="QRadioButton" name="cb_online">
        <property name="geometry">
         <rect>
          <x>200</x>
@@ -1098,7 +1098,7 @@ QPushButton:pressed{
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="selectedLabel">
      <property name="geometry">
       <rect>
        <x>80</x>
