@@ -20,6 +20,19 @@ class SelectorUI(QMainWindow, main_ui):
 
     # 시그널, 스타일
     def initUI(self):
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.minimizeButton.clicked.connect(lambda: self.showMinimized())
+        self.closeButton.clicked.connect(lambda: self.close())
+        def moveWindow(event):
+            if event.buttons() == Qt.LeftButton:
+                self.move(self.pos() + event.globalPos() - self.dragPos)
+                self.dragPos = event.globalPos()
+                event.accept()
+
+
+        self.title_bar.mouseMoveEvent = moveWindow
+
+
         # self.statusBar().showMessage('Press F7 to Start Random Selector')
         self.lvl_min.valueChanged.connect(lambda: self.label_lvl_min.setText(str(self.lvl_min.value())))
         self.lvl_max.valueChanged.connect(lambda: self.label_lvl_max.setText(str(self.lvl_max.value())))
@@ -36,7 +49,8 @@ class SelectorUI(QMainWindow, main_ui):
 
         self.cb_collab.clicked.connect(self.collabSignal)
 
-
+    def mousePressEvent(self, event):
+        self.dragPos = event.globalPos()
     
     def onlineSignal(self):
         if self.cb_online.isChecked():
@@ -127,12 +141,18 @@ class SelectorUI(QMainWindow, main_ui):
         if selected_music != 'None':
             sM.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
 
+
+
+
 class DataUI(QDialog):
     def __init__(self, parent):
         super(DataUI, self).__init__(parent)
         data_ui = 'modify_data_ui.ui'
         uic.loadUi(data_ui, self)
+        self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
+        self.setWindowModality(Qt.ApplicationModal)
         self.modifyButton.clicked.connect(self.modifyDataInputData)
+        self.cancelButton.clicked.connect(lambda: self.close())
         self.show()
     
     # 데이터 생성 인풋 데이터 & YourData.csv 생성
@@ -156,6 +176,7 @@ class DataUI(QDialog):
         fil_yd_sr.add('P2')
         fil_yd_sr.add('GG')
         sM.modifyYourData(fil_yd_sr)
+        self.close()
         
 
 

@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>770</width>
-    <height>510</height>
+    <height>550</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>770</width>
-    <height>510</height>
+    <height>550</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>770</width>
-    <height>510</height>
+    <height>550</height>
    </size>
   </property>
   <property name="font">
@@ -38,7 +38,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>50</y>
+      <y>90</y>
       <width>770</width>
       <height>370</height>
      </rect>
@@ -913,7 +913,7 @@ QPushButton:checked {
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QToolButton" name="data_button">
+      <widget class="QPushButton" name="data_button">
        <property name="geometry">
         <rect>
          <x>220</x>
@@ -931,7 +931,7 @@ QPushButton:checked {
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">QToolButton {
+        <string notr="true">QPushButton {
     border: 3px solid #818282;
 	color: #818282;
     background-color: #1f2021;
@@ -1020,10 +1020,10 @@ border: #00000000</string>
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>images/4B_ON.png</normaloff>
-            <normalon>images/4B_OFF.png</normalon>
-            <disabledoff>images/4B_ON.png</disabledoff>
-            <disabledon>images/4B_OFF.png</disabledon>images/4B_ON.png</iconset>
+            <normaloff>images/4B_OFF.png</normaloff>
+            <normalon>images/4B_ON.png</normalon>
+            <disabledoff>images/4B_OFF.png</disabledoff>
+            <disabledon>images/4B_ON.png</disabledon>images/4B_OFF.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1035,7 +1035,7 @@ border: #00000000</string>
            <bool>true</bool>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -1064,10 +1064,10 @@ border: #00000000</string>
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>images/5B_ON.png</normaloff>
-            <normalon>images/5B_OFF.png</normalon>
-            <disabledoff>images/5B_ON.png</disabledoff>
-            <disabledon>images/5B_OFF.png</disabledon>images/5B_ON.png</iconset>
+            <normaloff>images/5B_OFF.png</normaloff>
+            <normalon>images/5B_ON.png</normalon>
+            <disabledoff>images/5B_OFF.png</disabledoff>
+            <disabledon>images/5B_ON.png</disabledon>images/5B_OFF.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1079,7 +1079,7 @@ border: #00000000</string>
            <bool>true</bool>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -1108,10 +1108,10 @@ border: #00000000</string>
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>images/6B_ON.png</normaloff>
-            <normalon>images/6B_OFF.png</normalon>
-            <disabledoff>images/6B_ON.png</disabledoff>
-            <disabledon>images/6B_OFF.png</disabledon>images/6B_ON.png</iconset>
+            <normaloff>images/6B_OFF.png</normaloff>
+            <normalon>images/6B_ON.png</normalon>
+            <disabledoff>images/6B_OFF.png</disabledoff>
+            <disabledon>images/6B_ON.png</disabledon>images/6B_OFF.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1123,7 +1123,7 @@ border: #00000000</string>
            <bool>true</bool>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -1152,10 +1152,10 @@ border: #00000000</string>
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>images/8B_ON.png</normaloff>
-            <normalon>images/8B_OFF.png</normalon>
-            <disabledoff>images/8B_ON.png</disabledoff>
-            <disabledon>images/8B_OFF.png</disabledon>images/8B_ON.png</iconset>
+            <normaloff>images/8B_OFF.png</normaloff>
+            <normalon>images/8B_ON.png</normalon>
+            <disabledoff>images/8B_OFF.png</disabledoff>
+            <disabledon>images/8B_ON.png</disabledon>images/8B_OFF.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1167,7 +1167,7 @@ border: #00000000</string>
            <bool>true</bool>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -1650,7 +1650,7 @@ border:#00000000</string>
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>40</y>
       <width>770</width>
       <height>40</height>
      </rect>
@@ -1767,7 +1767,7 @@ QPushButton:checked {
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>430</y>
+      <y>470</y>
       <width>770</width>
       <height>80</height>
      </rect>
@@ -1903,9 +1903,90 @@ color: #ffffff</string>
      </property>
     </widget>
    </widget>
+   <widget class="QFrame" name="title_bar">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>770</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background:transparent;
+border:none;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="closeButton">
+     <property name="geometry">
+      <rect>
+       <x>730</x>
+       <y>0</y>
+       <width>40</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background:#3d3e3f;
+}</string>
+     </property>
+     <property name="text">
+      <string>X</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="minimizeButton">
+     <property name="geometry">
+      <rect>
+       <x>690</x>
+       <y>0</y>
+       <width>40</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background:#3d3e3f;
+}</string>
+     </property>
+     <property name="text">
+      <string>-</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="titleLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>391</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Lato Black</family>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:#989999;
+</string>
+     </property>
+     <property name="text">
+      <string>DJMAX Random Selector v0.3.0</string>
+     </property>
+    </widget>
+   </widget>
    <zorder>frame_2</zorder>
    <zorder>tabWidget</zorder>
    <zorder>top_bar</zorder>
+   <zorder>title_bar</zorder>
   </widget>
  </widget>
  <resources/>
