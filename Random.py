@@ -28,12 +28,8 @@ class SelectorUI(QMainWindow, main_ui):
                 self.move(self.pos() + event.globalPos() - self.dragPos)
                 self.dragPos = event.globalPos()
                 event.accept()
-
-
         self.title_bar.mouseMoveEvent = moveWindow
 
-
-        # self.statusBar().showMessage('Press F7 to Start Random Selector')
         self.lvl_min.valueChanged.connect(lambda: self.label_lvl_min.setText(str(self.lvl_min.value())))
         self.lvl_max.valueChanged.connect(lambda: self.label_lvl_max.setText(str(self.lvl_max.value())))
         self.label_lvl_min.setText(str(self.lvl_min.value()))
