@@ -5,11 +5,10 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 import keyboard as kb
 import selectMusic as sM
-
-form_class = uic.loadUiType("selector_ui.ui")[0]
+main_ui = uic.loadUiType("selector_ui.ui")[0]
 
 # UI
-class SelectorUI(QMainWindow, form_class):
+class SelectorUI(QMainWindow, main_ui):
 
     # initUI(), readYourData() 실행
     def __init__(self):
@@ -17,7 +16,7 @@ class SelectorUI(QMainWindow, form_class):
         self.setupUi(self)
         self.initUI()
         self.yourdata = sM.readYourData()
-        kb.add_hotkey('f7', lambda: self.randomStart(), suppress=True, trigger_on_release=True)
+        kb.add_hotkey('f7', lambda: self.randomStart(), suppress=True)
 
     # 시그널, 스타일
     def initUI(self):
@@ -29,18 +28,46 @@ class SelectorUI(QMainWindow, form_class):
         # label_ms = QLabel('{0}ms'.format(self.slider_delay.value()))
         # self.slider_delay.valueChanged.connect(lambda: label_ms.setText('{0}ms'.format(self.slider_delay.value())))
         self.cb_online.toggled.connect(self.onlineSignal)
-        # createButton.clicked.connect(self.createDataInputData)
+        self.data_button.clicked.connect(self.clickedData)
+        self.filter_tab_bt.setAutoExclusive(True)
+        self.advanced_tab_bt.setAutoExclusive(True)
+        self.filter_tab_bt.clicked.connect(self.changeTab)
+        self.advanced_tab_bt.clicked.connect(self.changeTab)
+
+        self.cb_collab.clicked.connect(self.collabSignal)
 
 
     
-    # 모드
     def onlineSignal(self):
         if self.cb_online.isChecked():
             self.bt_groupbox.setEnabled(False)
             self.diff_groupbox.setEnabled(False)
+            self.lock_bt.move(0,0)
+            self.lock_diff.move(0,0)
         else:
             self.bt_groupbox.setEnabled(True)
             self.diff_groupbox.setEnabled(True)
+            self.lock_bt.move(-370,0)
+            self.lock_diff.move(-370,0)
+
+    def changeTab(self):
+        if self.filter_tab_bt.isChecked():
+            self.tabWidget.setCurrentIndex(0)
+            self.current_tab.setText('FILTER')
+        elif self.advanced_tab_bt.isChecked():
+            self.tabWidget.setCurrentIndex(1)
+            self.current_tab.setText('ADVANCED')
+    
+    def collabSignal(self):
+        if self.cb_collab.isChecked():
+            self.collab_frame.setEnabled(True)
+            self.collab_frame.setStyleSheet('background:#1e1e1e')
+        else:
+            self.collab_frame.setEnabled(False)
+            self.collab_frame.setStyleSheet('background:#181819')
+
+    def clickedData(self):
+        DataUI(self)
 
     # 필터 인풋 데이터
     def filterInputData(self):
@@ -80,7 +107,8 @@ class SelectorUI(QMainWindow, form_class):
         fil_min = self.lvl_min.value()
         fil_max = self.lvl_max.value()
         # 입력 지연값
-        input_delay = self.slider_delay.value()
+        # input_delay = self.slider_delay.value()
+        input_delay = 30
         # 모드 선택값
         if self.cb_freestyle.isChecked():
             isFreestyle = True
@@ -88,9 +116,27 @@ class SelectorUI(QMainWindow, form_class):
             isFreestyle = False
 
         return fil_bt, fil_st, fil_sr, fil_min, fil_max, input_delay/1000, isFreestyle
+   
+    # 무작위 뽑기
+    def randomStart(self):
+        bt_list, st_list, sr_list, min_int, max_int, input_delay, isFreestyle = self.filterInputData()
+        selected_music, bt_input, init_input, down_input, right_input = \
+            sM.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
+        print(selected_music)
+        self.selectedLabel.setText(selected_music)
+        if selected_music != 'None':
+            sM.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
 
+class DataUI(QDialog):
+    def __init__(self, parent):
+        super(DataUI, self).__init__(parent)
+        data_ui = 'modify_data_ui.ui'
+        uic.loadUi(data_ui, self)
+        self.modifyButton.clicked.connect(self.modifyDataInputData)
+        self.show()
+    
     # 데이터 생성 인풋 데이터 & YourData.csv 생성
-    def createDataInputData(self):
+    def modifyDataInputData(self):
         fil_yd_sr = set()
         if self.yd_cb_tr.isChecked(): fil_yd_sr.add("TR")
         if self.yd_cb_ce.isChecked(): fil_yd_sr.add('CE')
@@ -111,15 +157,7 @@ class SelectorUI(QMainWindow, form_class):
         fil_yd_sr.add('GG')
         sM.modifyYourData(fil_yd_sr)
         
-    # 무작위 뽑기
-    def randomStart(self):
-        bt_list, st_list, sr_list, min_int, max_int, input_delay, isFreestyle = self.filterInputData()
-        selected_music, bt_input, init_input, down_input, right_input = \
-            sM.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
-        print(selected_music)
-        self.selectedLabel.setText(selected_music)
-        if selected_music != 'None':
-            sM.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

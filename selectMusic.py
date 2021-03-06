@@ -13,8 +13,8 @@ _styles = ('NM', 'HD', 'MX', 'SC')
 # YourData 읽기
 def readYourData():
 
-    data = pd.read_csv("YourData.csv", names = name)
-    # data = pd.read_csv("test_data.csv", names = name)
+    # data = pd.read_csv("YourData.csv", names = name)
+    data = pd.read_csv("test_data.csv", names = name)
 
     return data
 
@@ -104,8 +104,8 @@ def modifyYourData(series):
 
     filtered = specialMusicFilter(filtered, series)
     
-    filtered.to_csv("YourData.csv", index=None, header=None)
-    # filtered.to_csv("test_data.csv", index=None, header=None)
+    # filtered.to_csv("YourData.csv", index=None, header=None)
+    filtered.to_csv("test_data.csv", index=None, header=None)
 
 def specialMusicFilter(df, series):
 
