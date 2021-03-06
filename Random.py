@@ -2,7 +2,6 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
 import keyboard as kb
 import selectMusic as sM
 main_ui = uic.loadUiType("selector_ui.ui")[0]
@@ -37,7 +36,7 @@ class SelectorUI(QMainWindow, main_ui):
         # label_ms = QLabel('{0}ms'.format(self.slider_delay.value()))
         # self.slider_delay.valueChanged.connect(lambda: label_ms.setText('{0}ms'.format(self.slider_delay.value())))
         self.cb_online.toggled.connect(self.onlineSignal)
-        self.data_button.clicked.connect(self.clickedData)
+        self.data_button.clicked.connect(lambda: DataUI(self))
         self.filter_tab_bt.setAutoExclusive(True)
         self.advanced_tab_bt.setAutoExclusive(True)
         self.filter_tab_bt.clicked.connect(self.changeTab)
@@ -75,9 +74,6 @@ class SelectorUI(QMainWindow, main_ui):
         else:
             self.collab_frame.setEnabled(False)
             self.collab_frame.setStyleSheet('background:#181819')
-
-    def clickedData(self):
-        DataUI(self)
 
     # 필터 인풋 데이터
     def filterInputData(self):
