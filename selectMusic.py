@@ -23,7 +23,7 @@ def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyl
 
     filtered = data[data['Series'].isin(series)]
     if isFreestyle:
-        diff_list = ['{0}B{1}'.format(i, j) for i in buttons for j in styles]
+        diff_list = ['{0}{1}'.format(i, j) for i in buttons for j in styles]
         filtered = filtered.reset_index(drop=True)
         candidate_list = ['{0} {1}'.format(filtered.loc[i, 'Title'], j) for i in range(len(filtered))
                 for j in diff_list if filtered.loc[i, j] >= diff_min and filtered.loc[i, j] <= diff_max]
@@ -56,7 +56,7 @@ def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyl
 
     if isFreestyle:
         bt_input = selected[-4]
-        find_btst = ['{0}B{1}'.format(selected[-4], _styles[i]) for i in range(_styles.index(selected[-2:]) + 1)]
+        find_btst = ['{0}{1}'.format(selected[-4:-2], _styles[i]) for i in range(_styles.index(selected[-2:]) + 1)]
         find_smusic = filtered[filtered['Title'] == selected[:-5]]
         find_smusic = find_smusic[[*find_btst]]
         find_smusic = find_smusic.values.tolist()[0][:len(find_btst)]

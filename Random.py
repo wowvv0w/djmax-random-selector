@@ -1,9 +1,10 @@
 import sys
 from PyQt5 import uic
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog
 from PyQt5.QtCore import Qt
 import keyboard as kb
 import selectMusic as sM
+import configparser
 main_ui = uic.loadUiType("selector_ui.ui")[0]
 
 # UI
@@ -14,6 +15,7 @@ class SelectorUI(QMainWindow, main_ui):
         super().__init__()
         self.setupUi(self)
         self.initUI()
+        self.initConfig()
         self.yourdata = sM.readYourData()
         kb.add_hotkey('f7', lambda: self.randomStart(), suppress=True)
 
@@ -35,14 +37,44 @@ class SelectorUI(QMainWindow, main_ui):
         self.label_lvl_max.setText(str(self.lvl_max.value()))
         # label_ms = QLabel('{0}ms'.format(self.slider_delay.value()))
         # self.slider_delay.valueChanged.connect(lambda: label_ms.setText('{0}ms'.format(self.slider_delay.value())))
-        self.cb_online.toggled.connect(self.onlineSignal)
+        self.cb_online.clicked.connect(self.onlineSignal)
+
         self.data_button.clicked.connect(lambda: DataUI(self))
         self.filter_tab_bt.setAutoExclusive(True)
         self.advanced_tab_bt.setAutoExclusive(True)
         self.filter_tab_bt.clicked.connect(self.changeTab)
         self.advanced_tab_bt.clicked.connect(self.changeTab)
-
         self.cb_collab.clicked.connect(self.collabSignal)
+        self.cb_gg.toggled.connect(lambda: self.collabChildSignal(self.cb_gg))
+        self.cb_gc.toggled.connect(lambda: self.collabChildSignal(self.cb_gc))
+        self.cb_dm.toggled.connect(lambda: self.collabChildSignal(self.cb_dm))
+        self.cb_cy.toggled.connect(lambda: self.collabChildSignal(self.cb_cy))
+        self.cb_gf.toggled.connect(lambda: self.collabChildSignal(self.cb_gf))
+        self.cb_chu.toggled.connect(lambda: self.collabChildSignal(self.cb_chu))
+
+    def initConfig(self):
+        config = configparser.ConfigParser()
+        config.read('config.ini', encoding='UTF-8')
+
+        self.values = ['4B', '5B', '6B', '8B', 'NM', 'HD', 'MX', 'SC',
+                'RP', 'P1', 'P2', 'TR', 'CE', 'BS', 'VE', 'ES',
+                'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY',
+                'GF', 'CHU']
+        self.checkboxes = [self.cb_4b, self.cb_5b, self.cb_6b, self.cb_8b, self.cb_nm, self.cb_hd, self.cb_mx, self.cb_sc,
+                    self.cb_rp, self.cb_p1, self.cb_p2, self.cb_tr, self.cb_ce, self.cb_bs, self.cb_ve, self.cb_es,
+                    self.cb_t1, self.cb_t2, self.cb_t3, self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy,
+                    self.cb_gf, self.cb_chu]
+        _iter = iter(self.checkboxes)
+
+        for i in self.values:
+            j = next(_iter)
+            if config['FILTER'][i] == '1':
+                j.setChecked(True)
+        if config['FILTER']['Freestyle'] == '1':
+            self.cb_freestyle.setChecked(True)
+        else:
+            self.cb_online.setChecked(True)
+        
 
     def mousePressEvent(self, event):
         self.dragPos = event.globalPos()
@@ -68,21 +100,39 @@ class SelectorUI(QMainWindow, main_ui):
             self.current_tab.setText('ADVANCED')
     
     def collabSignal(self):
+        checkboxes = [self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy, self.cb_gf, self.cb_chu]
         if self.cb_collab.isChecked():
-            self.collab_frame.setEnabled(True)
+            for i in checkboxes:
+                i.setChecked(True)
             self.collab_frame.setStyleSheet('background:#1e1e1e')
         else:
-            self.collab_frame.setEnabled(False)
+            for i in checkboxes:
+                i.setChecked(False)
             self.collab_frame.setStyleSheet('background:#181819')
+    
+    def collabChildSignal(self, child):
+        if child.isChecked():
+            self.cb_collab.setChecked(True)
+            self.collab_frame.setStyleSheet('background:#1e1e1e')
+        else:
+            if not self.cb_gg.isChecked() and not self.cb_gc.isChecked() and not self.cb_dm.isChecked() \
+                and not self.cb_cy.isChecked() and not self.cb_gf.isChecked() and not self.cb_chu.isChecked():
+                self.cb_collab.setChecked(False)
+                self.collab_frame.setStyleSheet('background:#181819')
+
+                
+
+        
 
     # 필터 인풋 데이터
     def filterInputData(self):
+
         # 버튼 필터
         fil_bt = []
-        if self.cb_4b.isChecked(): fil_bt.append(4)
-        if self.cb_5b.isChecked(): fil_bt.append(5)
-        if self.cb_6b.isChecked(): fil_bt.append(6)
-        if self.cb_8b.isChecked(): fil_bt.append(8)
+        if self.cb_4b.isChecked(): fil_bt.append('4B')
+        if self.cb_5b.isChecked(): fil_bt.append('5B')
+        if self.cb_6b.isChecked(): fil_bt.append('6B')
+        if self.cb_8b.isChecked(): fil_bt.append('8B')
         # 스타일 필터
         fil_st = []
         if self.cb_nm.isChecked(): fil_st.append('NM')
@@ -102,13 +152,12 @@ class SelectorUI(QMainWindow, main_ui):
         if self.cb_t1.isChecked(): fil_sr.add('T1')
         if self.cb_t2.isChecked(): fil_sr.add('T2')
         if self.cb_t3.isChecked(): fil_sr.add('T3')
-        if self.cb_collab.isChecked():
-            if self.cb_gg.isChecked(): fil_sr.add("GG")
-            if self.cb_gc.isChecked(): fil_sr.add('GC')
-            if self.cb_dm.isChecked(): fil_sr.add('DM')
-            if self.cb_cy.isChecked(): fil_sr.add('CY')
-            if self.cb_gf.isChecked(): fil_sr.add("GF")
-            if self.cb_chu.isChecked(): fil_sr.add("CHU")
+        if self.cb_gg.isChecked(): fil_sr.add("GG")
+        if self.cb_gc.isChecked(): fil_sr.add('GC')
+        if self.cb_dm.isChecked(): fil_sr.add('DM')
+        if self.cb_cy.isChecked(): fil_sr.add('CY')
+        if self.cb_gf.isChecked(): fil_sr.add("GF")
+        if self.cb_chu.isChecked(): fil_sr.add("CHU")
         # 레벨 필터
         fil_min = self.lvl_min.value()
         fil_max = self.lvl_max.value()
@@ -125,13 +174,16 @@ class SelectorUI(QMainWindow, main_ui):
    
     # 무작위 뽑기
     def randomStart(self):
+        import time
+        start = time.time()
         bt_list, st_list, sr_list, min_int, max_int, input_delay, isFreestyle = self.filterInputData()
         selected_music, bt_input, init_input, down_input, right_input = \
             sM.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
         print(selected_music)
         self.selectedLabel.setText(selected_music)
-        if selected_music != 'None':
-            sM.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
+        print("Time: ", time.time() - start)
+        # if selected_music != 'None':
+        #     sM.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
 
 
 
