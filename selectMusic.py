@@ -17,26 +17,28 @@ def readYourData():
     data = pd.read_csv("test_data.csv", names = name)
 
     return data
-
+    
 # 곡 무작위 선정
 def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyle):
-
+            
     filtered = data[data['Series'].isin(series)]
     if isFreestyle:
         diff_list = ['{0}{1}'.format(i, j) for i in buttons for j in styles]
         filtered = filtered.reset_index(drop=True)
+        start = time.time()
         candidate_list = ['{0} {1}'.format(filtered.loc[i, 'Title'], j) for i in range(len(filtered))
                 for j in diff_list if filtered.loc[i, j] >= diff_min and filtered.loc[i, j] <= diff_max]
+        print("Time: ", time.time() - start)
     else:
         candidate_list = filtered['Title'].tolist()
+        
     
-
     try:
         selected = random.choice(candidate_list)
     except IndexError:
         return 'None', None, None, None, None
-
-
+    
+    
     if isnt_alphabet(selected[0]):
         init_input = 'a'
     else:
@@ -44,16 +46,15 @@ def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyl
 
     find_sinit = data['Title'].tolist()
     if isnt_alphabet(selected[0]):
-        sinit_list = [find_sinit[i] for i in range(len(find_sinit)) if isnt_alphabet(find_sinit[i][0])]
+        sinit_list = list(filter(lambda x: isnt_alphabet(x), find_sinit))
     else:
-        sinit_list = [find_sinit[i] for i in range(len(find_sinit)) if find_sinit[i][0] == selected[0].lower()
-                                                                    or find_sinit[i][0] == selected[0].upper()]
+        sinit_list = list(filter(lambda x: x[0].lower() == init_input, find_sinit))
     if isFreestyle:
         down_input = sinit_list.index(selected[:-5])
     else:
         down_input = sinit_list.index(selected)
     
-
+    
     if isFreestyle:
         bt_input = selected[-4]
         find_btst = ['{0}{1}'.format(selected[-4:-2], _styles[i]) for i in range(_styles.index(selected[-2:]) + 1)]
@@ -70,30 +71,23 @@ def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyl
 # 키보드 자동 입력
 def inputKeyboard(music, bt, init, down, right, input_delay, isFreestyle):
     
-    delay = lambda: time.sleep(input_delay)
-    press = lambda key: kb.press_and_release(key)
+    def inputKey(key):
+        kb.press_and_release(key)
+        time.sleep(input_delay)
 
     if isFreestyle:
-        press(bt)
-        delay()
-    press('page up')
-    delay()
-    press(init)
-    delay()
+        inputKey(bt)
+    inputKey('page up')
+    inputKey(init)
     if isnt_alphabet(music[0]):
-        press('page up')
-        delay()
-        press('page up')
-        delay()
-        press('page down')
-        delay()
+        inputKey('page up')
+        inputKey('page up')
+        inputKey('page down')
     for i in range(down):
-        press("down arrow")
-        delay()
+        inputKey('down arrow')
     if isFreestyle:
         for i in range(right):
-            press("right arrow")
-            delay()
+            inputKey('right arrow')
 
 # YourData 수정
 def modifyYourData(series):

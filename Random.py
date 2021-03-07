@@ -2,9 +2,12 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 import keyboard as kb
 import selectMusic as sM
 import configparser
+import time
+
 main_ui = uic.loadUiType("selector_ui.ui")[0]
 
 # UI
@@ -17,10 +20,13 @@ class SelectorUI(QMainWindow, main_ui):
         self.initUI()
         self.initConfig()
         self.yourdata = sM.readYourData()
+
+
         kb.add_hotkey('f7', lambda: self.randomStart(), suppress=True)
 
     # 시그널, 스타일
     def initUI(self):
+        self.setWindowIcon(QIcon('icon.ico'))
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.minimizeButton.clicked.connect(lambda: self.showMinimized())
         self.closeButton.clicked.connect(lambda: self.close())
@@ -120,44 +126,15 @@ class SelectorUI(QMainWindow, main_ui):
                 self.cb_collab.setChecked(False)
                 self.collab_frame.setStyleSheet('background:#181819')
 
-                
-
-        
 
     # 필터 인풋 데이터
     def filterInputData(self):
-
         # 버튼 필터
-        fil_bt = []
-        if self.cb_4b.isChecked(): fil_bt.append('4B')
-        if self.cb_5b.isChecked(): fil_bt.append('5B')
-        if self.cb_6b.isChecked(): fil_bt.append('6B')
-        if self.cb_8b.isChecked(): fil_bt.append('8B')
+        fil_bt = [self.values[i] for i in range(4) if self.checkboxes[i].isChecked()]
         # 스타일 필터
-        fil_st = []
-        if self.cb_nm.isChecked(): fil_st.append('NM')
-        if self.cb_hd.isChecked(): fil_st.append('HD')
-        if self.cb_mx.isChecked(): fil_st.append('MX')
-        if self.cb_sc.isChecked(): fil_st.append("SC")
+        fil_st = [self.values[i] for i in range(4,8) if self.checkboxes[i].isChecked()]
         # 시리즈 필터
-        fil_sr = set()
-        if self.cb_rp.isChecked(): fil_sr.add('RP')
-        if self.cb_p1.isChecked(): fil_sr.add('P1')
-        if self.cb_p2.isChecked(): fil_sr.add('P2')
-        if self.cb_tr.isChecked(): fil_sr.add("TR")
-        if self.cb_ce.isChecked(): fil_sr.add('CE')
-        if self.cb_bs.isChecked(): fil_sr.add('BS')
-        if self.cb_ve.isChecked(): fil_sr.add('VE')
-        if self.cb_es.isChecked(): fil_sr.add("ES")
-        if self.cb_t1.isChecked(): fil_sr.add('T1')
-        if self.cb_t2.isChecked(): fil_sr.add('T2')
-        if self.cb_t3.isChecked(): fil_sr.add('T3')
-        if self.cb_gg.isChecked(): fil_sr.add("GG")
-        if self.cb_gc.isChecked(): fil_sr.add('GC')
-        if self.cb_dm.isChecked(): fil_sr.add('DM')
-        if self.cb_cy.isChecked(): fil_sr.add('CY')
-        if self.cb_gf.isChecked(): fil_sr.add("GF")
-        if self.cb_chu.isChecked(): fil_sr.add("CHU")
+        fil_sr = set(self.values[i] for i in range(8,25) if self.checkboxes[i].isChecked())
         # 레벨 필터
         fil_min = self.lvl_min.value()
         fil_max = self.lvl_max.value()
@@ -165,23 +142,18 @@ class SelectorUI(QMainWindow, main_ui):
         # input_delay = self.slider_delay.value()
         input_delay = 30
         # 모드 선택값
-        if self.cb_freestyle.isChecked():
-            isFreestyle = True
-        else:
-            isFreestyle = False
+        if self.cb_freestyle.isChecked(): isFreestyle = True
+        else: isFreestyle = False
 
         return fil_bt, fil_st, fil_sr, fil_min, fil_max, input_delay/1000, isFreestyle
    
     # 무작위 뽑기
     def randomStart(self):
-        import time
-        start = time.time()
         bt_list, st_list, sr_list, min_int, max_int, input_delay, isFreestyle = self.filterInputData()
         selected_music, bt_input, init_input, down_input, right_input = \
             sM.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
         print(selected_music)
         self.selectedLabel.setText(selected_music)
-        print("Time: ", time.time() - start)
         # if selected_music != 'None':
         #     sM.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
 
@@ -201,20 +173,13 @@ class DataUI(QDialog):
     
     # 데이터 생성 인풋 데이터 & YourData.csv 생성
     def modifyDataInputData(self):
-        fil_yd_sr = set()
-        if self.yd_cb_tr.isChecked(): fil_yd_sr.add("TR")
-        if self.yd_cb_ce.isChecked(): fil_yd_sr.add('CE')
-        if self.yd_cb_bs.isChecked(): fil_yd_sr.add('BS')
-        if self.yd_cb_ve.isChecked(): fil_yd_sr.add('VE')
-        if self.yd_cb_es.isChecked(): fil_yd_sr.add("ES")
-        if self.yd_cb_t1.isChecked(): fil_yd_sr.add('T1')
-        if self.yd_cb_t2.isChecked(): fil_yd_sr.add('T2')
-        if self.yd_cb_t3.isChecked(): fil_yd_sr.add('T3')
-        if self.yd_cb_gc.isChecked(): fil_yd_sr.add('GC')
-        if self.yd_cb_dm.isChecked(): fil_yd_sr.add('DM')
-        if self.yd_cb_cy.isChecked(): fil_yd_sr.add('CY')
-        if self.yd_cb_gf.isChecked(): fil_yd_sr.add("GF")
-        if self.yd_cb_chu.isChecked(): fil_yd_sr.add("CHU")
+        values = ['TR', 'CE', 'BS', 'VE', 'ES',
+                    'T1', 'T2', 'T3', 'GC', 'DM',
+                    'CY', 'GF', 'CHU']
+        checkboxes = [self.yd_cb_tr, self.yd_cb_ce, self.yd_cb_bs, self.yd_cb_ve, self.yd_cb_es,
+                    self.yd_cb_t1, self.yd_cb_t2, self.yd_cb_t3, self.yd_cb_gc, self.yd_cb_dm,
+                    self.yd_cb_cy, self.yd_cb_gf, self.yd_cb_chu]
+        fil_yd_sr = set(values[i] for i in range(13) if checkboxes[i].isChecked())
         fil_yd_sr.add('RP')
         fil_yd_sr.add('P1')
         fil_yd_sr.add('P2')
