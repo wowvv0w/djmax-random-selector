@@ -173,7 +173,7 @@ class SelectorUI(QMainWindow, main_ui):
                 self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0.979899, y2:0, stop:0.22 rgba(74, 121, 255, 255), stop:1 rgba(104, 224, 255, 255))')
             elif series == 'CE':
                 self.selectedSeriesBox.setStyleSheet('background-color:#ffffff')
-                self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0.4, x2:1, y2:0.5, stop:0 rgba(255, 255, 255, 255), stop:0.779209 rgba(255, 255, 255, 255), stop:0.781049 rgba(245, 216, 79, 255), stop:0.849 rgba(245, 216, 79, 255), stop:0.851 rgba(169, 125, 31, 255), stop:0.894 rgba(169, 125, 31, 255), stop:0.896 rgba(203, 148, 49, 255), stop:1 rgba(203, 148, 49, 255))')
+                self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0.4, x2:1, y2:0.5, stop:0 rgba(203, 148, 49, 255), stop:0.104107 rgba(203, 148, 49, 255), stop:0.106017 rgba(169, 125, 31, 255), stop:0.148997 rgba(169, 125, 31, 255), stop:0.150907 rgba(245, 216, 79, 255), stop:0.218964 rgba(245, 216, 79, 255), stop:0.220919 rgba(255, 255, 255, 255), stop:0.77937 rgba(255, 255, 255, 255), stop:0.781049 rgba(245, 216, 79, 255), stop:0.849093 rgba(245, 216, 79, 255), stop:0.851 rgba(169, 125, 31, 255), stop:0.893881 rgba(169, 125, 31, 255), stop:0.896 rgba(203, 148, 49, 255), stop:1 rgba(203, 148, 49, 255))')
             elif series == 'BS':
                 self.selectedSeriesBox.setStyleSheet('background-color:#e90000')
                 self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(248, 28, 83, 255), stop:0.83 rgba(123, 23, 42, 255))')

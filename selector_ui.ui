@@ -1704,8 +1704,7 @@ QPushButton:checked {
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #181819;
-color: #7f7f7f;</string>
+     <string notr="true">background-color: #3d3e3f;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -1734,16 +1733,16 @@ color: #7f7f7f;</string>
      <widget class="QLabel" name="selectedTitle">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>0</y>
-        <width>361</width>
+        <x>4</x>
+        <y>5</y>
+        <width>400</width>
         <height>30</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Lato</family>
-        <pointsize>12</pointsize>
+        <pointsize>14</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -1757,15 +1756,16 @@ color: #ffffff</string>
      <widget class="QLabel" name="selectedArtist">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>30</y>
-        <width>241</width>
+        <x>6</x>
+        <y>29</y>
+        <width>400</width>
         <height>21</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Lato</family>
+        <pointsize>10</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1781,8 +1781,8 @@ color: #ffffff</string>
      <widget class="QLabel" name="selectedBtSt">
       <property name="geometry">
        <rect>
-        <x>500</x>
-        <y>15</y>
+        <x>520</x>
+        <y>19</y>
         <width>112</width>
         <height>22</height>
        </rect>
