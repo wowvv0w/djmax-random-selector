@@ -104,7 +104,7 @@ QTabBar::tab {
       <property name="styleSheet">
        <string notr="true">background: #242526;
 color: #7f7f7f;
-border: #00000000</string>
+border: none;</string>
       </property>
       <property name="title">
        <string>CATEGORIES</string>
@@ -135,6 +135,7 @@ border: #00000000</string>
         <string notr="true">QPushButton {
 	color: #594713;
     background-color: #181819;
+	border: none;
 }
 
 QPushButton:checked {
@@ -181,6 +182,7 @@ QPushButton:checked {
         <string notr="true">QPushButton {
 	color: #0e6677;
     background-color: #181819;
+	border: none;
 }
 
 QPushButton:checked {
@@ -218,6 +220,7 @@ QPushButton:checked {
         <string notr="true">QPushButton {
 	color: #761a3f;
     background-color: #181819;
+	border: none;
 }
 
 QPushButton:checked {
@@ -255,6 +258,7 @@ QPushButton:checked {
         <string notr="true">QPushButton {
 	color: #3a4175;
     background-color: #181819;
+	border: none;
 }
 
 QPushButton:checked {
@@ -292,6 +296,7 @@ QPushButton:checked {
         <string notr="true">QPushButton {
 	color: #747475;
     background-color: #181819;
+	border: none;
 }
 
 QPushButton:checked {
@@ -329,6 +334,7 @@ QPushButton:checked {
         <string notr="true">QPushButton {
 	color: #5b1010;
     background-color: #181819;
+	border: none;
 }
 
 QPushButton:checked {
@@ -366,6 +372,7 @@ QPushButton:checked {
         <string notr="true">QPushButton {
 	color: #5e321a;
     background-color: #181819;
+	border: none;
 }
 
 QPushButton:checked {
@@ -403,6 +410,7 @@ QPushButton:checked {
         <string notr="true">QPushButton {
 	color: #20541d;
     background-color: #181819;
+	border: none;
 }
 
 QPushButton:checked {
@@ -440,6 +448,7 @@ QPushButton:checked {
         <string notr="true">QPushButton {
 	color: #5e275b;
     background-color: #181819;
+	border: none;
 }
 
 QPushButton:checked {
@@ -477,6 +486,7 @@ QPushButton:checked {
         <string notr="true">QPushButton {
 	color: #5e2b13;
     background-color: #181819;
+	border: none;
 }
 
 QPushButton:checked {
@@ -514,6 +524,7 @@ QPushButton:checked {
         <string notr="true">QPushButton {
 	color: #1d365e;
     background-color: #181819;
+	border: none;
 }
 
 QPushButton:checked {
@@ -824,6 +835,7 @@ QPushButton:checked {
         <string notr="true">QPushButton {
 	color: #5e5e5e;
     background-color: #181819;
+	border: none;
 }
 
 QPushButton:checked {
@@ -905,7 +917,7 @@ QPushButton:checked {
       <property name="styleSheet">
        <string notr="true">background: #242526;
 color: #7f7f7f;
-border: #00000000</string>
+border: none</string>
       </property>
       <property name="title">
        <string>BUTTON TUNES</string>
@@ -1141,7 +1153,7 @@ border: #00000000</string>
       <property name="styleSheet">
        <string notr="true">background: #242526;
 color: #7f7f7f;
-border: #00000000</string>
+border: none</string>
       </property>
       <property name="title">
        <string>DIFFICULTY</string>
@@ -1513,7 +1525,7 @@ QPushButton:checked {
       <property name="styleSheet">
        <string notr="true">background: #242526;
 color: #7f7f7f;
-border:#00000000</string>
+border:none</string>
       </property>
       <property name="title">
        <string>MODE</string>
@@ -1588,7 +1600,8 @@ border:#00000000</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: #181819;
-color: #7f7f7f;</string>
+color: #7f7f7f;
+border:none;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -1725,10 +1738,13 @@ QPushButton:checked {
       <string notr="true">background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(141, 141, 141, 255), stop:1 rgba(223, 223, 223, 255))</string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::NoFrame</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="lineWidth">
+      <number>0</number>
      </property>
      <widget class="QLabel" name="selectedTitle">
       <property name="geometry">
@@ -1827,10 +1843,13 @@ color: #ffffff</string>
       <string notr="true">background-color:#c8c8c8</string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::NoFrame</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="lineWidth">
+      <number>0</number>
      </property>
     </widget>
     <widget class="QFrame" name="ifCollab">
@@ -1846,10 +1865,13 @@ color: #ffffff</string>
       <string notr="true">background-color:transparent</string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::NoFrame</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="lineWidth">
+      <number>0</number>
      </property>
     </widget>
    </widget>

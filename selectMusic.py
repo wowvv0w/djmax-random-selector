@@ -32,13 +32,15 @@ def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyl
             scan_candidate = list(filter(lambda x: x[2] >= diff_min and x[2] <= diff_max, zip_title_level))
             candidate_list.extend(scan_candidate)
     else:
-        candidate_list.extend(fil_title)
+        tmp_list = [None] * len(fil_title)
+        zip_title = list(zip(fil_title, tmp_list, tmp_list))
+        candidate_list.extend(zip_title)
         
     
     try:
         selected_title, selected_btst, tmp = random.choice(candidate_list)
     except IndexError:
-        return 'None', None, None, None, None
+        return 'None', '???', None, None, None, None, None, None
     
     
     if isnt_alphabet(selected_title[0]):
@@ -52,17 +54,17 @@ def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyl
     else:
         sinit_list = list(filter(lambda x: x[0].lower() == init_input, find_sinit))
     down_input = sinit_list.index(selected_title)
-    
-    
+
+    find_smusic = filtered[filtered['Title'] == selected_title]
+    selected_artist = find_smusic.iloc[0, 1] 
+    selected_series = find_smusic.iloc[0, 3]
     if isFreestyle:
-        bt_input = selected_btst[0]
         find_btst = ['{0}{1}'.format(selected_btst[:2], _styles[i]) for i in range(_styles.index(selected_btst[2:]) + 1)]
-        find_smusic = filtered[filtered['Title'] == selected_title]
-        selected_artist = find_smusic.iloc[0, 1] 
-        selected_series = find_smusic.iloc[0, 3]
         find_smusic = find_smusic[[*find_btst]].values.reshape(len(find_btst)).tolist()
         sub_count = find_smusic.count(0)
         right_input = len(find_btst) - sub_count - 1
+
+        bt_input = selected_btst[0]
     else:
         bt_input, right_input = None, None
 
@@ -70,7 +72,7 @@ def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyl
 
 # 키보드 자동 입력
 def inputKeyboard(music, bt, init, down, right, input_delay, isFreestyle):
-    
+
     def inputKey(key):
         kb.press_and_release(key)
         time.sleep(input_delay)

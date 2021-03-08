@@ -43,7 +43,7 @@ class SelectorUI(QMainWindow, main_ui):
         self.label_lvl_max.setText(str(self.lvl_max.value()))
         # label_ms = QLabel('{0}ms'.format(self.slider_delay.value()))
         # self.slider_delay.valueChanged.connect(lambda: label_ms.setText('{0}ms'.format(self.slider_delay.value())))
-        self.cb_online.clicked.connect(self.onlineSignal)
+        self.cb_online.toggled.connect(self.onlineSignal)
 
         self.data_button.clicked.connect(lambda: DataUI(self))
         self.filter_tab_bt.setAutoExclusive(True)
@@ -87,13 +87,9 @@ class SelectorUI(QMainWindow, main_ui):
     
     def onlineSignal(self):
         if self.cb_online.isChecked():
-            self.bt_groupbox.setEnabled(False)
-            self.diff_groupbox.setEnabled(False)
             self.lock_bt.move(0,0)
             self.lock_diff.move(0,0)
         else:
-            self.bt_groupbox.setEnabled(True)
-            self.diff_groupbox.setEnabled(True)
             self.lock_bt.move(-370,0)
             self.lock_diff.move(-370,0)
 
@@ -140,7 +136,7 @@ class SelectorUI(QMainWindow, main_ui):
         fil_max = self.lvl_max.value()
         # 입력 지연값
         # input_delay = self.slider_delay.value()
-        input_delay = 30
+        input_delay = 10
         # 모드 선택값
         if self.cb_freestyle.isChecked(): isFreestyle = True
         else: isFreestyle = False
@@ -149,63 +145,75 @@ class SelectorUI(QMainWindow, main_ui):
    
     # 무작위 뽑기
     def randomStart(self):
+        kb.block_key('f7')
         start = time.time()
         bt_list, st_list, sr_list, min_int, max_int, input_delay, isFreestyle = self.filterInputData()
         selected_title, selected_artist, selected_btst, selected_series, bt_input, init_input, down_input, right_input = \
             sM.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
         print(selected_title, selected_artist, selected_btst, selected_series, sep="    ")
-        self.selectedTitle.setText(selected_title)
-        self.selectedArtist.setText(selected_artist)
-        self.selectedBtSt.setPixmap(QPixmap('images/{0}.png'.format(selected_btst)))
-        def setSeriesColor(series):
+        def setSelectedUi(title, artist, btst, series):
+            self.selectedTitle.setText(title)
+            self.selectedArtist.setText(artist)
+            self.selectedTitle.setStyleSheet('background:transparent; color:#ffffff')
+            self.selectedArtist.setStyleSheet('background:transparent; color:#ffffff')
+            if btst == None:
+                self.selectedBtSt.clear()
+            else:
+                self.selectedBtSt.setPixmap(QPixmap('images/{0}.png'.format(btst)))
+
             self.ifCollab.setStyleSheet('background-color:transparent')
-            if series == 'RP':
+            if series == None:
+                self.selectedSeriesBox.setStyleSheet('background-color:#c8c8c8')
+                self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(141, 141, 141, 255), stop:1 rgba(223, 223, 223, 255))')
+            elif series == 'RP':
                 self.selectedSeriesBox.setStyleSheet('background-color:#ffd250')
-                self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.2 rgba(222, 151, 0, 255), stop:1 rgba(249, 104, 116, 255))')
+                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/RP.png)')
             elif series == 'P1':
                 self.selectedSeriesBox.setStyleSheet('background-color:#25deff')
-                self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.182342 rgba(0, 180, 210, 255), stop:0.981766 rgba(194, 55, 254, 255))')
+                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/P1.png)')
             elif series == 'P2':
                 self.selectedSeriesBox.setStyleSheet('background-color:#ff5082')
-                self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.22 rgba(255, 30, 70, 255), stop:1 rgba(255, 53, 165, 255))')
+                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/P2.png)')
             elif series == 'TR':
                 self.selectedSeriesBox.setStyleSheet('background-color:#7582ff')
-                self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0.979899, y2:0, stop:0.22 rgba(74, 121, 255, 255), stop:1 rgba(104, 224, 255, 255))')
+                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/TR.png)')
             elif series == 'CE':
                 self.selectedSeriesBox.setStyleSheet('background-color:#ffffff')
-                self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0.4, x2:1, y2:0.5, stop:0 rgba(203, 148, 49, 255), stop:0.104107 rgba(203, 148, 49, 255), stop:0.106017 rgba(169, 125, 31, 255), stop:0.148997 rgba(169, 125, 31, 255), stop:0.150907 rgba(245, 216, 79, 255), stop:0.218964 rgba(245, 216, 79, 255), stop:0.220919 rgba(255, 255, 255, 255), stop:0.77937 rgba(255, 255, 255, 255), stop:0.781049 rgba(245, 216, 79, 255), stop:0.849093 rgba(245, 216, 79, 255), stop:0.851 rgba(169, 125, 31, 255), stop:0.893881 rgba(169, 125, 31, 255), stop:0.896 rgba(203, 148, 49, 255), stop:1 rgba(203, 148, 49, 255))')
+                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/CE.png)')
+                self.selectedTitle.setStyleSheet('background:transparent; color:#000000')
+                self.selectedArtist.setStyleSheet('background:transparent; color:#000000')
             elif series == 'BS':
                 self.selectedSeriesBox.setStyleSheet('background-color:#e90000')
-                self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(248, 28, 83, 255), stop:0.83 rgba(123, 23, 42, 255))')
+                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/BS.png)')
             elif series == 'VE':
                 self.selectedSeriesBox.setStyleSheet('background-color:#ff7f42')
-                self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0.176, x2:1, y2:0, stop:0 rgba(243, 114, 45, 255), stop:0.136802 rgba(253, 114, 30, 255), stop:0.373796 rgba(253, 114, 30, 255), stop:0.815992 rgba(41, 144, 208, 255), stop:1 rgba(37, 146, 214, 255))')
+                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/VE.png)')
             elif series == 'ES':
                 self.selectedSeriesBox.setStyleSheet('background-color:#34df26')
-                self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(4, 111, 238, 255), stop:0.699226 rgba(52, 223, 38, 255))')
+                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/ES.png)')
             elif series == 'T1':
                 self.selectedSeriesBox.setStyleSheet('background-color:#f01cc8')
-                self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(104, 117, 249, 255), stop:0.850818 rgba(254, 1, 151, 255))')
+                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/T1.png)')
             elif series == 'T2':
                 self.selectedSeriesBox.setStyleSheet('background-color:#c35a00')
-                self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.0684008 rgba(255, 0, 228, 255), stop:0.17341 rgba(255, 36, 147, 255), stop:0.288054 rgba(255, 106, 4, 255), stop:0.416185 rgba(255, 198, 0, 255), stop:0.540462 rgba(255, 198, 0, 255), stop:0.620424 rgba(224, 205, 6, 255), stop:0.725434 rgba(109, 209, 92, 255), stop:0.789981 rgba(41, 210, 189, 255), stop:0.857418 rgba(1, 210, 253, 255))')
+                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/T2.png)')
             elif series == 'T3':
                 self.selectedSeriesBox.setStyleSheet('background-color:#568bff')
-                self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0.000777605, y1:0.42, x2:1, y2:0.5, stop:0 rgba(80, 49, 240, 255), stop:0.276827 rgba(101, 32, 228, 255), stop:0.286936 rgba(63, 67, 255, 255), stop:1 rgba(12, 123, 255, 255))')
+                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/T3.png)')
             else:
                 self.selectedSeriesBox.setStyleSheet('background-color:#c0c0c0')
-                self.selectedSeriesGrad.setStyleSheet('background-color:#191919')
+                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/COL.png)')
                 if series == 'GG': self.ifCollab.setStyleSheet('background-color:#d73e0e')
                 elif series == 'GC': self.ifCollab.setStyleSheet('background-color:#51eefe')
                 elif series == 'DM': self.ifCollab.setStyleSheet('background-color:#98e3d6')
                 elif series == 'CY': self.ifCollab.setStyleSheet('background-color:#ec1538')
                 elif series == 'GF': self.ifCollab.setStyleSheet('background-color:#fdb426')
                 elif series == 'CHU': self.ifCollab.setStyleSheet('background-color:#ffd700')
-        setSeriesColor(selected_series)
+        setSelectedUi(selected_title, selected_artist, selected_btst,selected_series)
+        if selected_title != 'None':
+            sM.inputKeyboard(selected_title, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
         print(time.time() - start)
-        # if selected_music != 'None':
-        #     sM.inputKeyboard(selected_music, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
-
+        kb.unblock_key('f7')
 
 
 
