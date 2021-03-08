@@ -20,53 +20,53 @@ def readYourData():
     
 # 곡 무작위 선정
 def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyle):
-            
     filtered = data[data['Series'].isin(series)]
+    candidate_list = list()
+    fil_title = filtered['Title'].values
     if isFreestyle:
         diff_list = ['{0}{1}'.format(i, j) for i in buttons for j in styles]
-        filtered = filtered.reset_index(drop=True)
-        start = time.time()
-        candidate_list = ['{0} {1}'.format(filtered.loc[i, 'Title'], j) for i in range(len(filtered))
-                for j in diff_list if filtered.loc[i, j] >= diff_min and filtered.loc[i, j] <= diff_max]
-        print("Time: ", time.time() - start)
+        for i in range(len(diff_list)):
+            fil_level = filtered[diff_list[i]].values.reshape(len(fil_title))
+            fil_level_dup = [diff_list[i]] * len(fil_title)
+            zip_title_level = list(zip(fil_title, fil_level_dup, fil_level))
+            scan_candidate = list(filter(lambda x: x[2] >= diff_min and x[2] <= diff_max, zip_title_level))
+            candidate_list.extend(scan_candidate)
     else:
-        candidate_list = filtered['Title'].tolist()
+        candidate_list.extend(fil_title)
         
     
     try:
-        selected = random.choice(candidate_list)
+        selected_title, selected_btst, tmp = random.choice(candidate_list)
     except IndexError:
         return 'None', None, None, None, None
     
     
-    if isnt_alphabet(selected[0]):
+    if isnt_alphabet(selected_title[0]):
         init_input = 'a'
     else:
-        init_input = selected[0].lower()
+        init_input = selected_title[0].lower()
 
-    find_sinit = data['Title'].tolist()
-    if isnt_alphabet(selected[0]):
+    find_sinit = data['Title'].values
+    if isnt_alphabet(selected_title[0]):
         sinit_list = list(filter(lambda x: isnt_alphabet(x), find_sinit))
     else:
         sinit_list = list(filter(lambda x: x[0].lower() == init_input, find_sinit))
-    if isFreestyle:
-        down_input = sinit_list.index(selected[:-5])
-    else:
-        down_input = sinit_list.index(selected)
+    down_input = sinit_list.index(selected_title)
     
     
     if isFreestyle:
-        bt_input = selected[-4]
-        find_btst = ['{0}{1}'.format(selected[-4:-2], _styles[i]) for i in range(_styles.index(selected[-2:]) + 1)]
-        find_smusic = filtered[filtered['Title'] == selected[:-5]]
-        find_smusic = find_smusic[[*find_btst]]
-        find_smusic = find_smusic.values.tolist()[0][:len(find_btst)]
+        bt_input = selected_btst[0]
+        find_btst = ['{0}{1}'.format(selected_btst[:2], _styles[i]) for i in range(_styles.index(selected_btst[2:]) + 1)]
+        find_smusic = filtered[filtered['Title'] == selected_title]
+        selected_artist = find_smusic.iloc[0, 1] 
+        selected_series = find_smusic.iloc[0, 3]
+        find_smusic = find_smusic[[*find_btst]].values.reshape(len(find_btst)).tolist()
         sub_count = find_smusic.count(0)
         right_input = len(find_btst) - sub_count - 1
     else:
         bt_input, right_input = None, None
 
-    return selected, bt_input, init_input, down_input, right_input
+    return selected_title, selected_artist, selected_btst, selected_series, bt_input, init_input, down_input, right_input
 
 # 키보드 자동 입력
 def inputKeyboard(music, bt, init, down, right, input_delay, isFreestyle):
@@ -126,3 +126,13 @@ def specialMusicFilter(df, series):
         df = df.drop(df[df['Title'] == 'SON OF SUN ~Extended Mix~'].index)
     
     return df
+
+if __name__ == '__main__':
+    ex_data = readYourData()
+    ex_buttons = ['4B', '5B', '6B', '8B']
+    ex_styles = ['NM', 'HD', 'MX', 'SC']
+    ex_series = {'RP', 'P1', 'P2', 'TR', 'CE', 'BS', 'VE', 'ES', 'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY', 'GF', 'CHU'}
+    ex_diff_min = 1
+    ex_diff_max = 15
+    ex_title, ex_artist, ex_bt, ex_init, ex_down, ex_right = selectingMusic(ex_data, ex_buttons, ex_styles, ex_series, ex_diff_min, ex_diff_max, True)
+    print(ex_title, "/", ex_artist)

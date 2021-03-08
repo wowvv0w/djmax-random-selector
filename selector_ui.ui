@@ -585,18 +585,6 @@ QPushButton:checked {
 	border-color: #d83e0e;
  	color: #d83e0e;
     background-color: #181819;
-}
-
-QPushButton:disabled {
-	border-color: #2e2e2e;
- 	color: #2e2e2e;
-    background-color: transparent;
-}
-
-QPushButton:disabled:checked {
-	border-color: #6b1e06;
- 	color: #6b1e06;
-    background-color: #0c0c0d;
 }</string>
         </property>
         <property name="text">
@@ -637,18 +625,6 @@ QPushButton:checked {
 	border-color: #51eefe;
  	color: #51eefe;
     background-color: #181819;
-}
-
-QPushButton:disabled {
-	border-color: #2e2e2e;
- 	color: #2e2e2e;
-    background-color: transparent;
-}
-
-QPushButton:disabled:checked {
-	border-color: #246970;
- 	color: #246970;
-    background-color: #0c0c0d;
 }</string>
         </property>
         <property name="text">
@@ -689,18 +665,6 @@ QPushButton:checked {
 	border-color: #ffd700;
  	color: #ffd700;
     background-color: #181819;
-}
-
-QPushButton:disabled {
-	border-color: #2e2e2e;
- 	color: #2e2e2e;
-    background-color: transparent;
-}
-
-QPushButton:disabled:checked {
-	border-color: #806c00;
- 	color: #806c00;
-    background-color: #0c0c0d;
 }</string>
         </property>
         <property name="text">
@@ -741,18 +705,6 @@ QPushButton:checked {
 	border-color: #99e5d8;
  	color: #99e5d8;
     background-color: #181819;
-}
-
-QPushButton:disabled {
-	border-color: #2e2e2e;
- 	color: #2e2e2e;
-    background-color: transparent;
-}
-
-QPushButton:disabled:checked {
-	border-color: #4d736c;
- 	color: #4d736c;
-    background-color: #0c0c0d;
 }</string>
         </property>
         <property name="text">
@@ -793,18 +745,6 @@ QPushButton:checked {
 	border-color: #ee1538;
  	color: #ee1538;
     background-color: #181819;
-}
-
-QPushButton:disabled {
-	border-color: #2e2e2e;
- 	color: #2e2e2e;
-    background-color: transparent;
-}
-
-QPushButton:disabled:checked {
-	border-color: #750b1c;
- 	color: #750b1c;
-    background-color: #0c0c0d;
 }</string>
         </property>
         <property name="text">
@@ -845,18 +785,6 @@ QPushButton:checked {
 	border-color: #fdb426;
  	color: #fdb426;
     background-color: #181819;
-}
-
-QPushButton:disabled {
-	border-color: #2e2e2e;
- 	color: #2e2e2e;
-    background-color: transparent;
-}
-
-QPushButton:disabled:checked {
-	border-color: #7d5a13;
- 	color: #7d5a13;
-    background-color: #0c0c0d;
 }</string>
         </property>
         <property name="text">
@@ -1785,7 +1713,7 @@ color: #7f7f7f;</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QFrame" name="whatisMusic">
+    <widget class="QFrame" name="selectedSeriesGrad">
      <property name="geometry">
       <rect>
        <x>94</x>
@@ -1803,7 +1731,7 @@ color: #7f7f7f;</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QLabel" name="selectedLabel">
+     <widget class="QLabel" name="selectedTitle">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1826,7 +1754,7 @@ color: #ffffff</string>
        <string>RANDOM</string>
       </property>
      </widget>
-     <widget class="QLabel" name="whoisArtist">
+     <widget class="QLabel" name="selectedArtist">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1850,7 +1778,7 @@ color: #ffffff</string>
        <string>???</string>
       </property>
      </widget>
-     <widget class="QLabel" name="whatisMode">
+     <widget class="QLabel" name="selectedBtSt">
       <property name="geometry">
        <rect>
         <x>500</x>
@@ -1886,7 +1814,7 @@ color: #ffffff</string>
       <pixmap>images/icon.png</pixmap>
      </property>
     </widget>
-    <widget class="QFrame" name="frame_3">
+    <widget class="QFrame" name="selectedSeriesBox">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -1896,7 +1824,26 @@ color: #ffffff</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background:#c8c8c8</string>
+      <string notr="true">background-color:#c8c8c8</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+    <widget class="QFrame" name="ifCollab">
+     <property name="geometry">
+      <rect>
+       <x>23</x>
+       <y>10</y>
+       <width>2</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color:transparent</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
