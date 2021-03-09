@@ -7,8 +7,12 @@ import keyboard as kb
 import selectMusic as sM
 import configparser
 import time
+from threading import Thread, Lock
 
 main_ui = uic.loadUiType("selector_ui.ui")[0]
+
+isF7Pressed = False
+isRunning = False
 
 # UI
 class SelectorUI(QMainWindow, main_ui):
@@ -21,8 +25,25 @@ class SelectorUI(QMainWindow, main_ui):
         self.initConfig()
         self.yourdata = sM.readYourData()
 
+        kb.hook_key('f7', lambda e: self.makeThs(str(e)), suppress=True)
 
-        kb.add_hotkey('f7', lambda: self.randomStart(), suppress=True)
+    def makeThs(self, e):
+        th1 = Thread(target=self.check, args=(e,))
+        th1.start()
+
+    def check(self, e):
+        global isF7Pressed, isRunning
+        if 'down' in e and not isF7Pressed and not isRunning:
+            isF7Pressed = True
+            print('\n\n\n\n\n\nstart')
+            th2 = Thread(target=self.randomStart)
+            th2.start()
+        elif 'down' in e and (isF7Pressed or isRunning):
+            print('denied')
+        
+        if 'up' in e:
+            isF7Pressed = False
+            print('released')
 
     # 시그널, 스타일
     def initUI(self):
@@ -48,8 +69,7 @@ class SelectorUI(QMainWindow, main_ui):
         self.data_button.clicked.connect(lambda: DataUI(self))
         self.filter_tab_bt.setAutoExclusive(True)
         self.advanced_tab_bt.setAutoExclusive(True)
-        self.filter_tab_bt.clicked.connect(self.changeTab)
-        self.advanced_tab_bt.clicked.connect(self.changeTab)
+        self.filter_tab_bt.toggled.connect(self.changeTab)
         self.cb_collab.clicked.connect(self.collabSignal)
         self.cb_gg.toggled.connect(lambda: self.collabChildSignal(self.cb_gg))
         self.cb_gc.toggled.connect(lambda: self.collabChildSignal(self.cb_gc))
@@ -97,7 +117,7 @@ class SelectorUI(QMainWindow, main_ui):
         if self.filter_tab_bt.isChecked():
             self.tabWidget.setCurrentIndex(0)
             self.current_tab.setText('FILTER')
-        elif self.advanced_tab_bt.isChecked():
+        else:
             self.tabWidget.setCurrentIndex(1)
             self.current_tab.setText('ADVANCED')
     
@@ -142,78 +162,24 @@ class SelectorUI(QMainWindow, main_ui):
         else: isFreestyle = False
 
         return fil_bt, fil_st, fil_sr, fil_min, fil_max, input_delay/1000, isFreestyle
-   
+
     # 무작위 뽑기
     def randomStart(self):
-        kb.block_key('f7')
-        start = time.time()
+        global isF7Pressed, isRunning
+        isRunning = True
+        # start = time.time()
         bt_list, st_list, sr_list, min_int, max_int, input_delay, isFreestyle = self.filterInputData()
-        selected_title, selected_artist, selected_btst, selected_series, bt_input, init_input, down_input, right_input = \
+        selected_title, selected_btst, bt_input, init_input, down_input, right_input = \
             sM.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
-        print(selected_title, selected_artist, selected_btst, selected_series, sep="    ")
-        def setSelectedUi(title, artist, btst, series):
-            self.selectedTitle.setText(title)
-            self.selectedArtist.setText(artist)
-            self.selectedTitle.setStyleSheet('background:transparent; color:#ffffff')
-            self.selectedArtist.setStyleSheet('background:transparent; color:#ffffff')
-            if btst == None:
-                self.selectedBtSt.clear()
-            else:
-                self.selectedBtSt.setPixmap(QPixmap('images/{0}.png'.format(btst)))
-
-            self.ifCollab.setStyleSheet('background-color:transparent')
-            if series == None:
-                self.selectedSeriesBox.setStyleSheet('background-color:#c8c8c8')
-                self.selectedSeriesGrad.setStyleSheet('background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(141, 141, 141, 255), stop:1 rgba(223, 223, 223, 255))')
-            elif series == 'RP':
-                self.selectedSeriesBox.setStyleSheet('background-color:#ffd250')
-                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/RP.png)')
-            elif series == 'P1':
-                self.selectedSeriesBox.setStyleSheet('background-color:#25deff')
-                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/P1.png)')
-            elif series == 'P2':
-                self.selectedSeriesBox.setStyleSheet('background-color:#ff5082')
-                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/P2.png)')
-            elif series == 'TR':
-                self.selectedSeriesBox.setStyleSheet('background-color:#7582ff')
-                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/TR.png)')
-            elif series == 'CE':
-                self.selectedSeriesBox.setStyleSheet('background-color:#ffffff')
-                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/CE.png)')
-                self.selectedTitle.setStyleSheet('background:transparent; color:#000000')
-                self.selectedArtist.setStyleSheet('background:transparent; color:#000000')
-            elif series == 'BS':
-                self.selectedSeriesBox.setStyleSheet('background-color:#e90000')
-                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/BS.png)')
-            elif series == 'VE':
-                self.selectedSeriesBox.setStyleSheet('background-color:#ff7f42')
-                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/VE.png)')
-            elif series == 'ES':
-                self.selectedSeriesBox.setStyleSheet('background-color:#34df26')
-                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/ES.png)')
-            elif series == 'T1':
-                self.selectedSeriesBox.setStyleSheet('background-color:#f01cc8')
-                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/T1.png)')
-            elif series == 'T2':
-                self.selectedSeriesBox.setStyleSheet('background-color:#c35a00')
-                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/T2.png)')
-            elif series == 'T3':
-                self.selectedSeriesBox.setStyleSheet('background-color:#568bff')
-                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/T3.png)')
-            else:
-                self.selectedSeriesBox.setStyleSheet('background-color:#c0c0c0')
-                self.selectedSeriesGrad.setStyleSheet('background-image:url(images/COL.png)')
-                if series == 'GG': self.ifCollab.setStyleSheet('background-color:#d73e0e')
-                elif series == 'GC': self.ifCollab.setStyleSheet('background-color:#51eefe')
-                elif series == 'DM': self.ifCollab.setStyleSheet('background-color:#98e3d6')
-                elif series == 'CY': self.ifCollab.setStyleSheet('background-color:#ec1538')
-                elif series == 'GF': self.ifCollab.setStyleSheet('background-color:#fdb426')
-                elif series == 'CHU': self.ifCollab.setStyleSheet('background-color:#ffd700')
-        setSelectedUi(selected_title, selected_artist, selected_btst,selected_series)
+        print(selected_title, selected_btst)
+        # print(time.time() - start)
         if selected_title != 'None':
+            print('macro activate')
             sM.inputKeyboard(selected_title, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
-        print(time.time() - start)
-        kb.unblock_key('f7')
+        isRunning = False
+        print('finish')
+        
+        
 
 
 

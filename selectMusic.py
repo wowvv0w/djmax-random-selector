@@ -38,9 +38,9 @@ def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyl
         
     
     try:
-        selected_title, selected_btst, tmp = random.choice(candidate_list)
+        selected_title, selected_btst, _ = random.choice(candidate_list)
     except IndexError:
-        return 'None', '???', None, None, None, None, None, None
+        return 'None', None, None, None, None
     
     
     if isnt_alphabet(selected_title[0]):
@@ -55,10 +55,8 @@ def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyl
         sinit_list = list(filter(lambda x: x[0].lower() == init_input, find_sinit))
     down_input = sinit_list.index(selected_title)
 
-    find_smusic = filtered[filtered['Title'] == selected_title]
-    selected_artist = find_smusic.iloc[0, 1] 
-    selected_series = find_smusic.iloc[0, 3]
     if isFreestyle:
+        find_smusic = filtered[filtered['Title'] == selected_title]
         find_btst = ['{0}{1}'.format(selected_btst[:2], _styles[i]) for i in range(_styles.index(selected_btst[2:]) + 1)]
         find_smusic = find_smusic[[*find_btst]].values.reshape(len(find_btst)).tolist()
         sub_count = find_smusic.count(0)
@@ -68,7 +66,7 @@ def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyl
     else:
         bt_input, right_input = None, None
 
-    return selected_title, selected_artist, selected_btst, selected_series, bt_input, init_input, down_input, right_input
+    return selected_title, selected_btst, bt_input, init_input, down_input, right_input
 
 # 키보드 자동 입력
 def inputKeyboard(music, bt, init, down, right, input_delay, isFreestyle):
