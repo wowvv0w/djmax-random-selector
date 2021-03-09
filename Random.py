@@ -7,12 +7,11 @@ import keyboard as kb
 import selectMusic as sM
 import configparser
 import time
-from threading import Thread, Lock
+from threading import Thread
 
 main_ui = uic.loadUiType("selector_ui.ui")[0]
 
-isF7Pressed = False
-isRunning = False
+# isF7Pressed = False
 
 # UI
 class SelectorUI(QMainWindow, main_ui):
@@ -24,26 +23,17 @@ class SelectorUI(QMainWindow, main_ui):
         self.initUI()
         self.initConfig()
         self.yourdata = sM.readYourData()
+        self.isRunning = False
 
-        kb.hook_key('f7', lambda e: self.makeThs(str(e)), suppress=True)
-
-    def makeThs(self, e):
-        th1 = Thread(target=self.check, args=(e,))
-        th1.start()
+        kb.on_press_key('f7', lambda e: self.check(str(e)), suppress=True)
 
     def check(self, e):
-        global isF7Pressed, isRunning
-        if 'down' in e and not isF7Pressed and not isRunning:
-            isF7Pressed = True
+        if not self.isRunning:
             print('\n\n\n\n\n\nstart')
-            th2 = Thread(target=self.randomStart)
-            th2.start()
-        elif 'down' in e and (isF7Pressed or isRunning):
+            thd_rS = Thread(target=self.randomStart)
+            thd_rS.start()
+        else:
             print('denied')
-        
-        if 'up' in e:
-            isF7Pressed = False
-            print('released')
 
     # 시그널, 스타일
     def initUI(self):
@@ -165,8 +155,7 @@ class SelectorUI(QMainWindow, main_ui):
 
     # 무작위 뽑기
     def randomStart(self):
-        global isF7Pressed, isRunning
-        isRunning = True
+        self.isRunning = True
         # start = time.time()
         bt_list, st_list, sr_list, min_int, max_int, input_delay, isFreestyle = self.filterInputData()
         selected_title, selected_btst, bt_input, init_input, down_input, right_input = \
@@ -176,7 +165,7 @@ class SelectorUI(QMainWindow, main_ui):
         if selected_title != 'None':
             print('macro activate')
             sM.inputKeyboard(selected_title, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
-        isRunning = False
+        self.isRunning = False
         print('finish')
         
         
