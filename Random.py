@@ -11,8 +11,6 @@ from threading import Thread
 
 main_ui = uic.loadUiType("selector_ui.ui")[0]
 
-# isF7Pressed = False
-
 # UI
 class SelectorUI(QMainWindow, main_ui):
 
@@ -52,8 +50,8 @@ class SelectorUI(QMainWindow, main_ui):
         self.lvl_max.valueChanged.connect(lambda: self.label_lvl_max.setText(str(self.lvl_max.value())))
         self.label_lvl_min.setText(str(self.lvl_min.value()))
         self.label_lvl_max.setText(str(self.lvl_max.value()))
-        # label_ms = QLabel('{0}ms'.format(self.slider_delay.value()))
-        # self.slider_delay.valueChanged.connect(lambda: label_ms.setText('{0}ms'.format(self.slider_delay.value())))
+        self.label_ms.setText('{0}ms'.format(self.slider_delay.value()))
+        self.slider_delay.valueChanged.connect(lambda: self.label_ms.setText('{0}ms'.format(self.slider_delay.value())))
         self.cb_online.toggled.connect(self.onlineSignal)
 
         self.data_button.clicked.connect(lambda: DataUI(self))
@@ -145,8 +143,7 @@ class SelectorUI(QMainWindow, main_ui):
         fil_min = self.lvl_min.value()
         fil_max = self.lvl_max.value()
         # 입력 지연값
-        # input_delay = self.slider_delay.value()
-        input_delay = 10
+        input_delay = self.slider_delay.value()
         # 모드 선택값
         if self.cb_freestyle.isChecked(): isFreestyle = True
         else: isFreestyle = False
