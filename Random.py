@@ -114,21 +114,21 @@ class SelectorUI(QMainWindow, main_ui):
         if self.cb_collab.isChecked():
             for i in checkboxes:
                 i.setChecked(True)
-            self.collab_frame.setStyleSheet('background:#1e1e1e')
+            self.collab_frame.setStyleSheet('QFrame{\n	background-color: #1e1e1e;\n}')
         else:
             for i in checkboxes:
                 i.setChecked(False)
-            self.collab_frame.setStyleSheet('background:#181819')
+            self.collab_frame.setStyleSheet('QFrame{\n	background-color: rgba(0, 0, 0, 87);\n}')
     
     def collabChildSignal(self, child):
         if child.isChecked():
             self.cb_collab.setChecked(True)
-            self.collab_frame.setStyleSheet('background:#1e1e1e')
+            self.collab_frame.setStyleSheet('QFrame{\n	background-color: #1e1e1e;\n}')
         else:
             if not self.cb_gg.isChecked() and not self.cb_gc.isChecked() and not self.cb_dm.isChecked() \
                 and not self.cb_cy.isChecked() and not self.cb_gf.isChecked() and not self.cb_chu.isChecked():
                 self.cb_collab.setChecked(False)
-                self.collab_frame.setStyleSheet('background:#181819')
+                self.collab_frame.setStyleSheet('QFrame{\n	background-color: rgba(0, 0, 0, 87);\n}')
 
 
     # 필터 인풋 데이터

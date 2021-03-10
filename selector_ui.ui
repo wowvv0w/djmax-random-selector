@@ -31,37 +31,18 @@
    <string>DJMAX Random Selector v0.3.0</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget{
-	background-color:qlineargradient(spread:repeat, x1:0.99, y1:0.007, x2:1, y2:0, stop:0 rgba(45, 46, 47, 255), stop:0.4 rgba(45, 46, 47, 255), stop:0.475 rgba(42, 43, 44, 255), stop:0.525 rgba(42, 43, 44, 255), stop:0.6 rgba(45, 46, 47, 255), stop:1 rgba(45, 46, 47, 255));
-}
-QTabWidget::pane{
-	background: transparent;
-	border: none;
-}
-QTabBar::tab {
-    width: 0;
-	height: 0;
-	margin: 0;
-	padding: 0;
-	border: none;
-}
-QFrame{
-	background-color:#181819;
+   <string notr="true">background-color:qlineargradient(spread:repeat, x1:0.99, y1:0.007, x2:1, y2:0, stop:0 rgba(45, 46, 47, 255), stop:0.4 rgba(45, 46, 47, 255), stop:0.475 rgba(42, 43, 44, 255), stop:0.525 rgba(42, 43, 44, 255), stop:0.6 rgba(45, 46, 47, 255), stop:1 rgba(45, 46, 47, 255));</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">QFrame{
+	background-color:rgba(0, 0, 0, 158);
 	border:none;
 }
 QLabel{
 	background:transparent;
 	color:#7f7f7f;
-}
-QGroupBox{
-	background-color:#242526;
-	color:#7f7f7f;
-	border:none;
 }</string>
-  </property>
-  <widget class="QWidget" name="centralwidget">
-   <property name="styleSheet">
-    <string notr="true"/>
    </property>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
@@ -80,7 +61,20 @@ QGroupBox{
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background: transparent;</string>
+     <string notr="true">QTabWidget::pane{
+	background: transparent;
+	border: none;
+}
+QTabBar::tab {
+    width: 0;
+	height: 0;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+QWidget{
+	background:transparent;
+}</string>
     </property>
     <property name="tabPosition">
      <enum>QTabWidget::North</enum>
@@ -119,8 +113,11 @@ QGroupBox{
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:#242526;
-border:none;</string>
+       <string notr="true">QGroupBox{
+	background-color:rgba(0, 0, 0, 51);
+	color:#7f7f7f;
+	border:none;
+}</string>
       </property>
       <property name="title">
        <string>CATEGORIES</string>
@@ -150,7 +147,7 @@ border:none;</string>
        <property name="styleSheet">
         <string notr="true">QPushButton {
 	color: #594713;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 	border: none;
 }
 
@@ -185,7 +182,7 @@ QPushButton:checked {
        <property name="styleSheet">
         <string notr="true">QPushButton {
 	color: #0e6677;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 	border: none;
 }
 
@@ -220,7 +217,7 @@ QPushButton:checked {
        <property name="styleSheet">
         <string notr="true">QPushButton {
 	color: #761a3f;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 	border: none;
 }
 
@@ -255,7 +252,7 @@ QPushButton:checked {
        <property name="styleSheet">
         <string notr="true">QPushButton {
 	color: #3a4175;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 	border: none;
 }
 
@@ -290,7 +287,7 @@ QPushButton:checked {
        <property name="styleSheet">
         <string notr="true">QPushButton {
 	color: #747475;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 	border: none;
 }
 
@@ -325,7 +322,7 @@ QPushButton:checked {
        <property name="styleSheet">
         <string notr="true">QPushButton {
 	color: #5b1010;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 	border: none;
 }
 
@@ -360,7 +357,7 @@ QPushButton:checked {
        <property name="styleSheet">
         <string notr="true">QPushButton {
 	color: #5e321a;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 	border: none;
 }
 
@@ -395,7 +392,7 @@ QPushButton:checked {
        <property name="styleSheet">
         <string notr="true">QPushButton {
 	color: #20541d;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 	border: none;
 }
 
@@ -430,7 +427,7 @@ QPushButton:checked {
        <property name="styleSheet">
         <string notr="true">QPushButton {
 	color: #5e275b;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 	border: none;
 }
 
@@ -465,7 +462,7 @@ QPushButton:checked {
        <property name="styleSheet">
         <string notr="true">QPushButton {
 	color: #5e2b13;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 	border: none;
 }
 
@@ -500,7 +497,7 @@ QPushButton:checked {
        <property name="styleSheet">
         <string notr="true">QPushButton {
 	color: #1d365e;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 	border: none;
 }
 
@@ -535,9 +532,8 @@ QPushButton:checked {
        </property>
        <property name="styleSheet">
         <string notr="true">QFrame{
-	background: #181819;
-}
-</string>
+	background-color: rgba(0, 0, 0, 87);
+}</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
@@ -571,7 +567,7 @@ QPushButton:checked {
 QPushButton:checked {
 	border-color: #d83e0e;
  	color: #d83e0e;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 }</string>
         </property>
         <property name="text">
@@ -610,7 +606,7 @@ QPushButton:checked {
 QPushButton:checked {
 	border-color: #51eefe;
  	color: #51eefe;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 }</string>
         </property>
         <property name="text">
@@ -646,7 +642,7 @@ QPushButton:checked {
 QPushButton:checked {
 	border-color: #ffd700;
  	color: #ffd700;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 }</string>
         </property>
         <property name="text">
@@ -682,7 +678,7 @@ QPushButton:checked {
 QPushButton:checked {
 	border-color: #99e5d8;
  	color: #99e5d8;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 }</string>
         </property>
         <property name="text">
@@ -718,7 +714,7 @@ QPushButton:checked {
 QPushButton:checked {
 	border-color: #ee1538;
  	color: #ee1538;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 }</string>
         </property>
         <property name="text">
@@ -754,7 +750,7 @@ QPushButton:checked {
 QPushButton:checked {
 	border-color: #fdb426;
  	color: #fdb426;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 }</string>
         </property>
         <property name="text">
@@ -790,7 +786,7 @@ QPushButton:checked {
        <property name="styleSheet">
         <string notr="true">QPushButton {
 	color: #5e5e5e;
-    background-color: #181819;
+    background-color: rgba(0, 0, 0, 87);
 	border: none;
 }
 
@@ -868,8 +864,14 @@ QPushButton:checked {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:#242526;
-border:none;</string>
+       <string notr="true">QGroupBox{
+	background-color:rgba(0, 0, 0, 51);
+	color:#7f7f7f;
+	border:none;
+}
+QPushButton{
+	background: transparent;
+}</string>
       </property>
       <property name="title">
        <string>BUTTON TUNES</string>
@@ -1010,9 +1012,6 @@ border:none;</string>
             <bold>false</bold>
            </font>
           </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
           <property name="text">
            <string/>
           </property>
@@ -1074,8 +1073,14 @@ border:none;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:#242526;
-border:none;</string>
+       <string notr="true">QGroupBox{
+	background-color:rgba(0, 0, 0, 51);
+	color:#7f7f7f;
+	border:none;
+}
+QSlider{
+	background: transparent;
+}</string>
       </property>
       <property name="title">
        <string>DIFFICULTY</string>
@@ -1268,12 +1273,12 @@ border:none;</string>
         <string notr="true">QPushButton {
     border: 3px solid #ffcc25;
 	color: #ffcc25;
-    background-color: #00000000;
+    background: transparent;
 }
 
 QPushButton:checked {
 	border-color: #ffcc25;
- 	color: #242424;
+ 	color: #242526;
     background-color: #ffcc25;
 }</string>
        </property>
@@ -1305,12 +1310,12 @@ QPushButton:checked {
         <string notr="true">QPushButton {
     border: 3px solid #fe7724;
 	color: #fe7724;
-    background-color: #00000000;
+    background: transparent;
 }
 
 QPushButton:checked {
 	border-color: #fe7724;
- 	color: #242424;
+ 	color: #242526;
     background-color: #fe7724;
 }</string>
        </property>
@@ -1342,12 +1347,12 @@ QPushButton:checked {
         <string notr="true">QPushButton {
     border: 3px solid #f91c55;
 	color: #f91c55;
-    background-color: #00000000;
+    background: transparent;
 }
 
 QPushButton:checked {
 	border-color: #f91c55;
- 	color: #242424;
+ 	color: #242526;
     background-color: #f91c55;
 }</string>
        </property>
@@ -1379,12 +1384,12 @@ QPushButton:checked {
         <string notr="true">QPushButton {
     border: 3px solid #ff11e6;
 	color: #ff11e6;
-    background-color: #00000000;
+    background: transparent;
 }
 
 QPushButton:checked {
 	border-color: #ff11e6;
- 	color: #242424;
+ 	color: #242526;
     background-color: #ff11e6;
 }</string>
        </property>
@@ -1433,9 +1438,14 @@ QPushButton:checked {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:#242526;
-border:none;
-color:#7f7f7f</string>
+       <string notr="true">QGroupBox{
+	background-color:rgba(0, 0, 0, 51);
+	color:#7f7f7f;
+	border:none;
+}
+QRadioButton{
+	color:#7f7f7f;
+}</string>
       </property>
       <property name="title">
        <string>MODE</string>
@@ -1707,9 +1717,7 @@ QPushButton:checked {
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QFrame{
-	background-color: #181819;
-}</string>
+     <string notr="true"/>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
