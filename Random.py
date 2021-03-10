@@ -6,7 +6,6 @@ from PyQt5.QtGui import QIcon, QPixmap
 import keyboard as kb
 import selectMusic as sM
 import configparser
-import time
 from threading import Thread
 
 main_ui = uic.loadUiType("selector_ui.ui")[0]
@@ -153,12 +152,10 @@ class SelectorUI(QMainWindow, main_ui):
     # 무작위 뽑기
     def randomStart(self):
         self.isRunning = True
-        # start = time.time()
         bt_list, st_list, sr_list, min_int, max_int, input_delay, isFreestyle = self.filterInputData()
         selected_title, selected_btst, bt_input, init_input, down_input, right_input = \
             sM.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
         print(selected_title, selected_btst)
-        # print(time.time() - start)
         if selected_title != 'None':
             print('macro activate')
             sM.inputKeyboard(selected_title, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)

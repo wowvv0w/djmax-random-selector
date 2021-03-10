@@ -823,7 +823,7 @@ QPushButton:checked {
         <string notr="true">QPushButton {
     border: 3px solid #818282;
 	color: #818282;
-    background-color: #1f2021;
+    background-color: rgba(0, 0, 0, 87);
 	border-radius: 6px
 }</string>
        </property>
@@ -871,6 +871,7 @@ QPushButton:checked {
 }
 QPushButton{
 	background: transparent;
+	border: none;
 }</string>
       </property>
       <property name="title">
@@ -1041,7 +1042,7 @@ QPushButton{
          <x>-370</x>
          <y>0</y>
          <width>370</width>
-         <height>101</height>
+         <height>110</height>
         </rect>
        </property>
        <property name="styleSheet">

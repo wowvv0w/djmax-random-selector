@@ -40,7 +40,7 @@ def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyl
     try:
         selected_title, selected_btst, _ = random.choice(candidate_list)
     except IndexError:
-        return 'None', None, None, None, None
+        return 'None', None, None, None, None, None
     
     
     if isnt_alphabet(selected_title[0]):
@@ -134,5 +134,7 @@ if __name__ == '__main__':
     ex_series = {'RP', 'P1', 'P2', 'TR', 'CE', 'BS', 'VE', 'ES', 'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY', 'GF', 'CHU'}
     ex_diff_min = 1
     ex_diff_max = 15
-    ex_title, ex_artist, ex_bt, ex_init, ex_down, ex_right = selectingMusic(ex_data, ex_buttons, ex_styles, ex_series, ex_diff_min, ex_diff_max, True)
-    print(ex_title, "/", ex_artist)
+    start = time.time()
+    ex_title, ex_btst, ex_bt, ex_init, ex_down, ex_right = selectingMusic(ex_data, ex_buttons, ex_styles, ex_series, ex_diff_min, ex_diff_max, True)
+    print(ex_title, ex_btst)
+    print(time.time() - start)
