@@ -128,13 +128,13 @@ def specialMusicFilter(df, series):
     return df
 
 if __name__ == '__main__':
+    import cProfile
     ex_data = readYourData()
     ex_buttons = ['4B', '5B', '6B', '8B']
     ex_styles = ['NM', 'HD', 'MX', 'SC']
     ex_series = {'RP', 'P1', 'P2', 'TR', 'CE', 'BS', 'VE', 'ES', 'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY', 'GF', 'CHU'}
     ex_diff_min = 1
     ex_diff_max = 15
-    start = time.time()
-    ex_title, ex_btst, ex_bt, ex_init, ex_down, ex_right = selectingMusic(ex_data, ex_buttons, ex_styles, ex_series, ex_diff_min, ex_diff_max, True)
-    print(ex_title, ex_btst)
-    print(time.time() - start)
+    # ex_title, ex_btst, ex_bt, ex_init, ex_down, ex_right = selectingMusic(ex_data, ex_buttons, ex_styles, ex_series, ex_diff_min, ex_diff_max, True)
+    # print(ex_title, ex_btst)
+    cProfile.run('selectingMusic(ex_data, ex_buttons, ex_styles, ex_series, ex_diff_min, ex_diff_max, True)')

@@ -1,9 +1,11 @@
+from os import sep
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5.QtGui import QIcon
 import keyboard as kb
+from numpy import mod
 import selectMusic as sM
 import configparser
 from threading import Thread
@@ -21,9 +23,10 @@ class SelectorUI(QMainWindow, main_ui):
         self.initConfig()
         self.yourdata = sM.readYourData()
         self.isRunning = False
-
+                
         kb.on_press_key('f7', lambda e: self.check(str(e)), suppress=True)
 
+    # 랜덤 선곡 시작 여부 조사
     def check(self, e):
         if not self.isRunning:
             print('\n\n\n\n\n\nstart')
@@ -34,29 +37,37 @@ class SelectorUI(QMainWindow, main_ui):
 
     # 시그널, 스타일
     def initUI(self):
+        # 윈도우 창
         self.setWindowIcon(QIcon('icon.ico'))
         self.setWindowFlags(Qt.FramelessWindowHint)
-        self.minimizeButton.clicked.connect(lambda: self.showMinimized())
-        self.closeButton.clicked.connect(lambda: self.close())
+        # 상단바
+        self.minimizeButton.clicked.connect(self.showMinimized)
+        self.closeButton.clicked.connect(self.close)
         def moveWindow(event):
             if event.buttons() == Qt.LeftButton:
                 self.move(self.pos() + event.globalPos() - self.dragPos)
                 self.dragPos = event.globalPos()
                 event.accept()
         self.title_bar.mouseMoveEvent = moveWindow
-
-        self.lvl_min.valueChanged.connect(lambda: self.label_lvl_min.setText(str(self.lvl_min.value())))
-        self.lvl_max.valueChanged.connect(lambda: self.label_lvl_max.setText(str(self.lvl_max.value())))
+        # 레벨
+        self.lvl_min.valueChanged.connect(lambda: self.lvlChanged(self.lvl_min, self.label_lvl_min))
+        self.lvl_max.valueChanged.connect(lambda: self.lvlChanged(self.lvl_max, self.label_lvl_max))
         self.label_lvl_min.setText(str(self.lvl_min.value()))
         self.label_lvl_max.setText(str(self.lvl_max.value()))
+        # 입력 지연
         self.label_ms.setText('{0}ms'.format(self.slider_delay.value()))
         self.slider_delay.valueChanged.connect(lambda: self.label_ms.setText('{0}ms'.format(self.slider_delay.value())))
+        self.input_lb.clicked.connect(lambda: self.slider_delay.setValue(self.slider_delay.value() - 10))
+        self.input_rb.clicked.connect(lambda: self.slider_delay.setValue(self.slider_delay.value() + 10))
+        # 온라인
         self.cb_online.toggled.connect(self.onlineSignal)
-
+        # 데이터 수정
         self.data_button.clicked.connect(lambda: DataUI(self))
+        # 탭
         self.filter_tab_bt.setAutoExclusive(True)
         self.advanced_tab_bt.setAutoExclusive(True)
         self.filter_tab_bt.toggled.connect(self.changeTab)
+        # 콜라보
         self.cb_collab.clicked.connect(self.collabSignal)
         self.cb_gg.toggled.connect(lambda: self.collabChildSignal(self.cb_gg))
         self.cb_gc.toggled.connect(lambda: self.collabChildSignal(self.cb_gc))
@@ -65,9 +76,10 @@ class SelectorUI(QMainWindow, main_ui):
         self.cb_gf.toggled.connect(lambda: self.collabChildSignal(self.cb_gf))
         self.cb_chu.toggled.connect(lambda: self.collabChildSignal(self.cb_chu))
 
+    # 설정값 가져오기
     def initConfig(self):
         config = configparser.ConfigParser()
-        config.read('config.ini', encoding='UTF-8')
+        config.read('config.ini')
 
         self.values = ['4B', '5B', '6B', '8B', 'NM', 'HD', 'MX', 'SC',
                 'RP', 'P1', 'P2', 'TR', 'CE', 'BS', 'VE', 'ES',
@@ -83,15 +95,76 @@ class SelectorUI(QMainWindow, main_ui):
             j = next(_iter)
             if config['FILTER'][i] == '1':
                 j.setChecked(True)
-        if config['FILTER']['Freestyle'] == '1':
+        self.lvl_min.setValue(int(config['FILTER']['min']))
+        self.lvl_max.setValue(int(config['FILTER']['max']))
+        if config['FILTER']['freestyle'] == '1':
             self.cb_freestyle.setChecked(True)
         else:
             self.cb_online.setChecked(True)
+        self.slider_delay.setValue(int(config['ADVANCED']['input_delay']))
         
-
+    # 상단바: 마우스 클릭시 위치 저장
     def mousePressEvent(self, event):
         self.dragPos = event.globalPos()
     
+    def lvlChanged(self, lvl, label):
+        label.setText(str(lvl.value()))
+        if lvl.value() <= 5:
+            label.setStyleSheet('color:#f4bb00')
+            lvl.setStyleSheet('''QSlider::groove:horizontal {
+                                height: 8px;
+                                background: transparent;
+                                }
+                                QSlider::handle:horizontal {
+                                    background: #f4bb00;
+                                    width: 16px;
+                                    margin: -4px 0;
+                                    border-radius: 8px;
+                                }
+                                QSlider::add-page:horizontal {
+                                    background: #000000;
+                                }
+                                QSlider::sub-page:horizontal {
+                                    background: rgba(0, 0, 0, 64);
+                                }''')
+        elif lvl.value() >= 11:
+            label.setStyleSheet('color:#f40052')
+            lvl.setStyleSheet('''QSlider::groove:horizontal {
+                                height: 8px;
+                                background: transparent;
+                                }
+                                QSlider::handle:horizontal {
+                                    background: #f40052;
+                                    width: 16px;
+                                    margin: -4px 0;
+                                    border-radius: 8px;
+                                }
+                                QSlider::add-page:horizontal {
+                                    background: #000000;
+                                }
+                                QSlider::sub-page:horizontal {
+                                    background: rgba(0, 0, 0, 64);
+                                }''')
+        else:
+            label.setStyleSheet('color:#f45c00')
+            lvl.setStyleSheet('''QSlider::groove:horizontal {
+                                height: 8px;
+                                background: transparent;
+                                }
+                                QSlider::handle:horizontal {
+                                    background: #f45c00;
+                                    width: 16px;
+                                    margin: -4px 0;
+                                    border-radius: 8px;
+                                }
+                                QSlider::add-page:horizontal {
+                                    background: #000000;
+                                }
+                                QSlider::sub-page:horizontal {
+                                    background: rgba(0, 0, 0, 64);
+                                }''')
+            
+    # 온라인 시그널
     def onlineSignal(self):
         if self.cb_online.isChecked():
             self.lock_bt.move(0,0)
@@ -100,6 +173,7 @@ class SelectorUI(QMainWindow, main_ui):
             self.lock_bt.move(-370,0)
             self.lock_diff.move(-370,0)
 
+    # 탭 시그널
     def changeTab(self):
         if self.filter_tab_bt.isChecked():
             self.tabWidget.setCurrentIndex(0)
@@ -108,6 +182,7 @@ class SelectorUI(QMainWindow, main_ui):
             self.tabWidget.setCurrentIndex(1)
             self.current_tab.setText('ADVANCED')
     
+    # 콜라보 시그널
     def collabSignal(self):
         checkboxes = [self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy, self.cb_gf, self.cb_chu]
         if self.cb_collab.isChecked():
@@ -119,6 +194,7 @@ class SelectorUI(QMainWindow, main_ui):
                 i.setChecked(False)
             self.collab_frame.setStyleSheet('QFrame{\n	background-color: rgba(0, 0, 0, 87);\n}')
     
+    # 콜라보 하위 시그널
     def collabChildSignal(self, child):
         if child.isChecked():
             self.cb_collab.setChecked(True)
@@ -161,11 +237,31 @@ class SelectorUI(QMainWindow, main_ui):
             sM.inputKeyboard(selected_title, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
         self.isRunning = False
         print('finish')
-        
-        
 
+    # 종료 시 설정값 수정
+    def closeEvent(self, event):
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        _iter = iter(self.values)
+        for i in self.checkboxes:
+            j = next(_iter)
+            if i.isChecked():
+                config['FILTER'][j] = '1'
+            else:
+                config['FILTER'][j] = '0'
+        config['FILTER']['min'] = str(self.lvl_min.value())
+        config['FILTER']['max'] = str(self.lvl_max.value())
+        if self.cb_freestyle.isChecked():
+            config['FILTER']['freestyle'] = '1'
+        else:
+            config['FILTER']['freestyle'] = '0'
+        config['ADVANCED']['input_delay'] = str(self.slider_delay.value())
+        with open('config.ini', 'w') as configfile:
+            config.write(configfile)
 
+            
 
+# 데이터 수정 Dialog
 class DataUI(QDialog):
     def __init__(self, parent):
         super(DataUI, self).__init__(parent)
@@ -173,25 +269,42 @@ class DataUI(QDialog):
         uic.loadUi(data_ui, self)
         self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
         self.setWindowModality(Qt.ApplicationModal)
-        self.modifyButton.clicked.connect(self.modifyDataInputData)
-        self.cancelButton.clicked.connect(lambda: self.close())
+        self.modifyButton.clicked.connect(lambda: self.modifyDataInputData(parent))
+        self.cancelButton.clicked.connect(lambda: self.cancelModify(parent))
+        parent.lock_all.move(0, 0)
+
+        modify_data_check = set(parent.yourdata['Series'].values)
+        self.yd_values = ['TR', 'CE', 'BS', 'VE', 'ES',
+                    'T1', 'T2', 'T3', 'GC', 'DM',
+                    'CY', 'GF', 'CHU']
+        self.yd_checkboxes = [self.yd_cb_tr, self.yd_cb_ce, self.yd_cb_bs, self.yd_cb_ve, self.yd_cb_es,
+                    self.yd_cb_t1, self.yd_cb_t2, self.yd_cb_t3, self.yd_cb_gc, self.yd_cb_dm,
+                    self.yd_cb_cy, self.yd_cb_gf, self.yd_cb_chu]
+        _iter = iter(self.yd_checkboxes)
+        for i in self.yd_values:
+            j = next(_iter)
+            if i in modify_data_check:
+                j.setChecked(True)
+
         self.show()
     
     # 데이터 생성 인풋 데이터 & YourData.csv 생성
-    def modifyDataInputData(self):
-        values = ['TR', 'CE', 'BS', 'VE', 'ES',
-                    'T1', 'T2', 'T3', 'GC', 'DM',
-                    'CY', 'GF', 'CHU']
-        checkboxes = [self.yd_cb_tr, self.yd_cb_ce, self.yd_cb_bs, self.yd_cb_ve, self.yd_cb_es,
-                    self.yd_cb_t1, self.yd_cb_t2, self.yd_cb_t3, self.yd_cb_gc, self.yd_cb_dm,
-                    self.yd_cb_cy, self.yd_cb_gf, self.yd_cb_chu]
-        fil_yd_sr = set(values[i] for i in range(13) if checkboxes[i].isChecked())
+    def modifyDataInputData(self, parent):
+        fil_yd_sr = set(self.yd_values[i] for i in range(13) if self.yd_checkboxes[i].isChecked())
         fil_yd_sr.add('RP')
         fil_yd_sr.add('P1')
         fil_yd_sr.add('P2')
         fil_yd_sr.add('GG')
         sM.modifyYourData(fil_yd_sr)
+        parent.yourdata = sM.readYourData()
+        parent.lock_all.move(0, -540)
         self.close()
+    
+    def cancelModify(self, parent):
+        parent.lock_all.move(0, -540)
+        self.close()
+        
+        
         
 
 
