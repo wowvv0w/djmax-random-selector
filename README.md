@@ -25,9 +25,10 @@ If there are any other issues, please tell me.
 ### v0.3.0
 * Redesigned UI
 * Added 'Filter Configuration Save' function. now Selector saves your last setting when you close app.
+* Added 'History Window', which shows what music was selected.
 * Changed 'Data' Tab to 'MODIFY DATA' Dialog, which indicates what DLCs you have.
 * Fixed hotkey(F7). now Selector will start when you press 'F7', not release.
-* Optimized codes. searching 20 times faster.
+* Optimized codes.
 ### v0.2.1
 * Fixed 'voldenuit' to 'v o l d e n u i t' in AllTrackData.csv
 ### v0.2.0
