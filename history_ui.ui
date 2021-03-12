@@ -136,8 +136,8 @@ QPushButton:checked{
      <rect>
       <x>30</x>
       <y>20</y>
-      <width>391</width>
-      <height>161</height>
+      <width>390</width>
+      <height>160</height>
      </rect>
     </property>
     <property name="font">
@@ -150,6 +150,9 @@ QPushButton:checked{
 	background: #0a0a0a;
 	border:none;
 }</string>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOn</enum>
     </property>
    </widget>
   </widget>
