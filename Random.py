@@ -1,11 +1,9 @@
-from os import sep
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 import keyboard as kb
-from numpy import mod
 import selectMusic as sM
 import configparser
 from threading import Thread
@@ -19,10 +17,12 @@ class SelectorUI(QMainWindow, main_ui):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.history = HistoryUI(self)
         self.initUI()
         self.initConfig()
         self.yourdata = sM.readYourData()
         self.isRunning = False
+        
                 
         kb.on_press_key('f7', lambda e: self.check(str(e)), suppress=True)
 
@@ -75,6 +75,8 @@ class SelectorUI(QMainWindow, main_ui):
         self.cb_cy.toggled.connect(lambda: self.collabChildSignal(self.cb_cy))
         self.cb_gf.toggled.connect(lambda: self.collabChildSignal(self.cb_gf))
         self.cb_chu.toggled.connect(lambda: self.collabChildSignal(self.cb_chu))
+        # 히스토리
+        self.history_button.toggled.connect(self.historySignal)
 
     # 설정값 가져오기
     def initConfig(self):
@@ -205,6 +207,13 @@ class SelectorUI(QMainWindow, main_ui):
                 self.cb_collab.setChecked(False)
                 self.collab_frame.setStyleSheet('QFrame{\n	background-color: rgba(0, 0, 0, 87);\n}')
 
+    def historySignal(self):
+        if self.history_button.isChecked():
+            self.history.show()
+            self.history_button.setText('ON')
+        else:
+            self.history.close()
+            self.history_button.setText('OFF')
 
     # 필터 인풋 데이터
     def filterInputData(self):
@@ -232,9 +241,11 @@ class SelectorUI(QMainWindow, main_ui):
         selected_title, selected_btst, bt_input, init_input, down_input, right_input = \
             sM.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
         print(selected_title, selected_btst)
-        if selected_title != 'None':
+        if selected_title:
             print('macro activate')
             sM.inputKeyboard(selected_title, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
+        _str = str(selected_title) + ' / ' + str(selected_btst)
+        self.history.history_list.addItem(_str)
         self.isRunning = False
         print('finish')
 
@@ -304,7 +315,35 @@ class DataUI(QDialog):
         parent.lock_all.move(0, -540)
         self.close()
         
+class HistoryUI(QDialog):
+    def __init__(self, parent):
+        super(HistoryUI, self).__init__(parent)
+        history_ui = 'history_ui.ui'
+        uic.loadUi(history_ui, self)
+        self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
+        self.clearButton.clicked.connect(self.history_list.clear)
+        self.closeButton.clicked.connect(lambda: parent.history_button.setChecked(False))
+        self.aotButton.toggled.connect(self.AlwaysOnTop)
+
+        def moveWindow(event):
+            if event.buttons() == Qt.LeftButton:
+                self.move(self.pos() + event.globalPos() - self.dragPos)
+                self.dragPos = event.globalPos()
+                event.accept()
+        self.title_bar.mouseMoveEvent = moveWindow
+    def mousePressEvent(self, event):
+        self.dragPos = event.globalPos()
+    
+    def AlwaysOnTop(self):
+        if self.aotButton.isChecked():
+            self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
+            self.show()
+        else:
+            self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
+            self.show()
         
+
+
         
 
 

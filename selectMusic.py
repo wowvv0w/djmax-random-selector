@@ -13,8 +13,8 @@ _styles = ('NM', 'HD', 'MX', 'SC')
 # YourData 읽기
 def readYourData():
 
-    # data = pd.read_csv("YourData.csv", names = name)
-    data = pd.read_csv("test_data.csv", names = name)
+    data = pd.read_csv("YourData.csv", names = name)
+    # data = pd.read_csv("test_data.csv", names = name)
 
     return data
     
@@ -40,7 +40,7 @@ def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyl
     try:
         selected_title, selected_btst, _ = random.choice(candidate_list)
     except IndexError:
-        return 'None', None, None, None, None, None
+        return None, None, None, None, None, None
     
     
     if isnt_alphabet(selected_title[0]):
@@ -98,8 +98,8 @@ def modifyYourData(series):
 
     filtered = specialMusicFilter(filtered, series)
     
-    # filtered.to_csv("YourData.csv", index=None, header=None)
-    filtered.to_csv("test_data.csv", index=None, header=None)
+    filtered.to_csv("YourData.csv", index=None, header=None)
+    # filtered.to_csv("test_data.csv", index=None, header=None)
 
 def specialMusicFilter(df, series):
 
