@@ -2,16 +2,13 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QFont, QFontDatabase
 import keyboard as kb
 import selectMusic as sM
 import configparser
 from threading import Thread
 
 main_ui = uic.loadUiType("selector_ui.ui")[0]
-
-
-
 
 # UI
 class SelectorUI(QMainWindow, main_ui):
@@ -40,6 +37,13 @@ class SelectorUI(QMainWindow, main_ui):
 
     # 시그널, 스타일
     def initUI(self):
+        # 폰트DB
+        self.fontDB = QFontDatabase()
+        self.fontDB.addApplicationFont('fonts/Lato-Black.ttf')
+        self.fontDB.addApplicationFont('fonts/Lato-Bold.ttf')
+        self.fontDB.addApplicationFont('fonts/Lato-Light.ttf')
+        self.fontDB.addApplicationFont('fonts/Lato-Regular.ttf')
+        self.fontDB.addApplicationFont('fonts/Lato-Thin.ttf')
         # 윈도우 창
         self.setWindowIcon(QIcon('icon.ico'))
         self.setWindowFlags(Qt.FramelessWindowHint)
