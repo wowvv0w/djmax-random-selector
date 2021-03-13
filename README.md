@@ -22,7 +22,10 @@
 If there are any other issues, please tell me.
 
 ## Update
-### v0.3.0
+### V0.3.1
+* Fixed an issue that fonts were not displayed as intended
+* Changed minimize button to system tray button
+### V0.3.0
 * Redesigned UI
 * Added 'Filter Configuration Save' function. now Selector saves your last setting when you close app.
 * Added 'History Window', which shows what music was selected.
@@ -32,12 +35,12 @@ If there are any other issues, please tell me.
 ### v0.2.1
 * Fixed 'voldenuit' to 'v o l d e n u i t' in AllTrackData.csv
 ### v0.2.0
-* Fixed a issue that was not selected correctly when an initial letter of music is the same as that of previously selected music
+* Fixed an issue that was not selected correctly when an initial letter of music is the same as that of previously selected music
 * Added 'Mode' filter
 * Added 'INPUT DELAY' function
 * Added function that display what music was selected
 * Fixed some UIs
 * Added Icon
 * Fixed from Console Based to Window Based
-### v0.1.0
+### v01
 * Released
