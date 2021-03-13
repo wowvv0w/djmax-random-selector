@@ -1,17 +1,14 @@
 import sys
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QSystemTrayIcon
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QFont, QFontDatabase
 import keyboard as kb
 import selectMusic as sM
 import configparser
 from threading import Thread
 
 main_ui = uic.loadUiType("selector_ui.ui")[0]
-
-
-
 
 # UI
 class SelectorUI(QMainWindow, main_ui):
@@ -25,7 +22,7 @@ class SelectorUI(QMainWindow, main_ui):
         self.initConfig()
         self.yourdata = sM.readYourData()
         self.isRunning = False
-        
+        self.isDebug = False
                 
         kb.on_press_key('f7', lambda e: self.check(str(e)), suppress=True)
 
@@ -40,11 +37,25 @@ class SelectorUI(QMainWindow, main_ui):
 
     # 시그널, 스타일
     def initUI(self):
+        # 폰트DB
+        self.fontDB = QFontDatabase()
+        self.fontDB.addApplicationFont('fonts/Lato-Black.ttf')
+        self.fontDB.addApplicationFont('fonts/Lato-Bold.ttf')
+        self.fontDB.addApplicationFont('fonts/Lato-Light.ttf')
+        self.fontDB.addApplicationFont('fonts/Lato-Regular.ttf')
+        self.fontDB.addApplicationFont('fonts/Lato-Thin.ttf')
         # 윈도우 창
         self.setWindowIcon(QIcon('icon.ico'))
         self.setWindowFlags(Qt.FramelessWindowHint)
+        # 시스템 트레이
+        self.tray = QSystemTrayIcon(self)
+        self.tray.setIcon(QIcon('icon.ico'))
+        self.tray.activated.connect(self.show)
+        self.tray.activated.connect(self.tray.hide)
+        self.tray.hide()
         # 상단바
-        self.minimizeButton.clicked.connect(self.showMinimized)
+        self.minimizeButton.clicked.connect(self.hide)
+        self.minimizeButton.clicked.connect(self.tray.show)
         self.closeButton.clicked.connect(self.close)
         def moveWindow(event):
             if event.buttons() == Qt.LeftButton:
@@ -116,58 +127,13 @@ class SelectorUI(QMainWindow, main_ui):
         label.setText(str(lvl.value()))
         if lvl.value() <= 5:
             label.setStyleSheet('color:#f4bb00')
-            lvl.setStyleSheet('''QSlider::groove:horizontal {
-                                height: 8px;
-                                background: transparent;
-                                }
-                                QSlider::handle:horizontal {
-                                    background: #f4bb00;
-                                    width: 16px;
-                                    margin: -4px 0;
-                                    border-radius: 8px;
-                                }
-                                QSlider::add-page:horizontal {
-                                    background: #000000;
-                                }
-                                QSlider::sub-page:horizontal {
-                                    background: rgba(0, 0, 0, 64);
-                                }''')
+            lvl.setStyleSheet('QSlider::handle:horizontal{background: #f4bb00}')
         elif lvl.value() >= 11:
             label.setStyleSheet('color:#f40052')
-            lvl.setStyleSheet('''QSlider::groove:horizontal {
-                                height: 8px;
-                                background: transparent;
-                                }
-                                QSlider::handle:horizontal {
-                                    background: #f40052;
-                                    width: 16px;
-                                    margin: -4px 0;
-                                    border-radius: 8px;
-                                }
-                                QSlider::add-page:horizontal {
-                                    background: #000000;
-                                }
-                                QSlider::sub-page:horizontal {
-                                    background: rgba(0, 0, 0, 64);
-                                }''')
+            lvl.setStyleSheet('QSlider::handle:horizontal{background: #f40052}')
         else:
             label.setStyleSheet('color:#f45c00')
-            lvl.setStyleSheet('''QSlider::groove:horizontal {
-                                height: 8px;
-                                background: transparent;
-                                }
-                                QSlider::handle:horizontal {
-                                    background: #f45c00;
-                                    width: 16px;
-                                    margin: -4px 0;
-                                    border-radius: 8px;
-                                }
-                                QSlider::add-page:horizontal {
-                                    background: #000000;
-                                }
-                                QSlider::sub-page:horizontal {
-                                    background: rgba(0, 0, 0, 64);
-                                }''')
+            lvl.setStyleSheet('QSlider::handle:horizontal{background: #f45c00}')
             
     # 온라인 시그널
     def onlineSignal(self):
@@ -246,7 +212,7 @@ class SelectorUI(QMainWindow, main_ui):
         print(selected_title, selected_btst)
         if selected_title:
             print('macro activate')
-            sM.inputKeyboard(selected_title, bt_input, init_input, down_input, right_input, input_delay, isFreestyle)
+            sM.inputKeyboard(selected_title, bt_input, init_input, down_input, right_input, input_delay, isFreestyle, self.isDebug)
         _str = str(selected_title) + ' / ' + str(selected_btst)
         self.history.history_list.addItem(_str)
         self.isRunning = False

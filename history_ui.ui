@@ -27,7 +27,8 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #1a1a1a;
-color: #ffffff</string>
+color: #ffffff;
+font: 9pt &quot;Lato Black&quot;</string>
   </property>
   <widget class="QFrame" name="title_bar">
    <property name="geometry">
@@ -40,7 +41,11 @@ color: #ffffff</string>
    </property>
    <property name="font">
     <font>
-     <family>Lato Light</family>
+     <family>Lato Black</family>
+     <pointsize>9</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -61,14 +66,9 @@ color: #ffffff</string>
       <height>31</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>Lato</family>
-      <pointsize>14</pointsize>
-     </font>
-    </property>
     <property name="styleSheet">
-     <string notr="true">color: #ffbe00</string>
+     <string notr="true">color: #ffbe00;
+font: 14pt &quot;Lato&quot;;</string>
     </property>
     <property name="text">
      <string>HISTORY</string>
@@ -82,13 +82,6 @@ color: #ffffff</string>
       <width>140</width>
       <height>30</height>
      </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Lato Black</family>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
@@ -140,15 +133,11 @@ QPushButton:checked{
       <height>160</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>Lato</family>
-     </font>
-    </property>
     <property name="styleSheet">
      <string notr="true">QListView{
 	background: #0a0a0a;
 	border:none;
+	font: 9pt &quot;Lato&quot;
 }</string>
     </property>
     <property name="verticalScrollBarPolicy">
@@ -183,13 +172,6 @@ QPushButton:checked{
       <height>30</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>Lato Black</family>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
     <property name="styleSheet">
      <string notr="true">background:#2d2d2d;
 border:none;</string>
@@ -206,13 +188,6 @@ border:none;</string>
       <width>90</width>
       <height>30</height>
      </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Lato Black</family>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">background:#2d2d2d;

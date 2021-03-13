@@ -27,7 +27,8 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #1a1a1a;
-color: #ffffff</string>
+color: #ffffff;
+font: bold 9pt &quot;Lato&quot;;</string>
   </property>
   <widget class="QFrame" name="frame">
    <property name="geometry">
@@ -40,7 +41,11 @@ color: #ffffff</string>
    </property>
    <property name="font">
     <font>
-     <family>Lato Light</family>
+     <family>Lato</family>
+     <pointsize>9</pointsize>
+     <weight>75</weight>
+     <italic>false</italic>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -61,14 +66,9 @@ color: #ffffff</string>
       <height>31</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>Lato</family>
-      <pointsize>14</pointsize>
-     </font>
-    </property>
     <property name="styleSheet">
-     <string notr="true">color: #ffbe00</string>
+     <string notr="true">color: #ffbe00;
+font: 14pt &quot;Lato&quot;;</string>
     </property>
     <property name="text">
      <string>MODIFY DATA</string>
@@ -85,7 +85,8 @@ color: #ffffff</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background:#242424</string>
+    <string notr="true">background:#242424;
+font: 9pt &quot;Lato Black&quot;</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
@@ -101,13 +102,6 @@ color: #ffffff</string>
       <width>90</width>
       <height>30</height>
      </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Lato Black</family>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">background:#2d2d2d;
@@ -125,13 +119,6 @@ border:none;</string>
       <width>90</width>
       <height>30</height>
      </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Lato Black</family>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">background:#2d2d2d;
@@ -154,7 +141,7 @@ border:none;</string>
    <property name="styleSheet">
     <string notr="true">QFrame{
 	background:transparent;
-	border: 3px solid #000000
+	border: 3px solid #000000;
 }</string>
    </property>
    <property name="frameShape">
@@ -168,20 +155,13 @@ border:none;</string>
      <rect>
       <x>10</x>
       <y>40</y>
-      <width>431</width>
+      <width>434</width>
       <height>151</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="1" column="0">
       <widget class="QCheckBox" name="yd_cb_ve">
-       <property name="font">
-        <font>
-         <family>Lato</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
        <property name="styleSheet">
         <string notr="true">QCheckBox{
 	color: #7f7f7f;
@@ -198,13 +178,6 @@ QCheckBox:Checked{
      </item>
      <item row="0" column="1">
       <widget class="QCheckBox" name="yd_cb_ce">
-       <property name="font">
-        <font>
-         <family>Lato</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
        <property name="styleSheet">
         <string notr="true">QCheckBox{
 	color: #7f7f7f;
@@ -221,13 +194,6 @@ QCheckBox:Checked{
      </item>
      <item row="3" column="2">
       <widget class="QCheckBox" name="yd_cb_gf">
-       <property name="font">
-        <font>
-         <family>Lato</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
        <property name="styleSheet">
         <string notr="true">QCheckBox{
 	color: #7f7f7f;
@@ -244,13 +210,6 @@ QCheckBox:Checked{
      </item>
      <item row="0" column="2">
       <widget class="QCheckBox" name="yd_cb_bs">
-       <property name="font">
-        <font>
-         <family>Lato</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
        <property name="styleSheet">
         <string notr="true">QCheckBox{
 	color: #7f7f7f;
@@ -270,13 +229,6 @@ QCheckBox:Checked{
      </item>
      <item row="1" column="1">
       <widget class="QCheckBox" name="yd_cb_es">
-       <property name="font">
-        <font>
-         <family>Lato</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
        <property name="styleSheet">
         <string notr="true">QCheckBox{
 	color: #7f7f7f;
@@ -293,13 +245,6 @@ QCheckBox:Checked{
      </item>
      <item row="2" column="1">
       <widget class="QCheckBox" name="yd_cb_t3">
-       <property name="font">
-        <font>
-         <family>Lato</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
        <property name="styleSheet">
         <string notr="true">QCheckBox{
 	color: #7f7f7f;
@@ -316,13 +261,6 @@ QCheckBox:Checked{
      </item>
      <item row="1" column="2">
       <widget class="QCheckBox" name="yd_cb_t1">
-       <property name="font">
-        <font>
-         <family>Lato</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
        <property name="styleSheet">
         <string notr="true">QCheckBox{
 	color: #7f7f7f;
@@ -339,13 +277,6 @@ QCheckBox:Checked{
      </item>
      <item row="2" column="0">
       <widget class="QCheckBox" name="yd_cb_t2">
-       <property name="font">
-        <font>
-         <family>Lato</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
        <property name="styleSheet">
         <string notr="true">QCheckBox{
 	color: #7f7f7f;
@@ -362,13 +293,6 @@ QCheckBox:Checked{
      </item>
      <item row="3" column="1">
       <widget class="QCheckBox" name="yd_cb_cy">
-       <property name="font">
-        <font>
-         <family>Lato</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
        <property name="styleSheet">
         <string notr="true">QCheckBox{
 	color: #7f7f7f;
@@ -385,13 +309,6 @@ QCheckBox:Checked{
      </item>
      <item row="0" column="0">
       <widget class="QCheckBox" name="yd_cb_tr">
-       <property name="font">
-        <font>
-         <family>Lato</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
        <property name="styleSheet">
         <string notr="true">QCheckBox{
 	color: #7f7f7f;
@@ -408,13 +325,6 @@ QCheckBox:Checked{
      </item>
      <item row="2" column="2">
       <widget class="QCheckBox" name="yd_cb_gc">
-       <property name="font">
-        <font>
-         <family>Lato</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
        <property name="styleSheet">
         <string notr="true">QCheckBox{
 	color: #7f7f7f;
@@ -431,13 +341,6 @@ QCheckBox:Checked{
      </item>
      <item row="3" column="0">
       <widget class="QCheckBox" name="yd_cb_dm">
-       <property name="font">
-        <font>
-         <family>Lato</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
        <property name="styleSheet">
         <string notr="true">QCheckBox{
 	color: #7f7f7f;
@@ -454,13 +357,6 @@ QCheckBox:Checked{
      </item>
      <item row="4" column="0">
       <widget class="QCheckBox" name="yd_cb_chu">
-       <property name="font">
-        <font>
-         <family>Lato</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
        <property name="styleSheet">
         <string notr="true">QCheckBox{
 	color: #7f7f7f;
@@ -486,15 +382,10 @@ QCheckBox:Checked{
       <height>20</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>Lato</family>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
     <property name="styleSheet">
      <string notr="true">background:transparent;
-border: none;</string>
+border: none;
+font: 10pt &quot;Lato&quot;;</string>
     </property>
     <property name="text">
      <string>Select Your Own DLCs.</string>
