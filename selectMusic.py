@@ -69,25 +69,32 @@ def selectingMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyl
     return selected_title, selected_btst, bt_input, init_input, down_input, right_input
 
 # 키보드 자동 입력
-def inputKeyboard(music, bt, init, down, right, input_delay, isFreestyle):
+def inputKeyboard(music, bt, init, down, right, input_delay, isFreestyle, debug=False):
 
-    def inputKey(key):
-        kb.press_and_release(key)
-        time.sleep(input_delay)
+    def inputKey(key, debug=False):
+        if debug:
+            for s in key:
+                kb.press_and_release(s)
+                time.sleep(input_delay)
+            kb.press_and_release('enter')
+            time.sleep(input_delay)
+        else:
+            kb.press_and_release(key)
+            time.sleep(input_delay)
 
     if isFreestyle:
-        inputKey(bt)
-    inputKey('page up')
-    inputKey(init)
+        inputKey(bt, debug)
+    inputKey('page up', debug)
+    inputKey(init, debug)
     if isnt_alphabet(music[0]):
-        inputKey('page up')
-        inputKey('page up')
-        inputKey('page down')
+        inputKey('page up', debug)
+        inputKey('page up', debug)
+        inputKey('page down', debug)
     for i in range(down):
-        inputKey('down arrow')
+        inputKey('down arrow', debug)
     if isFreestyle:
         for i in range(right):
-            inputKey('right arrow')
+            inputKey('right arrow', debug)
 
 # YourData 수정
 def modifyYourData(series):
