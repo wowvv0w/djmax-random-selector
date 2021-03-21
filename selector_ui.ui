@@ -1315,6 +1315,9 @@ QRadioButton:checked{
        <property name="text">
         <string>FREESTYLE</string>
        </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
       </widget>
       <widget class="QRadioButton" name="cb_online">
        <property name="geometry">
@@ -1334,8 +1337,7 @@ QRadioButton:checked{
 }</string>
        </property>
        <property name="text">
-        <string>ONLINE
-(categories only)</string>
+        <string>ONLINE</string>
        </property>
       </widget>
      </widget>

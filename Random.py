@@ -16,18 +16,21 @@ class SelectorUI(QMainWindow, main_ui):
     # initUI(), readYourData() 실행
     def __init__(self):
         super().__init__()
+        self.isRunning = False
+        self.isDebug = True
+        self.isInit = True
+        self.yourdata = sM.readYourData(self.isDebug)
+
         self.setupUi(self)
         self.history = HistoryUI(self)
         self.initUI()
+        self.initSignal()
         self.initConfig()
-        self.yourdata = sM.readYourData()
-        self.isRunning = False
-        self.isDebug = False
                 
-        kb.on_press_key('f7', lambda e: self.check(str(e)), suppress=True)
+        kb.on_press_key('f7', lambda e: self.canIStart(str(e)), suppress=True)
 
     # 랜덤 선곡 시작 여부 조사
-    def check(self, e):
+    def canIStart(self, e):
         if not self.isRunning:
             print('\n\n\n\n\n\nstart')
             thd_rS = Thread(target=self.randomStart)
@@ -35,7 +38,7 @@ class SelectorUI(QMainWindow, main_ui):
         else:
             print('denied')
 
-    # 시그널, 스타일
+    # UI 구성
     def initUI(self):
         # 폰트DB
         self.fontDB = QFontDatabase()
@@ -64,8 +67,8 @@ class SelectorUI(QMainWindow, main_ui):
                 event.accept()
         self.title_bar.mouseMoveEvent = moveWindow
         # 레벨
-        self.lvl_min.valueChanged.connect(lambda: self.lvlChanged(self.lvl_min, self.label_lvl_min))
-        self.lvl_max.valueChanged.connect(lambda: self.lvlChanged(self.lvl_max, self.label_lvl_max))
+        self.lvl_min.valueChanged.connect(lambda: self.lvlSignal(self.lvl_min, self.label_lvl_min))
+        self.lvl_max.valueChanged.connect(lambda: self.lvlSignal(self.lvl_max, self.label_lvl_max))
         self.label_lvl_min.setText(str(self.lvl_min.value()))
         self.label_lvl_max.setText(str(self.lvl_max.value()))
         # 입력 지연
@@ -73,8 +76,6 @@ class SelectorUI(QMainWindow, main_ui):
         self.slider_delay.valueChanged.connect(lambda: self.label_ms.setText('{0}ms'.format(self.slider_delay.value())))
         self.input_lb.clicked.connect(lambda: self.slider_delay.setValue(self.slider_delay.value() - 10))
         self.input_rb.clicked.connect(lambda: self.slider_delay.setValue(self.slider_delay.value() + 10))
-        # 온라인
-        self.cb_online.toggled.connect(self.onlineSignal)
         # 데이터 수정
         self.data_button.clicked.connect(lambda: DataUI(self))
         # 탭
@@ -92,10 +93,56 @@ class SelectorUI(QMainWindow, main_ui):
         # 히스토리
         self.history_button.toggled.connect(self.historySignal)
 
+    def initSignal(self):
+        self.bt_list = set()
+        self.st_list = set()
+        self.sr_list = set()
+        self.min = 1
+        self.max = 15
+        self.input_delay = 0.03
+        self.is_freestyle = True
+        # BUTTON TUNES
+        self.cb_4b.toggled.connect(lambda: self.isChecked(self.bt_list, self.cb_4b, '4B'))
+        self.cb_5b.toggled.connect(lambda: self.isChecked(self.bt_list, self.cb_5b, '5B'))
+        self.cb_6b.toggled.connect(lambda: self.isChecked(self.bt_list, self.cb_6b, '6B'))
+        self.cb_8b.toggled.connect(lambda: self.isChecked(self.bt_list, self.cb_8b, '8B'))
+        # DIFFICULTY
+        self.lvl_min.valueChanged.connect(lambda: self.isValueChanged(self.lvl_min))
+        self.lvl_max.valueChanged.connect(lambda: self.isValueChanged(self.lvl_max))
+        self.cb_nm.toggled.connect(lambda: self.isChecked(self.st_list, self.cb_nm, 'NM'))
+        self.cb_hd.toggled.connect(lambda: self.isChecked(self.st_list, self.cb_hd, 'HD'))
+        self.cb_mx.toggled.connect(lambda: self.isChecked(self.st_list, self.cb_mx, 'MX'))
+        self.cb_sc.toggled.connect(lambda: self.isChecked(self.st_list, self.cb_sc, 'SC'))
+        # MODE
+        self.cb_freestyle.toggled.connect(self.FSisChecked)
+        # CATEGORIES
+        self.cb_rp.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_rp, 'RP'))
+        self.cb_p1.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_p1, 'P1'))
+        self.cb_p2.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_p2, 'P2'))
+        self.cb_tr.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_tr, 'TR'))
+        self.cb_ce.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_ce, 'CE'))
+        self.cb_bs.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_bs, 'BS'))
+        self.cb_ve.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_ve, 'VE'))
+        self.cb_es.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_es, 'ES'))
+        self.cb_t1.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_t1, 'T1'))
+        self.cb_t2.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_t2, 'T2'))
+        self.cb_t3.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_t3, 'T3'))
+        self.cb_gg.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_gg, 'GG'))
+        self.cb_gc.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_gc, 'GC'))
+        self.cb_dm.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_dm, 'DM'))
+        self.cb_cy.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_cy, 'CY'))
+        self.cb_gf.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_gf, 'GF'))
+        self.cb_chu.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_chu, 'CHU'))
+        # ADVANCED
+        self.slider_delay.valueChanged.connect(lambda: self.isValueChanged(self.slider_delay))
+    
     # 설정값 가져오기
     def initConfig(self):
         config = configparser.ConfigParser()
-        config.read('config.ini')
+        if self.isDebug:
+            config.read('test_config.ini')
+        else:
+            config.read('config.ini')
 
         self.values = ['4B', '5B', '6B', '8B', 'NM', 'HD', 'MX', 'SC',
                 'RP', 'P1', 'P2', 'TR', 'CE', 'BS', 'VE', 'ES',
@@ -118,12 +165,17 @@ class SelectorUI(QMainWindow, main_ui):
         else:
             self.cb_online.setChecked(True)
         self.slider_delay.setValue(int(config['ADVANCED']['input_delay']))
+
+        self.fil_yourdata, self.fil_list = \
+            sM.filteringMusic(self.yourdata, self.bt_list, self.st_list, self.sr_list, self.min, self.max)
+        self.isInit = False
         
     # 상단바: 마우스 클릭시 위치 저장
     def mousePressEvent(self, event):
         self.dragPos = event.globalPos()
     
-    def lvlChanged(self, lvl, label):
+    # 레벨 시그널
+    def lvlSignal(self, lvl, label):
         label.setText(str(lvl.value()))
         if lvl.value() <= 5:
             label.setStyleSheet('color:#f4bb00')
@@ -134,15 +186,6 @@ class SelectorUI(QMainWindow, main_ui):
         else:
             label.setStyleSheet('color:#f45c00')
             lvl.setStyleSheet('QSlider::handle:horizontal{background: #f45c00}')
-            
-    # 온라인 시그널
-    def onlineSignal(self):
-        if self.cb_online.isChecked():
-            self.lock_bt.move(0,0)
-            self.lock_diff.move(0,0)
-        else:
-            self.lock_bt.move(-370,0)
-            self.lock_diff.move(-370,0)
 
     # 탭 시그널
     def changeTab(self):
@@ -176,6 +219,7 @@ class SelectorUI(QMainWindow, main_ui):
                 self.cb_collab.setChecked(False)
                 self.collab_frame.setStyleSheet('QFrame{\n	background-color: rgba(0, 0, 0, 87);\n}')
 
+    # 히스토리 시그널
     def historySignal(self):
         if self.history_button.isChecked():
             self.history.show()
@@ -184,35 +228,45 @@ class SelectorUI(QMainWindow, main_ui):
             self.history.close()
             self.history_button.setText('OFF')
 
-    # 필터 인풋 데이터
-    def filterInputData(self):
-        # 버튼 필터
-        fil_bt = [self.values[i] for i in range(4) if self.checkboxes[i].isChecked()]
-        # 스타일 필터
-        fil_st = [self.values[i] for i in range(4,8) if self.checkboxes[i].isChecked()]
-        # 시리즈 필터
-        fil_sr = set(self.values[i] for i in range(8,25) if self.checkboxes[i].isChecked())
-        # 레벨 필터
-        fil_min = self.lvl_min.value()
-        fil_max = self.lvl_max.value()
-        # 입력 지연값
-        input_delay = self.slider_delay.value()
-        # 모드 선택값
-        if self.cb_freestyle.isChecked(): isFreestyle = True
-        else: isFreestyle = False
+    def isChecked(self, _list, cb, value):
+        if cb.isChecked():
+            _list.add(value)
+        else:
+            _list.discard(value)
 
-        return fil_bt, fil_st, fil_sr, fil_min, fil_max, input_delay/1000, isFreestyle
+        if not self.isInit:
+            self.fil_yourdata, self.fil_list = \
+                sM.filteringMusic(self.yourdata, self.bt_list, self.st_list, self.sr_list, self.min, self.max)
+    
+    def isValueChanged(self, slider):
+        if slider == self.lvl_min:
+            self.min = slider.value()
+        elif slider == self.lvl_max:
+            self.max = slider.value()
+        else:
+            self.input_delay = slider.value() / 1000
+
+        if not self.isInit and slider != self.slider_delay:
+            self.fil_yourdata, self.fil_list = \
+                sM.filteringMusic(self.yourdata, self.bt_list, self.st_list, self.sr_list, self.min, self.max)
+    
+    def FSisChecked(self):
+        if self.cb_freestyle.isChecked():
+            self.is_freestyle = True
+        else:
+            self.is_freestyle = False
+
+
 
     # 무작위 뽑기
     def randomStart(self):
         self.isRunning = True
-        bt_list, st_list, sr_list, min_int, max_int, input_delay, isFreestyle = self.filterInputData()
         selected_title, selected_btst, bt_input, init_input, down_input, right_input = \
-            sM.selectingMusic(self.yourdata, bt_list, st_list, sr_list, min_int, max_int, isFreestyle)
+            sM.selectingMusic(self.yourdata, self.fil_yourdata, self.fil_list, self.is_freestyle)
         print(selected_title, selected_btst)
         if selected_title:
             print('macro activate')
-            sM.inputKeyboard(selected_title, bt_input, init_input, down_input, right_input, input_delay, isFreestyle, self.isDebug)
+            sM.inputKeyboard(selected_title, bt_input, init_input, down_input, right_input, self.input_delay, self.is_freestyle, self.isDebug)
         _str = str(selected_title) + ' / ' + str(selected_btst)
         self.history.history_list.addItem(_str)
         self.isRunning = False
@@ -221,7 +275,10 @@ class SelectorUI(QMainWindow, main_ui):
     # 종료 시 설정값 수정
     def closeEvent(self, event):
         config = configparser.ConfigParser()
-        config.read('config.ini')
+        if self.isDebug:
+            config.read('test_config.ini')
+        else:
+            config.read('config.ini')
         _iter = iter(self.values)
         for i in self.checkboxes:
             j = next(_iter)
@@ -236,8 +293,12 @@ class SelectorUI(QMainWindow, main_ui):
         else:
             config['FILTER']['freestyle'] = '0'
         config['ADVANCED']['input_delay'] = str(self.slider_delay.value())
-        with open('config.ini', 'w') as configfile:
-            config.write(configfile)
+        if self.isDebug:
+            with open('test_config.ini', 'w') as configfile:
+                config.write(configfile)
+        else:
+            with open('config.ini', 'w') as configfile:
+                config.write(configfile)
 
             
 
@@ -252,7 +313,7 @@ class DataUI(QDialog):
         self.modifyButton.clicked.connect(lambda: self.modifyDataInputData(parent))
         self.cancelButton.clicked.connect(lambda: self.cancelModify(parent))
         parent.lock_all.move(0, 0)
-
+        
         modify_data_check = set(parent.yourdata['Series'].values)
         self.yd_values = ['TR', 'CE', 'BS', 'VE', 'ES',
                     'T1', 'T2', 'T3', 'GC', 'DM',
@@ -275,8 +336,8 @@ class DataUI(QDialog):
         fil_yd_sr.add('P1')
         fil_yd_sr.add('P2')
         fil_yd_sr.add('GG')
-        sM.modifyYourData(fil_yd_sr)
-        parent.yourdata = sM.readYourData()
+        sM.modifyYourData(fil_yd_sr, parent.isDebug)
+        parent.yourdata = sM.readYourData(parent.isDebug)
         parent.lock_all.move(0, -540)
         self.close()
     
