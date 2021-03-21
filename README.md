@@ -22,16 +22,25 @@
 If there are any other issues, please tell me.
 
 ## Update
+### V0.4.0
+* Added 'EXCLUDE RECENT MUSIC' option
+* Added 'SYSTEM TRAY' ON/OFF option
+* Changed filter mechanism
+* Fixed 'Urban Night's that were not classified
+* Added auto scroll at 'HISTORY'
+* Changed config file extension from .ini to .json
+* Deleted 'Genre' and 'Length' in AllTrackData.csv that were not used
+* Added freestyle & online image in 'MODE'
 ### V0.3.1
 * Fixed an issue that fonts were not displayed as intended
 * Changed minimize button to system tray button
 ### V0.3.0
 * Redesigned UI
-* Added 'Filter Configuration Save' function. now Selector saves your last setting when you close app.
-* Added 'History Window', which shows what music was selected.
-* Changed 'Data' Tab to 'MODIFY DATA' Dialog, which indicates what DLCs you have.
-* Fixed hotkey(F7). now Selector will start when you press 'F7', not release.
-* Optimized codes.
+* Added 'Filter Configuration Save' function - now Selector saves your last setting when you close app
+* Added 'HISTORY WINDOW', which shows what music was selected
+* Changed 'DATA' Tab to 'MODIFY DATA' Dialog, which indicates what DLCs you have
+* Fixed hotkey(F7) - now Selector will start when you press 'F7', not release
+* Optimized codes
 ### v0.2.1
 * Fixed 'voldenuit' to 'v o l d e n u i t' in AllTrackData.csv
 ### v0.2.0

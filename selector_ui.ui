@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>DJMAX Random Selector V0.3.1</string>
+   <string>DJMAX Random Selector V0.4.0</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color:qlineargradient(spread:repeat, x1:0.99, y1:0.007, x2:1, y2:0, stop:0 rgba(45, 46, 47, 255), stop:0.4 rgba(45, 46, 47, 255), stop:0.475 rgba(42, 43, 44, 255), stop:0.525 rgba(42, 43, 44, 255), stop:0.6 rgba(45, 46, 47, 255), stop:1 rgba(45, 46, 47, 255));</string>
@@ -247,7 +247,7 @@ QPushButton:checked {
 
 QPushButton:checked {
  	color: #000000;
-    background-color:qlineargradient(spread:pad, x1:0, y1:0.4, x2:1, y2:0.5, stop:0 rgba(255, 255, 255, 255), stop:0.779209 rgba(255, 255, 255, 255), stop:0.781049 rgba(245, 216, 79, 255), stop:0.849 rgba(245, 216, 79, 255), stop:0.851 rgba(169, 125, 31, 255), stop:0.894 rgba(169, 125, 31, 255), stop:0.896 rgba(203, 148, 49, 255), stop:1 rgba(203, 148, 49, 255));
+    background-color:qlineargradient(spread:pad, x1:0, y1:0.4, x2:1, y2:0.5, stop:0 rgba(255, 255, 255, 255), stop:0.78 rgba(255, 255, 255, 255), stop:0.781049 rgba(245, 216, 79, 255), stop:0.85 rgba(245, 216, 79, 255), stop:0.851 rgba(169, 125, 31, 255), stop:0.895 rgba(169, 125, 31, 255), stop:0.896 rgba(203, 148, 49, 255), stop:1 rgba(203, 148, 49, 255))
 }</string>
        </property>
        <property name="text">
@@ -387,7 +387,7 @@ QPushButton:checked {
 
 QPushButton:checked {
  	color: #000000;
-    background-color:qlineargradient(spread:pad, x1:0, y1:0.48, x2:1, y2:0.5, stop:0 rgba(255, 8, 211, 255), stop:0.189278 rgba(255, 109, 0, 255), stop:0.336449 rgba(255, 128, 0, 255), stop:0.439252 rgba(255, 192, 1, 255), stop:0.616422 rgba(255, 196, 1, 255), stop:0.799781 rgba(98, 220, 99, 255), stop:0.946078 rgba(0, 210, 255, 255))
+    background-color:qlineargradient(spread:pad, x1:0, y1:0.48, x2:1, y2:0.5, stop:0 rgba(255, 8, 211, 255), stop:0.16485 rgba(255, 109, 0, 255), stop:0.311989 rgba(255, 128, 0, 255), stop:0.468665 rgba(255, 192, 1, 255), stop:0.626703 rgba(255, 196, 1, 255), stop:0.791962 rgba(98, 220, 99, 255), stop:0.940898 rgba(0, 210, 255, 255))
 }</string>
        </property>
        <property name="text">
@@ -745,9 +745,6 @@ QPushButton{
             <bold>false</bold>
            </font>
           </property>
-          <property name="text">
-           <string/>
-          </property>
           <property name="icon">
            <iconset>
             <normaloff>images/4B_OFF.png</normaloff>
@@ -780,9 +777,6 @@ QPushButton{
             <weight>50</weight>
             <bold>false</bold>
            </font>
-          </property>
-          <property name="text">
-           <string/>
           </property>
           <property name="icon">
            <iconset>
@@ -817,9 +811,6 @@ QPushButton{
             <bold>false</bold>
            </font>
           </property>
-          <property name="text">
-           <string/>
-          </property>
           <property name="icon">
            <iconset>
             <normaloff>images/6B_OFF.png</normaloff>
@@ -853,9 +844,6 @@ QPushButton{
             <bold>false</bold>
            </font>
           </property>
-          <property name="text">
-           <string/>
-          </property>
           <property name="icon">
            <iconset>
             <normaloff>images/8B_OFF.png</normaloff>
@@ -875,25 +863,6 @@ QPushButton{
          </widget>
         </item>
        </layout>
-      </widget>
-      <widget class="QLabel" name="lock_bt">
-       <property name="geometry">
-        <rect>
-         <x>-370</x>
-         <y>0</y>
-         <width>370</width>
-         <height>110</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgba(0, 0, 0, 128);</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
       </widget>
      </widget>
      <widget class="QGroupBox" name="diff_groupbox">
@@ -1008,9 +977,6 @@ QSlider::sub-page:horizontal {
          <height>31</height>
         </rect>
        </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
        <property name="styleSheet">
         <string notr="true">color:#f4bb00;
 font: 9pt &quot;Lato Black&quot;;</string>
@@ -1036,12 +1002,6 @@ font: 9pt &quot;Lato Black&quot;;</string>
          <width>21</width>
          <height>31</height>
         </rect>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
        </property>
        <property name="styleSheet">
         <string notr="true">color: #f40052;
@@ -1204,25 +1164,6 @@ QPushButton:checked {
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QLabel" name="lock_diff">
-       <property name="geometry">
-        <rect>
-         <x>-370</x>
-         <y>0</y>
-         <width>370</width>
-         <height>160</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgba(0, 0, 0, 128);</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_4">
        <property name="geometry">
         <rect>
@@ -1267,7 +1208,6 @@ QPushButton:checked {
       <zorder>cb_mx</zorder>
       <zorder>cb_sc</zorder>
       <zorder>lvl_min</zorder>
-      <zorder>lock_diff</zorder>
      </widget>
      <widget class="QGroupBox" name="mode_groupbox">
       <property name="geometry">
@@ -1284,8 +1224,9 @@ QPushButton:checked {
 	color:#7f7f7f;
 	border:none;
 }
-QRadioButton{
-	font: 9pt &quot;Lato&quot;
+QPushButton{
+	border:none;
+	background: none;
 }
 </string>
       </property>
@@ -1295,48 +1236,74 @@ QRadioButton{
       <property name="checkable">
        <bool>false</bool>
       </property>
-      <widget class="QRadioButton" name="cb_freestyle">
+      <widget class="QWidget" name="horizontalLayoutWidget_2">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>30</y>
-         <width>151</width>
-         <height>51</height>
+         <x>40</x>
+         <y>20</y>
+         <width>291</width>
+         <height>71</height>
         </rect>
        </property>
-       <property name="styleSheet">
-        <string notr="true">QRadioButton{
-	color:#7f7f7f;
-}
-QRadioButton:checked{
-	color:#ffffff;
-}</string>
-       </property>
-       <property name="text">
-        <string>FREESTYLE</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="cb_online">
-       <property name="geometry">
-        <rect>
-         <x>200</x>
-         <y>30</y>
-         <width>151</width>
-         <height>51</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QRadioButton{
-	color:#7f7f7f;
-}
-QRadioButton:checked{
-	color:#ffffff;
-}</string>
-       </property>
-       <property name="text">
-        <string>ONLINE
-(categories only)</string>
-       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QPushButton" name="cb_freestyle">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>images/freestyle_off.png</normaloff>
+            <normalon>images/freestyle_on.png</normalon>images/freestyle_off.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>73</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+          <property name="autoExclusive">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="cb_online">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>images/online_off.png</normaloff>
+            <normalon>images/online_on.png</normalon>images/online_off.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>48</height>
+           </size>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="autoExclusive">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </widget>
@@ -1525,13 +1492,153 @@ QSlider::handle:horizontal {
         </rect>
        </property>
        <property name="text">
-        <string>HISTORY WINDOW</string>
+        <string>SHOW HISTORY</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="history_button">
+      <widget class="QPushButton" name="button_history">
+       <property name="geometry">
+        <rect>
+         <x>419</x>
+         <y>-1</y>
+         <width>211</width>
+         <height>39</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	color: #7f7f7f;
+	font: 10pt &quot;Lato Black&quot;;
+}
+QPushButton:checked{
+	color: #ffffff;
+}</string>
+       </property>
+       <property name="text">
+        <string>OFF</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="frame_4">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>120</y>
+        <width>700</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>-1</y>
+         <width>221</width>
+         <height>38</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>EXCLUDE RECENT MUSIC</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+      <widget class="QSlider" name="slider_pre">
+       <property name="geometry">
+        <rect>
+         <x>400</x>
+         <y>9</y>
+         <width>250</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QSlider::groove:horizontal {
+    height: 8px;
+    background: #44372e;
+}
+
+QSlider::handle:horizontal {
+    background: #ffffff;
+    width: 16px;
+	margin: -4px 0;
+    border-radius: 8px;
+}</string>
+       </property>
+       <property name="maximum">
+        <number>1</number>
+       </property>
+       <property name="singleStep">
+        <number>0</number>
+       </property>
+       <property name="pageStep">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_pre">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>-1</y>
+         <width>60</width>
+         <height>38</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="frame_5">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>170</y>
+        <width>700</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>-1</y>
+         <width>200</width>
+         <height>38</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>SYSTEM TRAY</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="button_tray">
        <property name="geometry">
         <rect>
          <x>419</x>
@@ -1626,6 +1733,9 @@ QPushButton:checked {
      <property name="checked">
       <bool>true</bool>
      </property>
+     <property name="autoExclusive">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QPushButton" name="advanced_tab_bt">
      <property name="geometry">
@@ -1640,6 +1750,9 @@ QPushButton:checked {
       <string>ADVANCED</string>
      </property>
      <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="autoExclusive">
       <bool>true</bool>
      </property>
     </widget>
@@ -1773,7 +1886,7 @@ QPushButton:hover{
 font: 9pt &quot;Lato Black&quot;;</string>
      </property>
      <property name="text">
-      <string>DJMAX Random Selector V0.3.1</string>
+      <string>DJMAX Random Selector V0.4.0</string>
      </property>
     </widget>
    </widget>

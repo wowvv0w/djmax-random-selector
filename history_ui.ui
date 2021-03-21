@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>450</width>
-    <height>300</height>
+    <height>306</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>450</width>
-    <height>300</height>
+    <height>306</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>450</width>
-    <height>300</height>
+    <height>306</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -109,7 +109,7 @@ QPushButton:checked{
      <x>0</x>
      <y>50</y>
      <width>450</width>
-     <height>200</height>
+     <height>206</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -128,20 +128,40 @@ QPushButton:checked{
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>20</y>
-      <width>390</width>
-      <height>160</height>
+      <y>3</y>
+      <width>417</width>
+      <height>200</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">QListView{
-	background: #0a0a0a;
+	background: transparent;
 	border:none;
 	font: 9pt &quot;Lato&quot;
+}
+QScrollBar{
+	width: 10px;
+	background: #252525;
+	border:none;
+	margin: 0px 0px 0px 0px;
+}
+QScrollBar::handle{
+	background: #1a1a1a;
+}
+QScrollBar::add-line, QScrollBar::sub-line{
+	border:none;
+	background: none;
+}
+QScrollBar::add-page, QScrollBar::sub-page{
+	border:none;
+	background: none;
 }</string>
     </property>
     <property name="verticalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOn</enum>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::NoSelection</enum>
     </property>
    </widget>
   </widget>
@@ -149,7 +169,7 @@ QPushButton:checked{
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>250</y>
+     <y>256</y>
      <width>450</width>
      <height>50</height>
     </rect>

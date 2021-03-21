@@ -1,2 +1,5 @@
 __pycache__
 .vscode
+test_data.csv
+test_config.json
+test.py
