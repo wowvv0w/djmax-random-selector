@@ -2,10 +2,10 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QSystemTrayIcon
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon, QFont, QFontDatabase
+from PyQt5.QtGui import QIcon, QFontDatabase
 import keyboard as kb
 import selectMusic as sM
-import configparser
+import json
 from threading import Thread
 
 main_ui = uic.loadUiType("selector_ui.ui")[0]
@@ -138,11 +138,12 @@ class SelectorUI(QMainWindow, main_ui):
     
     # 설정값 가져오기
     def initConfig(self):
-        config = configparser.ConfigParser()
         if self.isDebug:
-            config.read('test_config.ini')
+            with open('test_config.json', 'r') as f:
+                config = json.load(f)
         else:
-            config.read('config.ini')
+            with open('config.json', 'r') as f:
+                config = json.load(f)
 
         self.values = ['4B', '5B', '6B', '8B', 'NM', 'HD', 'MX', 'SC',
                 'RP', 'P1', 'P2', 'TR', 'CE', 'BS', 'VE', 'ES',
@@ -152,22 +153,19 @@ class SelectorUI(QMainWindow, main_ui):
                     self.cb_rp, self.cb_p1, self.cb_p2, self.cb_tr, self.cb_ce, self.cb_bs, self.cb_ve, self.cb_es,
                     self.cb_t1, self.cb_t2, self.cb_t3, self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy,
                     self.cb_gf, self.cb_chu]
-        _iter = iter(self.checkboxes)
 
-        for i in self.values:
-            j = next(_iter)
-            if config['FILTER'][i] == '1':
+        for i, j in zip(self.values, self.checkboxes):
+            if config[i]:
                 j.setChecked(True)
-        self.lvl_min.setValue(int(config['FILTER']['min']))
-        self.lvl_max.setValue(int(config['FILTER']['max']))
-        if config['FILTER']['freestyle'] == '1':
+        self.lvl_min.setValue(config['MIN'])
+        self.lvl_max.setValue(config['MAX'])
+        if config['FREESTYLE']:
             self.cb_freestyle.setChecked(True)
         else:
             self.cb_online.setChecked(True)
-        self.slider_delay.setValue(int(config['ADVANCED']['input_delay']))
+        self.slider_delay.setValue(config['INPUT DELAY'])
 
-        self.fil_yourdata, self.fil_list = \
-            sM.filteringMusic(self.yourdata, self.bt_list, self.st_list, self.sr_list, self.min, self.max)
+        self.filtering()
         self.isInit = False
         
     # 상단바: 마우스 클릭시 위치 저장
@@ -198,6 +196,7 @@ class SelectorUI(QMainWindow, main_ui):
     
     # 콜라보 시그널
     def collabSignal(self):
+        self.isInit = True
         checkboxes = [self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy, self.cb_gf, self.cb_chu]
         if self.cb_collab.isChecked():
             for i in checkboxes:
@@ -207,6 +206,8 @@ class SelectorUI(QMainWindow, main_ui):
             for i in checkboxes:
                 i.setChecked(False)
             self.collab_frame.setStyleSheet('QFrame{\n	background-color: rgba(0, 0, 0, 87);\n}')
+        self.isInit = False
+        self.filtering()
     
     # 콜라보 하위 시그널
     def collabChildSignal(self, child):
@@ -228,6 +229,7 @@ class SelectorUI(QMainWindow, main_ui):
             self.history.close()
             self.history_button.setText('OFF')
 
+    # 버튼 확인
     def isChecked(self, _list, cb, value):
         if cb.isChecked():
             _list.add(value)
@@ -235,9 +237,9 @@ class SelectorUI(QMainWindow, main_ui):
             _list.discard(value)
 
         if not self.isInit:
-            self.fil_yourdata, self.fil_list = \
-                sM.filteringMusic(self.yourdata, self.bt_list, self.st_list, self.sr_list, self.min, self.max)
+            self.filtering()
     
+    # 슬라이더 확인
     def isValueChanged(self, slider):
         if slider == self.lvl_min:
             self.min = slider.value()
@@ -247,14 +249,22 @@ class SelectorUI(QMainWindow, main_ui):
             self.input_delay = slider.value() / 1000
 
         if not self.isInit and slider != self.slider_delay:
-            self.fil_yourdata, self.fil_list = \
-                sM.filteringMusic(self.yourdata, self.bt_list, self.st_list, self.sr_list, self.min, self.max)
-    
+            self.filtering()
+            
+    # 프리스타일 확인
     def FSisChecked(self):
         if self.cb_freestyle.isChecked():
             self.is_freestyle = True
         else:
             self.is_freestyle = False
+
+        if not self.isInit:
+            self.filtering()
+    
+    # 필터링
+    def filtering(self):
+        self.fil_yourdata, self.fil_list = \
+                sM.filteringMusic(self.yourdata, self.bt_list, self.st_list, self.sr_list, self.min, self.max, self.is_freestyle)
 
 
 
@@ -267,38 +277,37 @@ class SelectorUI(QMainWindow, main_ui):
         if selected_title:
             print('macro activate')
             sM.inputKeyboard(selected_title, bt_input, init_input, down_input, right_input, self.input_delay, self.is_freestyle, self.isDebug)
-        _str = str(selected_title) + ' / ' + str(selected_btst)
+        _str = selected_title + ' | ' + selected_btst
         self.history.history_list.addItem(_str)
         self.isRunning = False
         print('finish')
 
     # 종료 시 설정값 수정
     def closeEvent(self, event):
-        config = configparser.ConfigParser()
         if self.isDebug:
-            config.read('test_config.ini')
+            with open('test_config.json', 'r') as f:
+                config = json.load(f)
         else:
-            config.read('config.ini')
-        _iter = iter(self.values)
-        for i in self.checkboxes:
-            j = next(_iter)
+            with open('config.json', 'r') as f:
+                config = json.load(f)
+        for i, j in zip(self.checkboxes, self.values):
             if i.isChecked():
-                config['FILTER'][j] = '1'
+                config[j] = 1
             else:
-                config['FILTER'][j] = '0'
-        config['FILTER']['min'] = str(self.lvl_min.value())
-        config['FILTER']['max'] = str(self.lvl_max.value())
+                config[j] = 0
+        config['MIN'] = self.lvl_min.value()
+        config['MAX'] = self.lvl_max.value()
         if self.cb_freestyle.isChecked():
-            config['FILTER']['freestyle'] = '1'
+            config['FREESTYLE'] = 1
         else:
-            config['FILTER']['freestyle'] = '0'
-        config['ADVANCED']['input_delay'] = str(self.slider_delay.value())
+            config['FREESTYLE'] = 0
+        config['INPUT DELAY'] = self.slider_delay.value()
         if self.isDebug:
-            with open('test_config.ini', 'w') as configfile:
-                config.write(configfile)
+            with open('test_config.json', 'w') as f:
+                json.dump(config, f, indent=4)
         else:
-            with open('config.ini', 'w') as configfile:
-                config.write(configfile)
+            with open('config.json', 'w') as f:
+                json.dump(config, f, indent=4)
 
             
 
@@ -321,9 +330,7 @@ class DataUI(QDialog):
         self.yd_checkboxes = [self.yd_cb_tr, self.yd_cb_ce, self.yd_cb_bs, self.yd_cb_ve, self.yd_cb_es,
                     self.yd_cb_t1, self.yd_cb_t2, self.yd_cb_t3, self.yd_cb_gc, self.yd_cb_dm,
                     self.yd_cb_cy, self.yd_cb_gf, self.yd_cb_chu]
-        _iter = iter(self.yd_checkboxes)
-        for i in self.yd_values:
-            j = next(_iter)
+        for i, j in zip(self.yd_values, self.yd_checkboxes):
             if i in modify_data_check:
                 j.setChecked(True)
 

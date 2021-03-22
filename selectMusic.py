@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import random
 from string import ascii_letters
@@ -21,7 +22,7 @@ def readYourData(debug):
     return data
     
 # 곡 필터링
-def filteringMusic(data, buttons, styles, series, diff_min, diff_max):
+def filteringMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyle):
 
     filtered = data[data['Series'].isin(series)]
     candidate_list = []
@@ -33,6 +34,10 @@ def filteringMusic(data, buttons, styles, series, diff_min, diff_max):
         zip_title_level = list(zip(fil_title, fil_level_dup, fil_level))
         scan_candidate = list(filter(lambda x: x[2] >= diff_min and x[2] <= diff_max, zip_title_level))
         candidate_list.extend(scan_candidate)
+    if not isFreestyle:
+        candidate_list = np.array(candidate_list).T[0]
+        candidate_list = np.unique(candidate_list)
+
     
     print(len(candidate_list))
     return filtered, candidate_list
@@ -41,9 +46,13 @@ def filteringMusic(data, buttons, styles, series, diff_min, diff_max):
 def selectingMusic(data, filtered, candidate_list, isFreestyle):    
 
     try:
-        selected_title, selected_btst, _ = random.choice(candidate_list)
+        if isFreestyle:
+            selected_title, selected_btst, _ = random.choice(candidate_list)
+        else:
+            selected_title = random.choice(candidate_list)
+            selected_btst = ''
     except IndexError:
-        return None, None, None, None, None, None
+        return '', '', None, None, None, None
     
     if isnt_alphabet(selected_title[0]):
         init_input = 'a'
@@ -52,7 +61,7 @@ def selectingMusic(data, filtered, candidate_list, isFreestyle):
 
     title_list = data['Title'].values
     if isnt_alphabet(selected_title[0]):
-        same_init_list = list(filter(lambda x: isnt_alphabet(x), title_list))
+        same_init_list = list(filter(lambda x: isnt_alphabet(x[0]), title_list))
     else:
         same_init_list = list(filter(lambda x: x[0].lower() == init_input, title_list))
     down_input = same_init_list.index(selected_title)
@@ -112,25 +121,25 @@ def modifyYourData(series, debug):
 def specialMusicFilter(df, series):
 
     # RP in DLC 삭제 조건
-    if not series > {'TR'}:
+    if not 'TR' in series:
         df = df.drop(df[df['Title'] == 'Nevermind'].index)
-    if not series > {'CE'}:
+    if not 'CE' in series:
         df = df.drop(df[df['Title'] == 'Rising The Sonic'].index)
-    if not series > {'BS'}:
+    if not 'BS' in series:
         df = df.drop(df[df['Title'] == 'ANALYS'].index)
-    if not series > {'T1'}:
+    if not 'T1' in series:
         df = df.drop(df[df['Title'] == 'Do you want it'].index)
-    if not series > {'T2'}:
+    if not 'T2' in series:
         df = df.drop(df[df['Title'] == 'End of Mythology'].index)
-    if not series > {'T3'}:
+    if not 'T3' in series:
         df = df.drop(df[df['Title'] == 'ALiCE'].index)
 
     # Link Disc 삭제 조건
-    if series > {'CE'} and not series > {'BS'} and not series > {'T1'}:
+    if 'CE' in series and not 'BS' in series and not 'T1' in series:
         df = df.drop(df[df['Title'] == 'Here in the Moment ~Extended Mix~'].index)
-    if not series > {'CE'} and series > {'BS'} and not series > {'T1'}:
+    if not 'CE' in series and 'BS' in series and not 'T1' in series:
         df = df.drop(df[df['Title'] == 'Airwave ~Extended Mix~'].index)
-    if not series > {'CE'} and not series > {'BS'} and series > {'T1'}:
+    if not 'CE' in series and not 'BS' in series and 'T1' in series:
         df = df.drop(df[df['Title'] == 'SON OF SUN ~Extended Mix~'].index)
     
     return df
