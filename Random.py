@@ -18,6 +18,7 @@ class SelectorUI(QMainWindow, main_ui):
         super().__init__()
         self.isRunning = False
         self.isDebug = True
+        self.isKeyDebug = True
         self.isInit = True
         self.yourdata = sM.readYourData(self.isDebug)
 
@@ -92,6 +93,7 @@ class SelectorUI(QMainWindow, main_ui):
         self.cb_chu.toggled.connect(lambda: self.collabChildSignal(self.cb_chu))
         # 히스토리
         self.history_button.toggled.connect(self.historySignal)
+        self.history_scrollbar = self.history.history_list.verticalScrollBar()
 
     def initSignal(self):
         self.bt_list = set()
@@ -177,13 +179,13 @@ class SelectorUI(QMainWindow, main_ui):
         label.setText(str(lvl.value()))
         if lvl.value() <= 5:
             label.setStyleSheet('color:#f4bb00')
-            lvl.setStyleSheet('QSlider::handle:horizontal{background: #f4bb00}')
+            lvl.setStyleSheet('QSlider::handle:horizontal{background: #f4bb00; font: 9pt "Lato Black"}')
         elif lvl.value() >= 11:
             label.setStyleSheet('color:#f40052')
-            lvl.setStyleSheet('QSlider::handle:horizontal{background: #f40052}')
+            lvl.setStyleSheet('QSlider::handle:horizontal{background: #f40052; font: 9pt "Lato Black"}')
         else:
             label.setStyleSheet('color:#f45c00')
-            lvl.setStyleSheet('QSlider::handle:horizontal{background: #f45c00}')
+            lvl.setStyleSheet('QSlider::handle:horizontal{background: #f45c00; font: 9pt "Lato Black"}')
 
     # 탭 시그널
     def changeTab(self):
@@ -276,9 +278,12 @@ class SelectorUI(QMainWindow, main_ui):
         print(selected_title, selected_btst)
         if selected_title:
             print('macro activate')
-            sM.inputKeyboard(selected_title, bt_input, init_input, down_input, right_input, self.input_delay, self.is_freestyle, self.isDebug)
+            sM.inputKeyboard(selected_title, bt_input, init_input, down_input, right_input,
+                            self.input_delay, self.is_freestyle, self.isKeyDebug)
         _str = selected_title + ' | ' + selected_btst
+        self.history_scrollbar.setMaximum(self.history_scrollbar.maximum() + 1)
         self.history.history_list.addItem(_str)
+        self.history_scrollbar.setValue(self.history_scrollbar.maximum())
         self.isRunning = False
         print('finish')
 

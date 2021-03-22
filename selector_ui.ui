@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>DJMAX Random Selector V0.3.1</string>
+   <string>DJMAX Random Selector V0.3.2</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color:qlineargradient(spread:repeat, x1:0.99, y1:0.007, x2:1, y2:0, stop:0 rgba(45, 46, 47, 255), stop:0.4 rgba(45, 46, 47, 255), stop:0.475 rgba(42, 43, 44, 255), stop:0.525 rgba(42, 43, 44, 255), stop:0.6 rgba(45, 46, 47, 255), stop:1 rgba(45, 46, 47, 255));</string>
@@ -247,7 +247,7 @@ QPushButton:checked {
 
 QPushButton:checked {
  	color: #000000;
-    background-color:qlineargradient(spread:pad, x1:0, y1:0.4, x2:1, y2:0.5, stop:0 rgba(255, 255, 255, 255), stop:0.779209 rgba(255, 255, 255, 255), stop:0.781049 rgba(245, 216, 79, 255), stop:0.849 rgba(245, 216, 79, 255), stop:0.851 rgba(169, 125, 31, 255), stop:0.894 rgba(169, 125, 31, 255), stop:0.896 rgba(203, 148, 49, 255), stop:1 rgba(203, 148, 49, 255));
+    background-color:qlineargradient(spread:pad, x1:0, y1:0.4, x2:1, y2:0.5, stop:0 rgba(255, 255, 255, 255), stop:0.78 rgba(255, 255, 255, 255), stop:0.781049 rgba(245, 216, 79, 255), stop:0.85 rgba(245, 216, 79, 255), stop:0.851 rgba(169, 125, 31, 255), stop:0.895 rgba(169, 125, 31, 255), stop:0.896 rgba(203, 148, 49, 255), stop:1 rgba(203, 148, 49, 255))
 }</string>
        </property>
        <property name="text">
@@ -387,7 +387,7 @@ QPushButton:checked {
 
 QPushButton:checked {
  	color: #000000;
-    background-color:qlineargradient(spread:pad, x1:0, y1:0.48, x2:1, y2:0.5, stop:0 rgba(255, 8, 211, 255), stop:0.189278 rgba(255, 109, 0, 255), stop:0.336449 rgba(255, 128, 0, 255), stop:0.439252 rgba(255, 192, 1, 255), stop:0.616422 rgba(255, 196, 1, 255), stop:0.799781 rgba(98, 220, 99, 255), stop:0.946078 rgba(0, 210, 255, 255))
+    background-color:qlineargradient(spread:pad, x1:0, y1:0.48, x2:1, y2:0.5, stop:0 rgba(255, 8, 211, 255), stop:0.16485 rgba(255, 109, 0, 255), stop:0.311989 rgba(255, 128, 0, 255), stop:0.468665 rgba(255, 192, 1, 255), stop:0.626703 rgba(255, 196, 1, 255), stop:0.791962 rgba(98, 220, 99, 255), stop:0.940898 rgba(0, 210, 255, 255))
 }</string>
        </property>
        <property name="text">
@@ -1008,9 +1008,6 @@ QSlider::sub-page:horizontal {
          <height>31</height>
         </rect>
        </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
        <property name="styleSheet">
         <string notr="true">color:#f4bb00;
 font: 9pt &quot;Lato Black&quot;;</string>
@@ -1036,12 +1033,6 @@ font: 9pt &quot;Lato Black&quot;;</string>
          <width>21</width>
          <height>31</height>
         </rect>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
        </property>
        <property name="styleSheet">
         <string notr="true">color: #f40052;
@@ -1775,7 +1766,7 @@ QPushButton:hover{
 font: 9pt &quot;Lato Black&quot;;</string>
      </property>
      <property name="text">
-      <string>DJMAX Random Selector V0.3.1</string>
+      <string>DJMAX Random Selector V0.3.2</string>
      </property>
     </widget>
    </widget>
