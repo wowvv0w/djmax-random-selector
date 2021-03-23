@@ -27,5 +27,6 @@
     "CY": 0,
     "GF": 0,
     "CHU": 0,
-    "INPUT DELAY": 30
+    "INPUT DELAY": 30,
+    "PREVIOUS": 0
 }

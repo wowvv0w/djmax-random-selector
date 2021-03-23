@@ -876,25 +876,6 @@ QPushButton{
         </item>
        </layout>
       </widget>
-      <widget class="QLabel" name="lock_bt">
-       <property name="geometry">
-        <rect>
-         <x>-370</x>
-         <y>0</y>
-         <width>370</width>
-         <height>110</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgba(0, 0, 0, 128);</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
      </widget>
      <widget class="QGroupBox" name="diff_groupbox">
       <property name="geometry">
@@ -1195,25 +1176,6 @@ QPushButton:checked {
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QLabel" name="lock_diff">
-       <property name="geometry">
-        <rect>
-         <x>-370</x>
-         <y>0</y>
-         <width>370</width>
-         <height>160</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgba(0, 0, 0, 128);</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_4">
        <property name="geometry">
         <rect>
@@ -1258,7 +1220,6 @@ QPushButton:checked {
       <zorder>cb_mx</zorder>
       <zorder>cb_sc</zorder>
       <zorder>lvl_min</zorder>
-      <zorder>lock_diff</zorder>
      </widget>
      <widget class="QGroupBox" name="mode_groupbox">
       <property name="geometry">
@@ -1547,6 +1508,89 @@ QPushButton:checked{
        </property>
        <property name="checkable">
         <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="frame_4">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>120</y>
+        <width>700</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>-1</y>
+         <width>200</width>
+         <height>38</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>PREVIOUS</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+      <widget class="QSlider" name="slider_pre">
+       <property name="geometry">
+        <rect>
+         <x>400</x>
+         <y>9</y>
+         <width>250</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QSlider::groove:horizontal {
+    height: 8px;
+    background: #44372e;
+}
+
+QSlider::handle:horizontal {
+    background: #ffffff;
+    width: 16px;
+	margin: -4px 0;
+    border-radius: 8px;
+}</string>
+       </property>
+       <property name="maximum">
+        <number>1</number>
+       </property>
+       <property name="singleStep">
+        <number>0</number>
+       </property>
+       <property name="pageStep">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_pre">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>-1</y>
+         <width>60</width>
+         <height>38</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </widget>

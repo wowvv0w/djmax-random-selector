@@ -7,6 +7,7 @@ import keyboard as kb
 import selectMusic as sM
 import json
 from threading import Thread
+from collections import deque
 
 main_ui = uic.loadUiType("selector_ui.ui")[0]
 
@@ -21,6 +22,7 @@ class SelectorUI(QMainWindow, main_ui):
         self.isKeyDebug = True
         self.isInit = True
         self.yourdata = sM.readYourData(self.isDebug)
+        self.previous = deque([])
 
         self.setupUi(self)
         self.history = HistoryUI(self)
@@ -67,22 +69,16 @@ class SelectorUI(QMainWindow, main_ui):
                 self.dragPos = event.globalPos()
                 event.accept()
         self.title_bar.mouseMoveEvent = moveWindow
+        # 탭
+        self.filter_tab_bt.setAutoExclusive(True)
+        self.advanced_tab_bt.setAutoExclusive(True)
+        self.filter_tab_bt.toggled.connect(self.changeTab)
+
         # 레벨
         self.lvl_min.valueChanged.connect(lambda: self.lvlSignal(self.lvl_min, self.label_lvl_min))
         self.lvl_max.valueChanged.connect(lambda: self.lvlSignal(self.lvl_max, self.label_lvl_max))
         self.label_lvl_min.setText(str(self.lvl_min.value()))
         self.label_lvl_max.setText(str(self.lvl_max.value()))
-        # 입력 지연
-        self.label_ms.setText('{0}ms'.format(self.slider_delay.value()))
-        self.slider_delay.valueChanged.connect(lambda: self.label_ms.setText('{0}ms'.format(self.slider_delay.value())))
-        self.input_lb.clicked.connect(lambda: self.slider_delay.setValue(self.slider_delay.value() - 10))
-        self.input_rb.clicked.connect(lambda: self.slider_delay.setValue(self.slider_delay.value() + 10))
-        # 데이터 수정
-        self.data_button.clicked.connect(lambda: DataUI(self))
-        # 탭
-        self.filter_tab_bt.setAutoExclusive(True)
-        self.advanced_tab_bt.setAutoExclusive(True)
-        self.filter_tab_bt.toggled.connect(self.changeTab)
         # 콜라보
         self.cb_collab.clicked.connect(self.collabSignal)
         self.cb_gg.toggled.connect(lambda: self.collabChildSignal(self.cb_gg))
@@ -91,10 +87,23 @@ class SelectorUI(QMainWindow, main_ui):
         self.cb_cy.toggled.connect(lambda: self.collabChildSignal(self.cb_cy))
         self.cb_gf.toggled.connect(lambda: self.collabChildSignal(self.cb_gf))
         self.cb_chu.toggled.connect(lambda: self.collabChildSignal(self.cb_chu))
+        # 데이터 수정
+        self.data_button.clicked.connect(lambda: DataUI(self))
+
+        # 입력 지연
+        self.label_ms.setText('{0}ms'.format(self.slider_delay.value()))
+        self.slider_delay.valueChanged.connect(lambda: self.label_ms.setText('{0}ms'.format(self.slider_delay.value())))
+        self.input_lb.clicked.connect(lambda: self.slider_delay.setValue(self.slider_delay.value() - 10))
+        self.input_rb.clicked.connect(lambda: self.slider_delay.setValue(self.slider_delay.value() + 10))
         # 히스토리
         self.history_button.toggled.connect(self.historySignal)
         self.history_scrollbar = self.history.history_list.verticalScrollBar()
+        # 중복 방지
+        self.label_pre.setText('{0}'.format(self.slider_pre.value()))
+        self.slider_pre.valueChanged.connect(lambda: self.label_pre.setText('{0}'.format(self.slider_pre.value())))
+        
 
+    # 필터 시그널
     def initSignal(self):
         self.bt_list = set()
         self.st_list = set()
@@ -137,8 +146,9 @@ class SelectorUI(QMainWindow, main_ui):
         self.cb_chu.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_chu, 'CHU'))
         # ADVANCED
         self.slider_delay.valueChanged.connect(lambda: self.isValueChanged(self.slider_delay))
+        self.slider_pre.valueChanged.connect(self.previousInitialize)
     
-    # 설정값 가져오기
+    # 설정값 불러오기
     def initConfig(self):
         if self.isDebug:
             with open('test_config.json', 'r') as f:
@@ -165,9 +175,12 @@ class SelectorUI(QMainWindow, main_ui):
             self.cb_freestyle.setChecked(True)
         else:
             self.cb_online.setChecked(True)
+
         self.slider_delay.setValue(config['INPUT DELAY'])
 
         self.filtering()
+        self.slider_pre.setValue(config['PREVIOUS'])
+
         self.isInit = False
         
     # 상단바: 마우스 클릭시 위치 저장
@@ -240,6 +253,7 @@ class SelectorUI(QMainWindow, main_ui):
 
         if not self.isInit:
             self.filtering()
+            self.previousInitialize()
     
     # 슬라이더 확인
     def isValueChanged(self, slider):
@@ -252,6 +266,7 @@ class SelectorUI(QMainWindow, main_ui):
 
         if not self.isInit and slider != self.slider_delay:
             self.filtering()
+            self.previousInitialize()
             
     # 프리스타일 확인
     def FSisChecked(self):
@@ -262,28 +277,42 @@ class SelectorUI(QMainWindow, main_ui):
 
         if not self.isInit:
             self.filtering()
+            self.previousInitialize()
     
     # 필터링
     def filtering(self):
-        self.fil_yourdata, self.fil_list = \
-                sM.filteringMusic(self.yourdata, self.bt_list, self.st_list, self.sr_list, self.min, self.max, self.is_freestyle)
+        self.fil_yourdata, self.fil_list, self.fil_title = \
+                sM.filteringMusic(self.yourdata, self.bt_list, self.st_list, self.sr_list, self.min, self.max)
+        self.slider_pre.setMaximum(len(self.fil_title))
 
-
+    # previous 초기화
+    def previousInitialize(self):
+        if self.previous:
+            self.previous = deque([])
+            print('initialized')
 
     # 무작위 뽑기
     def randomStart(self):
         self.isRunning = True
         selected_title, selected_btst, bt_input, init_input, down_input, right_input = \
-            sM.selectingMusic(self.yourdata, self.fil_yourdata, self.fil_list, self.is_freestyle)
+            sM.selectingMusic(self.yourdata, self.fil_yourdata, self.fil_list, self.is_freestyle, self.previous)
         print(selected_title, selected_btst)
+
         if selected_title:
             print('macro activate')
             sM.inputKeyboard(selected_title, bt_input, init_input, down_input, right_input,
                             self.input_delay, self.is_freestyle, self.isKeyDebug)
-        _str = selected_title + ' | ' + selected_btst
-        self.history_scrollbar.setMaximum(self.history_scrollbar.maximum() + 1)
-        self.history.history_list.addItem(_str)
-        self.history_scrollbar.setValue(self.history_scrollbar.maximum())
+
+            _str = selected_title + ' | ' + selected_btst
+            self.history_scrollbar.setMaximum(self.history_scrollbar.maximum() + 1)
+            self.history.history_list.addItem(_str)
+            self.history_scrollbar.setValue(self.history_scrollbar.maximum())
+
+            if self.slider_pre.value():
+                self.previous.append(selected_title)
+                if len(self.previous) >= self.slider_pre.value():
+                    self.previous.popleft()
+
         self.isRunning = False
         print('finish')
 
@@ -295,6 +324,7 @@ class SelectorUI(QMainWindow, main_ui):
         else:
             with open('config.json', 'r') as f:
                 config = json.load(f)
+
         for i, j in zip(self.checkboxes, self.values):
             if i.isChecked():
                 config[j] = 1
@@ -307,6 +337,8 @@ class SelectorUI(QMainWindow, main_ui):
         else:
             config['FREESTYLE'] = 0
         config['INPUT DELAY'] = self.slider_delay.value()
+        config['PREVIOUS'] = self.slider_pre.value()
+
         if self.isDebug:
             with open('test_config.json', 'w') as f:
                 json.dump(config, f, indent=4)
