@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 import random
 from string import ascii_letters
@@ -22,8 +21,8 @@ def readYourData(debug):
     return data
     
 # 곡 필터링
-def filteringMusic(data, buttons, styles, series, diff_min, diff_max):
-
+def filteringMusic(data, buttons, styles, series, diff_min, diff_max, isFreestyle):
+    
     filtered = data[data['Series'].isin(series)]
     candidate_list = []
     fil_title = filtered['Title'].values
@@ -36,18 +35,19 @@ def filteringMusic(data, buttons, styles, series, diff_min, diff_max):
         zip_title_level = zip(fil_title, fil_level_dup, fil_level)
         scan_candidate = [i for i in zip_title_level if diff_min <= i[2] <= diff_max]
         candidate_list.extend(scan_candidate)
-    
+
     try:
-        candidate_title = np.array(candidate_list).T[0]
-        candidate_title = np.unique(candidate_title)
+        candidate_title = set(i[0] for i in candidate_list)
+        if not isFreestyle:
+            candidate_list = list(candidate_title)
     except IndexError:
         candidate_title = []
-
+    
     return filtered, candidate_list, candidate_title
 
 # 곡 무작위 선정
 def selectingMusic(data, filtered, candidate_list, isFreestyle, previous):    
-    start = time.time()
+    
     if previous:
         if isFreestyle:
             candidate_list = [i for i in candidate_list if i[0] not in previous]
@@ -85,7 +85,7 @@ def selectingMusic(data, filtered, candidate_list, isFreestyle, previous):
         bt_input = selected_btst[0]
     else:
         bt_input, right_input = None, None
-    print(time.time() - start)
+
     return selected_title, selected_btst, bt_input, init_input, down_input, right_input
 
 # 키보드 자동 입력
@@ -163,8 +163,11 @@ if __name__ == '__main__':
     ex_diff_max = 15
     ex_isFreestyle = 1
     ex_previous = []
-    ex_filtered, ex_candidate_list, ex_candidate_title = filteringMusic(ex_data, ex_buttons, ex_styles, ex_series, ex_diff_min, ex_diff_max)
-    
+
+    start = time.time()
+    ex_filtered, ex_candidate_list, ex_candidate_title = filteringMusic(ex_data, ex_buttons, ex_styles, ex_series, ex_diff_min, ex_diff_max, ex_isFreestyle)
+    print(time.time() - start)
+
     start = time.time()
     ex_title, ex_btst, ex_bt, ex_init, ex_down, ex_right = selectingMusic(ex_data, ex_filtered, ex_candidate_list, ex_isFreestyle, ex_previous)
     print(time.time() - start)

@@ -745,9 +745,6 @@ QPushButton{
             <bold>false</bold>
            </font>
           </property>
-          <property name="text">
-           <string/>
-          </property>
           <property name="icon">
            <iconset>
             <normaloff>images/4B_OFF.png</normaloff>
@@ -780,9 +777,6 @@ QPushButton{
             <weight>50</weight>
             <bold>false</bold>
            </font>
-          </property>
-          <property name="text">
-           <string/>
           </property>
           <property name="icon">
            <iconset>
@@ -817,9 +811,6 @@ QPushButton{
             <bold>false</bold>
            </font>
           </property>
-          <property name="text">
-           <string/>
-          </property>
           <property name="icon">
            <iconset>
             <normaloff>images/6B_OFF.png</normaloff>
@@ -852,9 +843,6 @@ QPushButton{
             <weight>50</weight>
             <bold>false</bold>
            </font>
-          </property>
-          <property name="text">
-           <string/>
           </property>
           <property name="icon">
            <iconset>
@@ -1236,8 +1224,9 @@ QPushButton:checked {
 	color:#7f7f7f;
 	border:none;
 }
-QRadioButton{
-	font: 9pt &quot;Lato&quot;
+QPushButton{
+	border:none;
+	background: none;
 }
 </string>
       </property>
@@ -1247,50 +1236,74 @@ QRadioButton{
       <property name="checkable">
        <bool>false</bool>
       </property>
-      <widget class="QRadioButton" name="cb_freestyle">
+      <widget class="QWidget" name="horizontalLayoutWidget_2">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>30</y>
-         <width>151</width>
-         <height>51</height>
+         <x>40</x>
+         <y>20</y>
+         <width>291</width>
+         <height>71</height>
         </rect>
        </property>
-       <property name="styleSheet">
-        <string notr="true">QRadioButton{
-	color:#7f7f7f;
-}
-QRadioButton:checked{
-	color:#ffffff;
-}</string>
-       </property>
-       <property name="text">
-        <string>FREESTYLE</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="cb_online">
-       <property name="geometry">
-        <rect>
-         <x>200</x>
-         <y>30</y>
-         <width>151</width>
-         <height>51</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QRadioButton{
-	color:#7f7f7f;
-}
-QRadioButton:checked{
-	color:#ffffff;
-}</string>
-       </property>
-       <property name="text">
-        <string>ONLINE</string>
-       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QPushButton" name="cb_freestyle">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>images/freestyle_off.png</normaloff>
+            <normalon>images/freestyle_on.png</normalon>images/freestyle_off.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>73</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+          <property name="autoExclusive">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="cb_online">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>images/online_off.png</normaloff>
+            <normalon>images/online_on.png</normalon>images/online_off.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>48</height>
+           </size>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="autoExclusive">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </widget>
@@ -1531,12 +1544,12 @@ QPushButton:checked{
         <rect>
          <x>10</x>
          <y>-1</y>
-         <width>200</width>
+         <width>221</width>
          <height>38</height>
         </rect>
        </property>
        <property name="text">
-        <string>PREVIOUS</string>
+        <string>EXCLUDE RECENT MUSIC</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1663,6 +1676,9 @@ QPushButton:checked {
      <property name="checked">
       <bool>true</bool>
      </property>
+     <property name="autoExclusive">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QPushButton" name="advanced_tab_bt">
      <property name="geometry">
@@ -1677,6 +1693,9 @@ QPushButton:checked {
       <string>ADVANCED</string>
      </property>
      <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="autoExclusive">
       <bool>true</bool>
      </property>
     </widget>

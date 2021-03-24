@@ -70,8 +70,6 @@ class SelectorUI(QMainWindow, main_ui):
                 event.accept()
         self.title_bar.mouseMoveEvent = moveWindow
         # 탭
-        self.filter_tab_bt.setAutoExclusive(True)
-        self.advanced_tab_bt.setAutoExclusive(True)
         self.filter_tab_bt.toggled.connect(self.changeTab)
 
         # 레벨
@@ -282,8 +280,11 @@ class SelectorUI(QMainWindow, main_ui):
     # 필터링
     def filtering(self):
         self.fil_yourdata, self.fil_list, self.fil_title = \
-                sM.filteringMusic(self.yourdata, self.bt_list, self.st_list, self.sr_list, self.min, self.max)
-        self.slider_pre.setMaximum(len(self.fil_title))
+                sM.filteringMusic(self.yourdata, self.bt_list, self.st_list, self.sr_list, self.min, self.max, self.is_freestyle)
+        if self.fil_title:
+            self.slider_pre.setMaximum(len(self.fil_title) - 1)
+        else:
+            self.slider_pre.setMaximum(0)
 
     # previous 초기화
     def previousInitialize(self):
@@ -296,21 +297,21 @@ class SelectorUI(QMainWindow, main_ui):
         self.isRunning = True
         selected_title, selected_btst, bt_input, init_input, down_input, right_input = \
             sM.selectingMusic(self.yourdata, self.fil_yourdata, self.fil_list, self.is_freestyle, self.previous)
-        print(selected_title, selected_btst)
+        print(selected_title, ' | ', selected_btst)
 
         if selected_title:
             print('macro activate')
             sM.inputKeyboard(selected_title, bt_input, init_input, down_input, right_input,
                             self.input_delay, self.is_freestyle, self.isKeyDebug)
 
-            _str = selected_title + ' | ' + selected_btst
+            _str = selected_title + '  |  ' + selected_btst
             self.history_scrollbar.setMaximum(self.history_scrollbar.maximum() + 1)
             self.history.history_list.addItem(_str)
             self.history_scrollbar.setValue(self.history_scrollbar.maximum())
 
             if self.slider_pre.value():
                 self.previous.append(selected_title)
-                if len(self.previous) >= self.slider_pre.value():
+                if len(self.previous) > self.slider_pre.value():
                     self.previous.popleft()
 
         self.isRunning = False
@@ -376,10 +377,7 @@ class DataUI(QDialog):
     # 데이터 생성 인풋 데이터 & YourData.csv 생성
     def modifyDataInputData(self, parent):
         fil_yd_sr = set(self.yd_values[i] for i in range(13) if self.yd_checkboxes[i].isChecked())
-        fil_yd_sr.add('RP')
-        fil_yd_sr.add('P1')
-        fil_yd_sr.add('P2')
-        fil_yd_sr.add('GG')
+        fil_yd_sr.update(['RP', 'P1', 'P2', 'GG'])
         sM.modifyYourData(fil_yd_sr, parent.isDebug)
         parent.yourdata = sM.readYourData(parent.isDebug)
         parent.lock_all.move(0, -540)
