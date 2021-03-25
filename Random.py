@@ -17,12 +17,14 @@ class SelectorUI(QMainWindow, main_ui):
     # initUI(), readYourData() 실행
     def __init__(self):
         super().__init__()
+        self.isDebug = False
+        self.isKeyDebug = False
+
         self.isRunning = False
-        self.isDebug = True
-        self.isKeyDebug = True
         self.isInit = True
         self.yourdata = sM.readYourData(self.isDebug)
         self.previous = deque([])
+        self.isTray = False
 
         self.setupUi(self)
         self.history = HistoryUI(self)
@@ -60,8 +62,7 @@ class SelectorUI(QMainWindow, main_ui):
         self.tray.activated.connect(self.tray.hide)
         self.tray.hide()
         # 상단바
-        self.minimizeButton.clicked.connect(self.hide)
-        self.minimizeButton.clicked.connect(self.tray.show)
+        self.minimizeButton.clicked.connect(self.minimizeSignal)
         self.closeButton.clicked.connect(self.close)
         def moveWindow(event):
             if event.buttons() == Qt.LeftButton:
@@ -94,13 +95,14 @@ class SelectorUI(QMainWindow, main_ui):
         self.input_lb.clicked.connect(lambda: self.slider_delay.setValue(self.slider_delay.value() - 10))
         self.input_rb.clicked.connect(lambda: self.slider_delay.setValue(self.slider_delay.value() + 10))
         # 히스토리
-        self.history_button.toggled.connect(self.historySignal)
+        self.button_history.toggled.connect(self.historySignal)
         self.history_scrollbar = self.history.history_list.verticalScrollBar()
-        # 중복 방지
+        # 최근곡 제외
         self.label_pre.setText('{0}'.format(self.slider_pre.value()))
         self.slider_pre.valueChanged.connect(lambda: self.label_pre.setText('{0}'.format(self.slider_pre.value())))
+        # 시스템 트레이
+        self.button_tray.toggled.connect(self.traySignal)
         
-
     # 필터 시그널
     def initSignal(self):
         self.bt_list = set()
@@ -165,8 +167,8 @@ class SelectorUI(QMainWindow, main_ui):
                     self.cb_gf, self.cb_chu]
 
         for i, j in zip(self.values, self.checkboxes):
-            if config[i]:
-                j.setChecked(True)
+            j.setChecked(config[i])
+
         self.lvl_min.setValue(config['MIN'])
         self.lvl_max.setValue(config['MAX'])
         if config['FREESTYLE']:
@@ -175,6 +177,7 @@ class SelectorUI(QMainWindow, main_ui):
             self.cb_online.setChecked(True)
 
         self.slider_delay.setValue(config['INPUT DELAY'])
+        self.button_tray.setChecked(config['TRAY'])
 
         self.filtering()
         self.slider_pre.setValue(config['PREVIOUS'])
@@ -235,12 +238,12 @@ class SelectorUI(QMainWindow, main_ui):
 
     # 히스토리 시그널
     def historySignal(self):
-        if self.history_button.isChecked():
+        if self.button_history.isChecked():
             self.history.show()
-            self.history_button.setText('ON')
+            self.button_history.setText('ON')
         else:
             self.history.close()
-            self.history_button.setText('OFF')
+            self.button_history.setText('OFF')
 
     # 버튼 확인
     def isChecked(self, _list, cb, value):
@@ -291,6 +294,23 @@ class SelectorUI(QMainWindow, main_ui):
         if self.previous:
             self.previous = deque([])
             print('initialized')
+    
+    # 최소화 버튼 시그널
+    def minimizeSignal(self):
+        if self.isTray:
+            self.hide()
+            self.tray.show()
+        else:
+            self.showMinimized()
+    
+    # 트레이 시그널
+    def traySignal(self):
+        if self.button_tray.isChecked():
+            self.isTray = True
+            self.button_tray.setText('ON')
+        else:
+            self.isTray = False
+            self.button_tray.setText('OFF')
 
     # 무작위 뽑기
     def randomStart(self):
@@ -327,18 +347,15 @@ class SelectorUI(QMainWindow, main_ui):
                 config = json.load(f)
 
         for i, j in zip(self.checkboxes, self.values):
-            if i.isChecked():
-                config[j] = 1
-            else:
-                config[j] = 0
+            config[j] = i.isChecked()
+
         config['MIN'] = self.lvl_min.value()
         config['MAX'] = self.lvl_max.value()
-        if self.cb_freestyle.isChecked():
-            config['FREESTYLE'] = 1
-        else:
-            config['FREESTYLE'] = 0
+        config['FREESTYLE'] = self.cb_freestyle.isChecked()
+
         config['INPUT DELAY'] = self.slider_delay.value()
         config['PREVIOUS'] = self.slider_pre.value()
+        config['TRAY'] = self.button_tray.isChecked()
 
         if self.isDebug:
             with open('test_config.json', 'w') as f:
@@ -386,7 +403,8 @@ class DataUI(QDialog):
     def cancelModify(self, parent):
         parent.lock_all.move(0, -540)
         self.close()
-        
+
+# 히스토리 Dialog
 class HistoryUI(QDialog):
     def __init__(self, parent):
         super(HistoryUI, self).__init__(parent)
@@ -394,7 +412,7 @@ class HistoryUI(QDialog):
         uic.loadUi(history_ui, self)
         self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
         self.clearButton.clicked.connect(self.history_list.clear)
-        self.closeButton.clicked.connect(lambda: parent.history_button.setChecked(False))
+        self.closeButton.clicked.connect(lambda: parent.button_history.setChecked(False))
         self.aotButton.toggled.connect(self.AlwaysOnTop)
 
         def moveWindow(event):
@@ -415,8 +433,6 @@ class HistoryUI(QDialog):
             self.show()
         
 
-
-        
 
 
 if __name__ == '__main__':

@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>DJMAX Random Selector V0.3.2</string>
+   <string>DJMAX Random Selector V0.4.0</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color:qlineargradient(spread:repeat, x1:0.99, y1:0.007, x2:1, y2:0, stop:0 rgba(45, 46, 47, 255), stop:0.4 rgba(45, 46, 47, 255), stop:0.475 rgba(42, 43, 44, 255), stop:0.525 rgba(42, 43, 44, 255), stop:0.6 rgba(45, 46, 47, 255), stop:1 rgba(45, 46, 47, 255));</string>
@@ -1492,13 +1492,13 @@ QSlider::handle:horizontal {
         </rect>
        </property>
        <property name="text">
-        <string>HISTORY WINDOW</string>
+        <string>SHOW HISTORY</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="history_button">
+      <widget class="QPushButton" name="button_history">
        <property name="geometry">
         <rect>
          <x>419</x>
@@ -1604,6 +1604,63 @@ QSlider::handle:horizontal {
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="frame_5">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>170</y>
+        <width>700</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>-1</y>
+         <width>200</width>
+         <height>38</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>SYSTEM TRAY</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="button_tray">
+       <property name="geometry">
+        <rect>
+         <x>419</x>
+         <y>-1</y>
+         <width>211</width>
+         <height>39</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	color: #7f7f7f;
+	font: 10pt &quot;Lato Black&quot;;
+}
+QPushButton:checked{
+	color: #ffffff;
+}</string>
+       </property>
+       <property name="text">
+        <string>OFF</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
       </widget>
      </widget>
@@ -1829,7 +1886,7 @@ QPushButton:hover{
 font: 9pt &quot;Lato Black&quot;;</string>
      </property>
      <property name="text">
-      <string>DJMAX Random Selector V0.3.2</string>
+      <string>DJMAX Random Selector V0.4.0</string>
      </property>
     </widget>
    </widget>
