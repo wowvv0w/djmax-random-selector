@@ -130,6 +130,7 @@ class SelectorUI(QMainWindow, main_ui):
         self.cb_rp.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_rp, 'RP'))
         self.cb_p1.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_p1, 'P1'))
         self.cb_p2.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_p2, 'P2'))
+        self.cb_p3.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_p3, 'P3'))
         self.cb_tr.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_tr, 'TR'))
         self.cb_ce.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_ce, 'CE'))
         self.cb_bs.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_bs, 'BS'))
@@ -138,6 +139,7 @@ class SelectorUI(QMainWindow, main_ui):
         self.cb_t1.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_t1, 'T1'))
         self.cb_t2.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_t2, 'T2'))
         self.cb_t3.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_t3, 'T3'))
+        self.cb_p3.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_p3, 'P3'))
         self.cb_gg.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_gg, 'GG'))
         self.cb_gc.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_gc, 'GC'))
         self.cb_dm.toggled.connect(lambda: self.isChecked(self.sr_list, self.cb_dm, 'DM'))
@@ -158,13 +160,13 @@ class SelectorUI(QMainWindow, main_ui):
                 config = json.load(f)
 
         self.values = ['4B', '5B', '6B', '8B', 'NM', 'HD', 'MX', 'SC',
-                'RP', 'P1', 'P2', 'TR', 'CE', 'BS', 'VE', 'ES',
-                'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY',
-                'GF', 'CHU']
+                       'RP', 'P1', 'P2', 'P3', 'TR', 'CE', 'BS', 'VE',
+                       'ES', 'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY',
+                       'GF', 'CHU']
         self.checkboxes = [self.cb_4b, self.cb_5b, self.cb_6b, self.cb_8b, self.cb_nm, self.cb_hd, self.cb_mx, self.cb_sc,
-                    self.cb_rp, self.cb_p1, self.cb_p2, self.cb_tr, self.cb_ce, self.cb_bs, self.cb_ve, self.cb_es,
-                    self.cb_t1, self.cb_t2, self.cb_t3, self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy,
-                    self.cb_gf, self.cb_chu]
+                           self.cb_rp, self.cb_p1, self.cb_p2, self.cb_p3, self.cb_tr, self.cb_ce, self.cb_bs, self.cb_ve,
+                           self.cb_es, self.cb_t1, self.cb_t2, self.cb_t3, self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy,
+                           self.cb_gf, self.cb_chu]
 
         for i, j in zip(self.values, self.checkboxes):
             j.setChecked(config[i])
@@ -379,12 +381,12 @@ class DataUI(QDialog):
         parent.lock_all.move(0, 0)
         
         modify_data_check = set(parent.yourdata['Series'].values)
-        self.yd_values = ['TR', 'CE', 'BS', 'VE', 'ES',
-                    'T1', 'T2', 'T3', 'GC', 'DM',
-                    'CY', 'GF', 'CHU']
-        self.yd_checkboxes = [self.yd_cb_tr, self.yd_cb_ce, self.yd_cb_bs, self.yd_cb_ve, self.yd_cb_es,
-                    self.yd_cb_t1, self.yd_cb_t2, self.yd_cb_t3, self.yd_cb_gc, self.yd_cb_dm,
-                    self.yd_cb_cy, self.yd_cb_gf, self.yd_cb_chu]
+        self.yd_values = ['P3', 'TR', 'CE', 'BS', 'VE',
+                          'ES', 'T1', 'T2', 'T3', 'GC',
+                          'DM', 'CY', 'GF', 'CHU']
+        self.yd_checkboxes = [self.yd_cb_p3, self.yd_cb_tr, self.yd_cb_ce, self.yd_cb_bs, self.yd_cb_ve,
+                              self.yd_cb_es, self.yd_cb_t1, self.yd_cb_t2, self.yd_cb_t3, self.yd_cb_gc,
+                              self.yd_cb_dm, self.yd_cb_cy, self.yd_cb_gf, self.yd_cb_chu]
         for i, j in zip(self.yd_values, self.yd_checkboxes):
             if i in modify_data_check:
                 j.setChecked(True)
@@ -393,7 +395,7 @@ class DataUI(QDialog):
     
     # 데이터 생성 인풋 데이터 & YourData.csv 생성
     def modifyDataInputData(self, parent):
-        fil_yd_sr = set(self.yd_values[i] for i in range(13) if self.yd_checkboxes[i].isChecked())
+        fil_yd_sr = set(self.yd_values[i] for i in range(len(self.yd_values)) if self.yd_checkboxes[i].isChecked())
         fil_yd_sr.update(['RP', 'P1', 'P2', 'GG'])
         sM.modifyYourData(fil_yd_sr, parent.isDebug)
         parent.yourdata = sM.readYourData(parent.isDebug)

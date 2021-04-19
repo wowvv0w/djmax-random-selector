@@ -6,24 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>760</width>
+    <width>740</width>
     <height>540</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>760</width>
+    <width>740</width>
     <height>540</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>760</width>
+    <width>740</width>
     <height>540</height>
    </size>
   </property>
   <property name="windowTitle">
-   <string>DJMAX Random Selector V0.4.0</string>
+   <string>DJMAX Random Selector V0.5.0</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color:qlineargradient(spread:repeat, x1:0.99, y1:0.007, x2:1, y2:0, stop:0 rgba(45, 46, 47, 255), stop:0.4 rgba(45, 46, 47, 255), stop:0.475 rgba(42, 43, 44, 255), stop:0.525 rgba(42, 43, 44, 255), stop:0.6 rgba(45, 46, 47, 255), stop:1 rgba(45, 46, 47, 255));</string>
@@ -44,7 +44,7 @@ QLabel{
      <rect>
       <x>0</x>
       <y>90</y>
-      <width>770</width>
+      <width>740</width>
       <height>380</height>
      </rect>
     </property>
@@ -88,7 +88,7 @@ QFrame{
        <rect>
         <x>410</x>
         <y>0</y>
-        <width>320</width>
+        <width>300</width>
         <height>380</height>
        </rect>
       </property>
@@ -122,7 +122,7 @@ QPushButton{
         <rect>
          <x>10</x>
          <y>35</y>
-         <width>150</width>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -150,7 +150,7 @@ QPushButton:checked {
         <rect>
          <x>10</x>
          <y>65</y>
-         <width>150</width>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -178,7 +178,7 @@ QPushButton:checked {
         <rect>
          <x>10</x>
          <y>95</y>
-         <width>150</width>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -205,8 +205,8 @@ QPushButton:checked {
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>125</y>
-         <width>150</width>
+         <y>155</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -233,8 +233,8 @@ QPushButton:checked {
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>155</y>
-         <width>150</width>
+         <y>185</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -247,7 +247,7 @@ QPushButton:checked {
 
 QPushButton:checked {
  	color: #000000;
-    background-color:qlineargradient(spread:pad, x1:0, y1:0.4, x2:1, y2:0.5, stop:0 rgba(255, 255, 255, 255), stop:0.78 rgba(255, 255, 255, 255), stop:0.781049 rgba(245, 216, 79, 255), stop:0.85 rgba(245, 216, 79, 255), stop:0.851 rgba(169, 125, 31, 255), stop:0.895 rgba(169, 125, 31, 255), stop:0.896 rgba(203, 148, 49, 255), stop:1 rgba(203, 148, 49, 255))
+    background-color:qlineargradient(spread:pad, x1:0, y1:0.4, x2:1, y2:0.5, stop:0 rgba(255, 255, 255, 255), stop:0.777 rgba(255, 255, 255, 255), stop:0.783 rgba(245, 216, 79, 255), stop:0.847 rgba(245, 216, 79, 255), stop:0.853 rgba(169, 125, 31, 255), stop:0.892 rgba(169, 125, 31, 255), stop:0.898 rgba(203, 148, 49, 255), stop:1 rgba(203, 148, 49, 255))
 }</string>
        </property>
        <property name="text">
@@ -260,9 +260,9 @@ QPushButton:checked {
       <widget class="QPushButton" name="cb_bs">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>185</y>
-         <width>150</width>
+         <x>150</x>
+         <y>35</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -288,9 +288,9 @@ QPushButton:checked {
       <widget class="QPushButton" name="cb_ve">
        <property name="geometry">
         <rect>
-         <x>160</x>
-         <y>35</y>
-         <width>150</width>
+         <x>150</x>
+         <y>65</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -316,9 +316,9 @@ QPushButton:checked {
       <widget class="QPushButton" name="cb_es">
        <property name="geometry">
         <rect>
-         <x>160</x>
-         <y>65</y>
-         <width>150</width>
+         <x>150</x>
+         <y>95</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -344,9 +344,9 @@ QPushButton:checked {
       <widget class="QPushButton" name="cb_t1">
        <property name="geometry">
         <rect>
-         <x>160</x>
-         <y>95</y>
-         <width>150</width>
+         <x>150</x>
+         <y>125</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -372,9 +372,9 @@ QPushButton:checked {
       <widget class="QPushButton" name="cb_t2">
        <property name="geometry">
         <rect>
-         <x>160</x>
-         <y>125</y>
-         <width>150</width>
+         <x>150</x>
+         <y>155</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -400,9 +400,9 @@ QPushButton:checked {
       <widget class="QPushButton" name="cb_t3">
        <property name="geometry">
         <rect>
-         <x>160</x>
-         <y>155</y>
-         <width>150</width>
+         <x>150</x>
+         <y>185</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -430,7 +430,7 @@ QPushButton:checked {
         <rect>
          <x>10</x>
          <y>245</y>
-         <width>300</width>
+         <width>280</width>
          <height>120</height>
         </rect>
        </property>
@@ -448,7 +448,7 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_gg">
         <property name="geometry">
          <rect>
-          <x>20</x>
+          <x>10</x>
           <y>10</y>
           <width>120</width>
           <height>25</height>
@@ -480,7 +480,7 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_gc">
         <property name="geometry">
          <rect>
-          <x>160</x>
+          <x>150</x>
           <y>10</y>
           <width>120</width>
           <height>25</height>
@@ -509,7 +509,7 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_chu">
         <property name="geometry">
          <rect>
-          <x>160</x>
+          <x>150</x>
           <y>80</y>
           <width>120</width>
           <height>25</height>
@@ -538,7 +538,7 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_dm">
         <property name="geometry">
          <rect>
-          <x>20</x>
+          <x>10</x>
           <y>45</y>
           <width>120</width>
           <height>25</height>
@@ -567,7 +567,7 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_cy">
         <property name="geometry">
          <rect>
-          <x>160</x>
+          <x>150</x>
           <y>45</y>
           <width>120</width>
           <height>25</height>
@@ -596,7 +596,7 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_gf">
         <property name="geometry">
          <rect>
-          <x>20</x>
+          <x>10</x>
           <y>80</y>
           <width>120</width>
           <height>25</height>
@@ -632,9 +632,9 @@ QPushButton:checked {
       <widget class="QPushButton" name="cb_collab">
        <property name="geometry">
         <rect>
-         <x>160</x>
+         <x>150</x>
          <y>215</y>
-         <width>150</width>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -660,8 +660,8 @@ QPushButton:checked {
       <widget class="QPushButton" name="data_button">
        <property name="geometry">
         <rect>
-         <x>210</x>
-         <y>5</y>
+         <x>190</x>
+         <y>3</y>
          <width>100</width>
          <height>20</height>
         </rect>
@@ -679,6 +679,34 @@ QPushButton:checked {
         <string>MODIFY DATA</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="cb_p3">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>125</y>
+         <width>140</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	color: #563914;
+    background-color: rgba(0, 0, 0, 87);
+	border: none;
+}
+
+QPushButton:checked {
+ 	color: #000000;
+    background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(252, 172, 0, 255), stop:0.0625 rgba(252, 172, 0, 255), stop:0.0643116 rgba(231, 147, 31, 255), stop:0.14221 rgba(231, 147, 31, 255), stop:0.143116 rgba(209, 117, 13, 255), stop:0.480072 rgba(209, 117, 13, 255), stop:0.873188 rgba(186, 87, 5, 255), stop:0.874094 rgba(209, 117, 13, 255), stop:1 rgba(209, 117, 13, 255));
+}</string>
+       </property>
+       <property name="text">
+        <string>PORTABLE 3</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
       <zorder>cb_t3</zorder>
       <zorder>cb_t2</zorder>
       <zorder>cb_t1</zorder>
@@ -693,6 +721,7 @@ QPushButton:checked {
       <zorder>cb_ce</zorder>
       <zorder>cb_bs</zorder>
       <zorder>cb_collab</zorder>
+      <zorder>cb_p3</zorder>
      </widget>
      <widget class="QGroupBox" name="bt_groupbox">
       <property name="geometry">
@@ -1336,7 +1365,7 @@ QPushButton{
        <rect>
         <x>30</x>
         <y>20</y>
-        <width>700</width>
+        <width>680</width>
         <height>38</height>
        </rect>
       </property>
@@ -1365,9 +1394,9 @@ QPushButton{
       <widget class="QSlider" name="slider_delay">
        <property name="geometry">
         <rect>
-         <x>400</x>
+         <x>390</x>
          <y>9</y>
-         <width>250</width>
+         <width>240</width>
          <height>20</height>
         </rect>
        </property>
@@ -1406,7 +1435,7 @@ QSlider::handle:horizontal {
       <widget class="QLabel" name="label_ms">
        <property name="geometry">
         <rect>
-         <x>280</x>
+         <x>270</x>
          <y>-1</y>
          <width>60</width>
          <height>38</height>
@@ -1422,9 +1451,9 @@ QSlider::handle:horizontal {
       <widget class="QLabel" name="label_3">
        <property name="geometry">
         <rect>
-         <x>399</x>
-         <y>10</y>
-         <width>250</width>
+         <x>390</x>
+         <y>9</y>
+         <width>240</width>
          <height>20</height>
         </rect>
        </property>
@@ -1435,7 +1464,7 @@ QSlider::handle:horizontal {
       <widget class="QPushButton" name="input_lb">
        <property name="geometry">
         <rect>
-         <x>350</x>
+         <x>340</x>
          <y>0</y>
          <width>50</width>
          <height>38</height>
@@ -1452,7 +1481,7 @@ QSlider::handle:horizontal {
       <widget class="QPushButton" name="input_rb">
        <property name="geometry">
         <rect>
-         <x>649</x>
+         <x>630</x>
          <y>0</y>
          <width>50</width>
          <height>38</height>
@@ -1472,7 +1501,7 @@ QSlider::handle:horizontal {
        <rect>
         <x>30</x>
         <y>70</y>
-        <width>700</width>
+        <width>680</width>
         <height>38</height>
        </rect>
       </property>
@@ -1501,9 +1530,9 @@ QSlider::handle:horizontal {
       <widget class="QPushButton" name="button_history">
        <property name="geometry">
         <rect>
-         <x>419</x>
+         <x>410</x>
          <y>-1</y>
-         <width>211</width>
+         <width>200</width>
          <height>39</height>
         </rect>
        </property>
@@ -1529,7 +1558,7 @@ QPushButton:checked{
        <rect>
         <x>30</x>
         <y>120</y>
-        <width>700</width>
+        <width>680</width>
         <height>38</height>
        </rect>
       </property>
@@ -1558,9 +1587,9 @@ QPushButton:checked{
       <widget class="QSlider" name="slider_pre">
        <property name="geometry">
         <rect>
-         <x>400</x>
+         <x>390</x>
          <y>9</y>
-         <width>250</width>
+         <width>240</width>
          <height>20</height>
         </rect>
        </property>
@@ -1593,7 +1622,7 @@ QSlider::handle:horizontal {
       <widget class="QLabel" name="label_pre">
        <property name="geometry">
         <rect>
-         <x>280</x>
+         <x>270</x>
          <y>-1</y>
          <width>60</width>
          <height>38</height>
@@ -1612,7 +1641,7 @@ QSlider::handle:horizontal {
        <rect>
         <x>30</x>
         <y>170</y>
-        <width>700</width>
+        <width>680</width>
         <height>38</height>
        </rect>
       </property>
@@ -1641,9 +1670,9 @@ QSlider::handle:horizontal {
       <widget class="QPushButton" name="button_tray">
        <property name="geometry">
         <rect>
-         <x>419</x>
+         <x>410</x>
          <y>-1</y>
-         <width>211</width>
+         <width>200</width>
          <height>39</height>
         </rect>
        </property>
@@ -1671,7 +1700,7 @@ QPushButton:checked{
      <rect>
       <x>0</x>
       <y>40</y>
-      <width>770</width>
+      <width>740</width>
       <height>40</height>
      </rect>
     </property>
@@ -1715,7 +1744,7 @@ QPushButton:checked {
     <widget class="QPushButton" name="filter_tab_bt">
      <property name="geometry">
       <rect>
-       <x>540</x>
+       <x>520</x>
        <y>-1</y>
        <width>61</width>
        <height>40</height>
@@ -1740,7 +1769,7 @@ QPushButton:checked {
     <widget class="QPushButton" name="advanced_tab_bt">
      <property name="geometry">
       <rect>
-       <x>630</x>
+       <x>610</x>
        <y>-1</y>
        <width>100</width>
        <height>40</height>
@@ -1762,7 +1791,7 @@ QPushButton:checked {
      <rect>
       <x>0</x>
       <y>480</y>
-      <width>770</width>
+      <width>740</width>
       <height>60</height>
      </rect>
     </property>
@@ -1780,7 +1809,7 @@ QPushButton:checked {
       <rect>
        <x>0</x>
        <y>-2</y>
-       <width>760</width>
+       <width>740</width>
        <height>60</height>
       </rect>
      </property>
@@ -1826,7 +1855,7 @@ QPushButton:hover{
     <widget class="QPushButton" name="closeButton">
      <property name="geometry">
       <rect>
-       <x>700</x>
+       <x>680</x>
        <y>0</y>
        <width>60</width>
        <height>40</height>
@@ -1852,7 +1881,7 @@ QPushButton:hover{
     <widget class="QPushButton" name="minimizeButton">
      <property name="geometry">
       <rect>
-       <x>640</x>
+       <x>620</x>
        <y>0</y>
        <width>60</width>
        <height>40</height>
@@ -1886,7 +1915,7 @@ QPushButton:hover{
 font: 9pt &quot;Lato Black&quot;;</string>
      </property>
      <property name="text">
-      <string>DJMAX Random Selector V0.4.0</string>
+      <string>DJMAX Random Selector V0.5.0</string>
      </property>
     </widget>
    </widget>

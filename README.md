@@ -1,7 +1,7 @@
 # DJMAX Random Selector
 
 * This program is for DJMAX RESPECT V, selecting music randomly
-* It uses keyboard macro so DO NOT run at other apps to prevent from unexpecting situations
+* It uses keyboard macro so DO NOT run at other apps to prevent from eventualities
 * [Download Link](https://github.com/wowvv0w/DJMAX_Random_Selector/releases)
 
 ## How to Use
@@ -22,6 +22,10 @@
 If there are any other issues, please tell me.
 
 ## Update
+### V0.5.0
+* Added 'Portable 3' category
+* Fixed wrong data in Database
+* Rearranged checkboxes' positions in 'MODIFY DATA' in order of release date
 ### V0.4.0
 * Added 'EXCLUDE RECENT MUSIC' option
 * Added 'SYSTEM TRAY' ON/OFF option
@@ -29,8 +33,9 @@ If there are any other issues, please tell me.
 * Fixed 'Urban Night's that were not classified
 * Added auto scroll at 'HISTORY'
 * Changed config file extension from .ini to .json
-* Deleted 'Genre' and 'Length' in AllTrackData.csv that were not used
+* Deleted 'Genre' and 'Length' in Database that were not used
 * Added freestyle & online image in 'MODE'
+* Optimized codes
 ### V0.3.1
 * Fixed an issue that fonts were not displayed as intended
 * Changed minimize button to system tray button
@@ -42,7 +47,7 @@ If there are any other issues, please tell me.
 * Fixed hotkey(F7) - now Selector will start when you press 'F7', not release
 * Optimized codes
 ### v0.2.1
-* Fixed 'voldenuit' to 'v o l d e n u i t' in AllTrackData.csv
+* Fixed 'voldenuit' to 'v o l d e n u i t' in Database
 ### v0.2.0
 * Fixed an issue that was not selected correctly when an initial letter of music is the same as that of previously selected music
 * Added 'Mode' filter

@@ -129,6 +129,9 @@ def modifyYourData(series, debug):
 def specialMusicFilter(df, series):
 
     # RP in DLC 삭제 조건
+    if not 'P3' in series:
+        df = df.drop(df[df['Title'] == 'glory day (Mintorment Remix)'].index)
+        df = df.drop(df[df['Title'] == 'glory day -JHS Remix-'].index)
     if not 'TR' in series:
         df = df.drop(df[df['Title'] == 'Nevermind'].index)
     if not 'CE' in series:
@@ -158,7 +161,7 @@ if __name__ == '__main__':
     ex_data = pd.read_csv("AllTrackData.csv", names = name)
     ex_buttons = {'4B', '5B', '6B', '8B'}
     ex_styles = {'NM', 'HD', 'MX', 'SC'}
-    ex_series = {'RP', 'P1', 'P2', 'TR', 'CE', 'BS', 'VE', 'ES', 'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY', 'GF', 'CHU'}
+    ex_series = {'RP', 'P1', 'P2', 'P3', 'TR', 'CE', 'BS', 'VE', 'ES', 'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY', 'GF', 'CHU'}
     ex_diff_min = 1
     ex_diff_max = 15
     ex_isFreestyle = 1
