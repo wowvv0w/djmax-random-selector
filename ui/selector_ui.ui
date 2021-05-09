@@ -6,24 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>760</width>
+    <width>740</width>
     <height>540</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>760</width>
+    <width>740</width>
     <height>540</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>760</width>
+    <width>740</width>
     <height>540</height>
    </size>
   </property>
   <property name="windowTitle">
-   <string>DJMAX Random Selector V0.4.0</string>
+   <string>DJMAX Random Selector V0.6.0</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color:qlineargradient(spread:repeat, x1:0.99, y1:0.007, x2:1, y2:0, stop:0 rgba(45, 46, 47, 255), stop:0.4 rgba(45, 46, 47, 255), stop:0.475 rgba(42, 43, 44, 255), stop:0.525 rgba(42, 43, 44, 255), stop:0.6 rgba(45, 46, 47, 255), stop:1 rgba(45, 46, 47, 255));</string>
@@ -44,7 +44,7 @@ QLabel{
      <rect>
       <x>0</x>
       <y>90</y>
-      <width>770</width>
+      <width>740</width>
       <height>380</height>
      </rect>
     </property>
@@ -88,7 +88,7 @@ QFrame{
        <rect>
         <x>410</x>
         <y>0</y>
-        <width>320</width>
+        <width>300</width>
         <height>380</height>
        </rect>
       </property>
@@ -106,7 +106,8 @@ QFrame{
 }
 QPushButton{
 	font: 9pt &quot;Lato Black&quot;
-}</string>
+}
+</string>
       </property>
       <property name="title">
        <string>CATEGORIES</string>
@@ -122,7 +123,7 @@ QPushButton{
         <rect>
          <x>10</x>
          <y>35</y>
-         <width>150</width>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -150,7 +151,7 @@ QPushButton:checked {
         <rect>
          <x>10</x>
          <y>65</y>
-         <width>150</width>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -178,7 +179,7 @@ QPushButton:checked {
         <rect>
          <x>10</x>
          <y>95</y>
-         <width>150</width>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -205,8 +206,8 @@ QPushButton:checked {
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>125</y>
-         <width>150</width>
+         <y>155</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -220,6 +221,12 @@ QPushButton:checked {
 QPushButton:checked {
  	color: #000000;
     background-color:qlineargradient(spread:pad, x1:0.0100503, y1:0.5, x2:1, y2:0.5, stop:0 rgba(104, 224, 255, 255), stop:0.78 rgba(74, 121, 255, 255))
+}
+
+QPushButton:disabled{
+	color: #242526;
+    background-color: rgba(0, 0, 0, 87);
+	border: none;
 }</string>
        </property>
        <property name="text">
@@ -233,8 +240,8 @@ QPushButton:checked {
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>155</y>
-         <width>150</width>
+         <y>185</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -247,7 +254,13 @@ QPushButton:checked {
 
 QPushButton:checked {
  	color: #000000;
-    background-color:qlineargradient(spread:pad, x1:0, y1:0.4, x2:1, y2:0.5, stop:0 rgba(255, 255, 255, 255), stop:0.78 rgba(255, 255, 255, 255), stop:0.781049 rgba(245, 216, 79, 255), stop:0.85 rgba(245, 216, 79, 255), stop:0.851 rgba(169, 125, 31, 255), stop:0.895 rgba(169, 125, 31, 255), stop:0.896 rgba(203, 148, 49, 255), stop:1 rgba(203, 148, 49, 255))
+    background-color:qlineargradient(spread:pad, x1:0, y1:0.4, x2:1, y2:0.5, stop:0 rgba(255, 255, 255, 255), stop:0.777 rgba(255, 255, 255, 255), stop:0.783 rgba(245, 216, 79, 255), stop:0.847 rgba(245, 216, 79, 255), stop:0.853 rgba(169, 125, 31, 255), stop:0.892 rgba(169, 125, 31, 255), stop:0.898 rgba(203, 148, 49, 255), stop:1 rgba(203, 148, 49, 255))
+}
+
+QPushButton:disabled{
+	color: #242526;
+    background-color: rgba(0, 0, 0, 87);
+	border: none;
 }</string>
        </property>
        <property name="text">
@@ -260,9 +273,9 @@ QPushButton:checked {
       <widget class="QPushButton" name="cb_bs">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>185</y>
-         <width>150</width>
+         <x>150</x>
+         <y>35</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -276,6 +289,12 @@ QPushButton:checked {
 QPushButton:checked {
  	color: #000000;
     background-color:qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0.25 rgba(236, 0, 67, 255), stop:1 rgba(127, 23, 33, 255));
+}
+
+QPushButton:disabled{
+	color: #242526;
+    background-color: rgba(0, 0, 0, 87);
+	border: none;
 }</string>
        </property>
        <property name="text">
@@ -288,9 +307,9 @@ QPushButton:checked {
       <widget class="QPushButton" name="cb_ve">
        <property name="geometry">
         <rect>
-         <x>160</x>
-         <y>35</y>
-         <width>150</width>
+         <x>150</x>
+         <y>65</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -304,6 +323,12 @@ QPushButton:checked {
 QPushButton:checked {
  	color: #000000;
     background-color:qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0.25 rgba(255, 111, 27, 255), stop:0.5 rgba(233, 114, 44, 255), stop:1 rgba(44, 139, 193, 255))
+}
+
+QPushButton:disabled{
+	color: #242526;
+    background-color: rgba(0, 0, 0, 87);
+	border: none;
 }</string>
        </property>
        <property name="text">
@@ -316,9 +341,9 @@ QPushButton:checked {
       <widget class="QPushButton" name="cb_es">
        <property name="geometry">
         <rect>
-         <x>160</x>
-         <y>65</y>
-         <width>150</width>
+         <x>150</x>
+         <y>95</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -332,6 +357,12 @@ QPushButton:checked {
 QPushButton:checked {
  	color: #000000;
     background-color:qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0 rgba(12, 130, 204, 255), stop:0.5 rgba(47, 212, 58, 255), stop:1 rgba(52, 223, 38, 255));
+}
+
+QPushButton:disabled{
+	color: #242526;
+    background-color: rgba(0, 0, 0, 87);
+	border: none;
 }</string>
        </property>
        <property name="text">
@@ -344,9 +375,9 @@ QPushButton:checked {
       <widget class="QPushButton" name="cb_t1">
        <property name="geometry">
         <rect>
-         <x>160</x>
-         <y>95</y>
-         <width>150</width>
+         <x>150</x>
+         <y>125</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -360,6 +391,12 @@ QPushButton:checked {
 QPushButton:checked {
  	color: #000000;
     background-color:qlineargradient(spread:pad, x1:0, y1:0.5, x2:1, y2:0.5, stop:0.1 rgba(255, 0, 150, 255), stop:0.9 rgba(127, 99, 234, 255));
+}
+
+QPushButton:disabled{
+	color: #242526;
+    background-color: rgba(0, 0, 0, 87);
+	border: none;
 }</string>
        </property>
        <property name="text">
@@ -372,9 +409,9 @@ QPushButton:checked {
       <widget class="QPushButton" name="cb_t2">
        <property name="geometry">
         <rect>
-         <x>160</x>
-         <y>125</y>
-         <width>150</width>
+         <x>150</x>
+         <y>155</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -388,6 +425,12 @@ QPushButton:checked {
 QPushButton:checked {
  	color: #000000;
     background-color:qlineargradient(spread:pad, x1:0, y1:0.48, x2:1, y2:0.5, stop:0 rgba(255, 8, 211, 255), stop:0.16485 rgba(255, 109, 0, 255), stop:0.311989 rgba(255, 128, 0, 255), stop:0.468665 rgba(255, 192, 1, 255), stop:0.626703 rgba(255, 196, 1, 255), stop:0.791962 rgba(98, 220, 99, 255), stop:0.940898 rgba(0, 210, 255, 255))
+}
+
+QPushButton:disabled{
+	color: #242526;
+    background-color: rgba(0, 0, 0, 87);
+	border: none;
 }</string>
        </property>
        <property name="text">
@@ -400,9 +443,9 @@ QPushButton:checked {
       <widget class="QPushButton" name="cb_t3">
        <property name="geometry">
         <rect>
-         <x>160</x>
-         <y>155</y>
-         <width>150</width>
+         <x>150</x>
+         <y>185</y>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -416,6 +459,12 @@ QPushButton:checked {
 QPushButton:checked {
  	color: #000000;
     background-color:qlineargradient(spread:pad, x1:0.000777605, y1:0.42, x2:1, y2:0.5, stop:0 rgba(80, 49, 240, 255), stop:0.276827 rgba(101, 32, 228, 255), stop:0.286936 rgba(63, 67, 255, 255), stop:1 rgba(12, 123, 255, 255))
+}
+
+QPushButton:disabled{
+	color: #242526;
+    background-color: rgba(0, 0, 0, 87);
+	border: none;
 }</string>
        </property>
        <property name="text">
@@ -430,13 +479,16 @@ QPushButton:checked {
         <rect>
          <x>10</x>
          <y>245</y>
-         <width>300</width>
+         <width>280</width>
          <height>120</height>
         </rect>
        </property>
        <property name="styleSheet">
         <string notr="true">QFrame{
 	background-color: rgba(0, 0, 0, 87);
+}
+QLabel{
+	background: transparent;
 }</string>
        </property>
        <property name="frameShape">
@@ -448,7 +500,7 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_gg">
         <property name="geometry">
          <rect>
-          <x>20</x>
+          <x>10</x>
           <y>10</y>
           <width>120</width>
           <height>25</height>
@@ -480,7 +532,7 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_gc">
         <property name="geometry">
          <rect>
-          <x>160</x>
+          <x>150</x>
           <y>10</y>
           <width>120</width>
           <height>25</height>
@@ -497,6 +549,11 @@ QPushButton:checked {
 	border-color: #51eefe;
  	color: #51eefe;
     background-color: rgba(0, 0, 0, 87);
+}
+QPushButton:disabled{
+	color: #242526;
+    background-color: transparent;
+	border-color: #242526;
 }</string>
         </property>
         <property name="text">
@@ -509,7 +566,7 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_chu">
         <property name="geometry">
          <rect>
-          <x>160</x>
+          <x>150</x>
           <y>80</y>
           <width>120</width>
           <height>25</height>
@@ -526,6 +583,11 @@ QPushButton:checked {
 	border-color: #ffd700;
  	color: #ffd700;
     background-color: rgba(0, 0, 0, 87);
+}
+QPushButton:disabled{
+	color: #242526;
+    background-color: transparent;
+	border-color: #242526;
 }</string>
         </property>
         <property name="text">
@@ -538,7 +600,7 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_dm">
         <property name="geometry">
          <rect>
-          <x>20</x>
+          <x>10</x>
           <y>45</y>
           <width>120</width>
           <height>25</height>
@@ -555,6 +617,11 @@ QPushButton:checked {
 	border-color: #99e5d8;
  	color: #99e5d8;
     background-color: rgba(0, 0, 0, 87);
+}
+QPushButton:disabled{
+	color: #242526;
+    background-color: transparent;
+	border-color: #242526;
 }</string>
         </property>
         <property name="text">
@@ -567,7 +634,7 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_cy">
         <property name="geometry">
          <rect>
-          <x>160</x>
+          <x>150</x>
           <y>45</y>
           <width>120</width>
           <height>25</height>
@@ -584,6 +651,11 @@ QPushButton:checked {
 	border-color: #ee1538;
  	color: #ee1538;
     background-color: rgba(0, 0, 0, 87);
+}
+QPushButton:disabled{
+	color: #242526;
+    background-color: transparent;
+	border-color: #242526;
 }</string>
         </property>
         <property name="text">
@@ -596,7 +668,7 @@ QPushButton:checked {
        <widget class="QPushButton" name="cb_gf">
         <property name="geometry">
          <rect>
-          <x>20</x>
+          <x>10</x>
           <y>80</y>
           <width>120</width>
           <height>25</height>
@@ -613,6 +685,11 @@ QPushButton:checked {
 	border-color: #fdb426;
  	color: #fdb426;
     background-color: rgba(0, 0, 0, 87);
+}
+QPushButton:disabled{
+	color: #242526;
+    background-color: transparent;
+	border-color: #242526;
 }</string>
         </property>
         <property name="text">
@@ -632,9 +709,9 @@ QPushButton:checked {
       <widget class="QPushButton" name="cb_collab">
        <property name="geometry">
         <rect>
-         <x>160</x>
+         <x>150</x>
          <y>215</y>
-         <width>150</width>
+         <width>140</width>
          <height>30</height>
         </rect>
        </property>
@@ -660,8 +737,8 @@ QPushButton:checked {
       <widget class="QPushButton" name="data_button">
        <property name="geometry">
         <rect>
-         <x>210</x>
-         <y>5</y>
+         <x>190</x>
+         <y>3</y>
          <width>100</width>
          <height>20</height>
         </rect>
@@ -679,6 +756,264 @@ QPushButton:checked {
         <string>MODIFY DATA</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="cb_p3">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>125</y>
+         <width>140</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	color: #563914;
+    background-color: rgba(0, 0, 0, 87);
+	border: none;
+}
+
+QPushButton:checked {
+ 	color: #000000;
+    background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(252, 172, 0, 255), stop:0.0625 rgba(252, 172, 0, 255), stop:0.0643116 rgba(231, 147, 31, 255), stop:0.14221 rgba(231, 147, 31, 255), stop:0.143116 rgba(209, 117, 13, 255), stop:0.480072 rgba(209, 117, 13, 255), stop:0.873188 rgba(186, 87, 5, 255), stop:0.874094 rgba(209, 117, 13, 255), stop:1 rgba(209, 117, 13, 255));
+}
+
+QPushButton:disabled{
+	color: #242526;
+    background-color: rgba(0, 0, 0, 87);
+	border: none;
+}</string>
+       </property>
+       <property name="text">
+        <string>PORTABLE 3</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lock_ce">
+       <property name="geometry">
+        <rect>
+         <x>-20</x>
+         <y>185</y>
+         <width>20</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="pixmap">
+        <pixmap>../images/lock.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lock_p3">
+       <property name="geometry">
+        <rect>
+         <x>-20</x>
+         <y>125</y>
+         <width>20</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="pixmap">
+        <pixmap>../images/lock.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lock_tr">
+       <property name="geometry">
+        <rect>
+         <x>-20</x>
+         <y>155</y>
+         <width>20</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="pixmap">
+        <pixmap>../images/lock.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lock_t3">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>185</y>
+         <width>20</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="pixmap">
+        <pixmap>../images/lock.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lock_t2">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>155</y>
+         <width>20</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="pixmap">
+        <pixmap>../images/lock.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lock_t1">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>125</y>
+         <width>20</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="pixmap">
+        <pixmap>../images/lock.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lock_es">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>95</y>
+         <width>20</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="pixmap">
+        <pixmap>../images/lock.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lock_ve">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>65</y>
+         <width>20</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="pixmap">
+        <pixmap>../images/lock.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lock_bs">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>35</y>
+         <width>20</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="pixmap">
+        <pixmap>../images/lock.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lock_gf">
+       <property name="geometry">
+        <rect>
+         <x>-20</x>
+         <y>325</y>
+         <width>20</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="pixmap">
+        <pixmap>../images/lock.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lock_cy">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>290</y>
+         <width>20</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="pixmap">
+        <pixmap>../images/lock.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lock_dm">
+       <property name="geometry">
+        <rect>
+         <x>-20</x>
+         <y>290</y>
+         <width>20</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="pixmap">
+        <pixmap>../images/lock.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lock_gc">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>255</y>
+         <width>20</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="pixmap">
+        <pixmap>../images/lock.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lock_chu">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>325</y>
+         <width>20</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="pixmap">
+        <pixmap>../images/lock.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
       <zorder>cb_t3</zorder>
       <zorder>cb_t2</zorder>
       <zorder>cb_t1</zorder>
@@ -693,6 +1028,21 @@ QPushButton:checked {
       <zorder>cb_ce</zorder>
       <zorder>cb_bs</zorder>
       <zorder>cb_collab</zorder>
+      <zorder>cb_p3</zorder>
+      <zorder>lock_ce</zorder>
+      <zorder>lock_p3</zorder>
+      <zorder>lock_tr</zorder>
+      <zorder>lock_t3</zorder>
+      <zorder>lock_t2</zorder>
+      <zorder>lock_t1</zorder>
+      <zorder>lock_es</zorder>
+      <zorder>lock_ve</zorder>
+      <zorder>lock_bs</zorder>
+      <zorder>lock_gf</zorder>
+      <zorder>lock_dm</zorder>
+      <zorder>lock_chu</zorder>
+      <zorder>lock_cy</zorder>
+      <zorder>lock_gc</zorder>
      </widget>
      <widget class="QGroupBox" name="bt_groupbox">
       <property name="geometry">
@@ -747,10 +1097,8 @@ QPushButton{
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>images/4B_OFF.png</normaloff>
-            <normalon>images/4B_ON.png</normalon>
-            <disabledoff>images/4B_OFF.png</disabledoff>
-            <disabledon>images/4B_ON.png</disabledon>images/4B_OFF.png</iconset>
+            <normaloff>../images/4B_OFF.png</normaloff>
+            <normalon>../images/4B_ON.png</normalon>../images/4B_OFF.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -780,10 +1128,8 @@ QPushButton{
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>images/5B_OFF.png</normaloff>
-            <normalon>images/5B_ON.png</normalon>
-            <disabledoff>images/5B_OFF.png</disabledoff>
-            <disabledon>images/5B_ON.png</disabledon>images/5B_OFF.png</iconset>
+            <normaloff>../images/5B_OFF.png</normaloff>
+            <normalon>../images/5B_ON.png</normalon>../images/5B_OFF.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -813,10 +1159,8 @@ QPushButton{
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>images/6B_OFF.png</normaloff>
-            <normalon>images/6B_ON.png</normalon>
-            <disabledoff>images/6B_OFF.png</disabledoff>
-            <disabledon>images/6B_ON.png</disabledon>images/6B_OFF.png</iconset>
+            <normaloff>../images/6B_OFF.png</normaloff>
+            <normalon>../images/6B_ON.png</normalon>../images/6B_OFF.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -846,10 +1190,8 @@ QPushButton{
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>images/8B_OFF.png</normaloff>
-            <normalon>images/8B_ON.png</normalon>
-            <disabledoff>images/8B_OFF.png</disabledoff>
-            <disabledon>images/8B_ON.png</disabledon>images/8B_OFF.png</iconset>
+            <normaloff>../images/8B_OFF.png</normaloff>
+            <normalon>../images/8B_ON.png</normalon>../images/8B_OFF.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -880,186 +1222,50 @@ QPushButton{
 	color:#7f7f7f;
 	border:none;
 }
+QFrame{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(88, 78, 70, 128), stop:0.5 rgba(88, 78, 70, 128), stop:0.501 rgba(96, 78, 65, 255), stop:1 rgba(96, 78, 65, 255));
+	color: #ffffff;
+}
 QPushButton{
 	font: 8pt &quot;Lato Black&quot;
 }
-QSlider::groove:horizontal {
-    height: 8px;
-    background: transparent;
+QSpinBox{
+	font: 9pt &quot;Lato Black&quot;;
+	color: #dfdfdf;
+	border:none;
 }
-QSlider::handle:horizontal {
-    background: #f40052;
-    width: 16px;
-	margin: -4px 0;
-    border-radius: 8px;
+QSpinBox::up-button{
+	subcontrol-position: right;
+	color: #ffffff;
+	width: 28px;
 }
-QSlider::add-page:horizontal {
-    background: #000000;
+QSpinBox::up-arrow {
+    image: url(images/right_button.png);
 }
-QSlider::sub-page:horizontal {
-    background: rgba(0, 0, 0, 64);
+QSpinBox::down-button{
+	subcontrol-position: left;
+	color: #ffffff;
+	width: 28px;
+}
+QSpinBox::down-arrow {
+    image: url(images/left_button.png);
 }</string>
       </property>
       <property name="title">
        <string>DIFFICULTY</string>
       </property>
-      <widget class="QLabel" name="label_min">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>30</y>
-         <width>31</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 8pt &quot;Lato&quot;</string>
-       </property>
-       <property name="text">
-        <string>MIN</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_max">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>70</y>
-         <width>31</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 8pt &quot;Lato&quot;</string>
-       </property>
-       <property name="text">
-        <string>MAX</string>
-       </property>
-      </widget>
-      <widget class="QSlider" name="lvl_min">
-       <property name="geometry">
-        <rect>
-         <x>50</x>
-         <y>30</y>
-         <width>270</width>
-         <height>30</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QSlider::handle:horizontal{
-	background: #f4bb00
-}</string>
-       </property>
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>15</number>
-       </property>
-       <property name="pageStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="tickPosition">
-        <enum>QSlider::TicksBelow</enum>
-       </property>
-       <property name="tickInterval">
-        <number>1</number>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_lvl_min">
-       <property name="geometry">
-        <rect>
-         <x>330</x>
-         <y>29</y>
-         <width>21</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color:#f4bb00;
-font: 9pt &quot;Lato Black&quot;;</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::NoFrame</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Plain</enum>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_lvl_max">
-       <property name="geometry">
-        <rect>
-         <x>330</x>
-         <y>70</y>
-         <width>21</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color: #f40052;
-font: 9pt &quot;Lato Black&quot;;</string>
-       </property>
-       <property name="text">
-        <string>15</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-      <widget class="QSlider" name="lvl_max">
-       <property name="geometry">
-        <rect>
-         <x>50</x>
-         <y>70</y>
-         <width>270</width>
-         <height>30</height>
-        </rect>
-       </property>
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>15</number>
-       </property>
-       <property name="pageStep">
-        <number>1</number>
-       </property>
-       <property name="value">
-        <number>15</number>
-       </property>
-       <property name="sliderPosition">
-        <number>15</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="tickPosition">
-        <enum>QSlider::TicksBelow</enum>
-       </property>
-       <property name="tickInterval">
-        <number>1</number>
-       </property>
-      </widget>
       <widget class="QPushButton" name="cb_nm">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>110</y>
-         <width>81</width>
-         <height>31</height>
+         <y>35</y>
+         <width>80</width>
+         <height>25</height>
         </rect>
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton {
-    border: 3px solid #ffcc25;
+    border: 2px solid #ffcc25;
 	color: #ffcc25;
     background: transparent;
 }
@@ -1081,14 +1287,14 @@ QPushButton:checked {
        <property name="geometry">
         <rect>
          <x>100</x>
-         <y>110</y>
-         <width>81</width>
-         <height>31</height>
+         <y>35</y>
+         <width>80</width>
+         <height>25</height>
         </rect>
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton {
-    border: 3px solid #fe7724;
+    border: 2px solid #fe7724;
 	color: #fe7724;
     background: transparent;
 }
@@ -1110,14 +1316,14 @@ QPushButton:checked {
        <property name="geometry">
         <rect>
          <x>190</x>
-         <y>110</y>
-         <width>81</width>
-         <height>31</height>
+         <y>35</y>
+         <width>80</width>
+         <height>25</height>
         </rect>
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton {
-    border: 3px solid #f91c55;
+    border: 2px solid #f91c55;
 	color: #f91c55;
     background: transparent;
 }
@@ -1139,14 +1345,14 @@ QPushButton:checked {
        <property name="geometry">
         <rect>
          <x>280</x>
-         <y>110</y>
-         <width>81</width>
-         <height>31</height>
+         <y>35</y>
+         <width>80</width>
+         <height>25</height>
         </rect>
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton {
-    border: 3px solid #ff11e6;
+    border: 2px solid #ff11e6;
 	color: #ff11e6;
     background: transparent;
 }
@@ -1164,50 +1370,735 @@ QPushButton:checked {
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QLabel" name="label_4">
+      <widget class="QPushButton" name="d1">
        <property name="geometry">
         <rect>
-         <x>51</x>
-         <y>41</y>
-         <width>269</width>
-         <height>8</height>
+         <x>10</x>
+         <y>70</y>
+         <width>18</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/d_blk.png</normaloff>
+         <normalon>../images/d_ylw.png</normalon>../images/d_blk.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="d2">
+       <property name="geometry">
+        <rect>
+         <x>28</x>
+         <y>70</y>
+         <width>18</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/d_blk.png</normaloff>
+         <normalon>../images/d_ylw.png</normalon>../images/d_blk.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="d3">
+       <property name="geometry">
+        <rect>
+         <x>46</x>
+         <y>70</y>
+         <width>18</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/d_blk.png</normaloff>
+         <normalon>../images/d_ylw.png</normalon>../images/d_blk.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="d4">
+       <property name="geometry">
+        <rect>
+         <x>64</x>
+         <y>70</y>
+         <width>18</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/d_blk.png</normaloff>
+         <normalon>../images/d_ylw.png</normalon>../images/d_blk.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="d5">
+       <property name="geometry">
+        <rect>
+         <x>82</x>
+         <y>70</y>
+         <width>18</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/d_blk.png</normaloff>
+         <normalon>../images/d_ylw.png</normalon>../images/d_blk.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="d6">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>70</y>
+         <width>18</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/d_blk.png</normaloff>
+         <normalon>../images/d_org.png</normalon>../images/d_blk.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="d7">
+       <property name="geometry">
+        <rect>
+         <x>118</x>
+         <y>70</y>
+         <width>18</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/d_blk.png</normaloff>
+         <normalon>../images/d_org.png</normalon>../images/d_blk.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="d8">
+       <property name="geometry">
+        <rect>
+         <x>136</x>
+         <y>70</y>
+         <width>18</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/d_blk.png</normaloff>
+         <normalon>../images/d_org.png</normalon>../images/d_blk.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="d9">
+       <property name="geometry">
+        <rect>
+         <x>154</x>
+         <y>70</y>
+         <width>18</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/d_blk.png</normaloff>
+         <normalon>../images/d_org.png</normalon>../images/d_blk.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="d10">
+       <property name="geometry">
+        <rect>
+         <x>172</x>
+         <y>70</y>
+         <width>18</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/d_blk.png</normaloff>
+         <normalon>../images/d_org.png</normalon>../images/d_blk.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="d11">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>70</y>
+         <width>18</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/d_blk.png</normaloff>
+         <normalon>../images/d_red.png</normalon>../images/d_blk.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="d12">
+       <property name="geometry">
+        <rect>
+         <x>208</x>
+         <y>70</y>
+         <width>18</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/d_blk.png</normaloff>
+         <normalon>../images/d_red.png</normalon>../images/d_blk.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="d13">
+       <property name="geometry">
+        <rect>
+         <x>226</x>
+         <y>70</y>
+         <width>18</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/d_blk.png</normaloff>
+         <normalon>../images/d_red.png</normalon>../images/d_blk.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="d14">
+       <property name="geometry">
+        <rect>
+         <x>244</x>
+         <y>70</y>
+         <width>18</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/d_blk.png</normaloff>
+         <normalon>../images/d_red.png</normalon>../images/d_blk.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="d15">
+       <property name="geometry">
+        <rect>
+         <x>262</x>
+         <y>70</y>
+         <width>18</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/d_blk.png</normaloff>
+         <normalon>../images/d_red.png</normalon>../images/d_blk.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="cb_std">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>130</y>
+         <width>110</width>
+         <height>20</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(244, 187, 0, 255), stop:0.333 rgba(244, 187, 0, 255), stop:0.334 rgba(244, 92, 0, 255), stop:0.666 rgba(244, 92, 0, 255), stop:0.667 rgba(244, 0, 82, 255), stop:1 rgba(244, 0, 82, 255))</string>
+        <string notr="true">QPushButton {
+    border: 1px solid #85817e;
+	color: #d6d6d6;
+    background: rgba(255, 255, 255, 32);
+}
+
+QPushButton:checked {
+	border-color: #586bce;
+ 	color: #ffffff;
+    background-color: #1631bb;
+}</string>
+       </property>
+       <property name="text">
+        <string>STANDARD</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="cb_mst">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>130</y>
+         <width>110</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    border: 1px solid #85817e;
+	color: #d6d6d6;
+    background: rgba(255, 255, 255, 32);
+}
+
+QPushButton:checked {
+	border-color: #e45153;
+ 	color: #ffffff;
+    background-color: #d90c10;
+}</string>
+       </property>
+       <property name="text">
+        <string>MASTER</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="cb_bgn">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>130</y>
+         <width>110</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    border: 1px solid #85817e;
+	color: #d6d6d6;
+    background: rgba(255, 255, 255, 32);
+}
+
+QPushButton:checked {
+	border-color: #48b06b;
+ 	color: #ffffff;
+    background-color: #009031;
+}</string>
+       </property>
+       <property name="text">
+        <string>BEGINNER</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame_6">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>100</y>
+         <width>171</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QSpinBox" name="lvl_min">
+        <property name="geometry">
+         <rect>
+          <x>85</x>
+          <y>0</y>
+          <width>85</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="frame">
+         <bool>false</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>15</number>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>0</y>
+          <width>71</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel{
+	font: 8pt &quot;Lato&quot;;
+	background: none;
+	color:#818282;
+}</string>
+        </property>
+        <property name="text">
+         <string>MIN</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="frame_7">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>100</y>
+         <width>171</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QSpinBox" name="lvl_max">
+        <property name="geometry">
+         <rect>
+          <x>85</x>
+          <y>0</y>
+          <width>85</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="frame">
+         <bool>false</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>15</number>
+        </property>
+        <property name="value">
+         <number>15</number>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_5">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>0</y>
+          <width>71</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel{
+	font: 8pt &quot;Lato&quot;;
+	background: none;
+	color:#818282;
+}</string>
+        </property>
+        <property name="text">
+         <string>MAX</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QLabel" name="label_9">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>270</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: transparent;</string>
        </property>
        <property name="text">
         <string/>
        </property>
       </widget>
-      <widget class="QLabel" name="label_5">
-       <property name="geometry">
-        <rect>
-         <x>51</x>
-         <y>81</y>
-         <width>269</width>
-         <height>8</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(244, 187, 0, 255), stop:0.333 rgba(244, 187, 0, 255), stop:0.334 rgba(244, 92, 0, 255), stop:0.666 rgba(244, 92, 0, 255), stop:0.667 rgba(244, 0, 82, 255), stop:1 rgba(244, 0, 82, 255))</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <zorder>label_5</zorder>
-      <zorder>label_4</zorder>
-      <zorder>label_min</zorder>
-      <zorder>label_max</zorder>
-      <zorder>label_lvl_min</zorder>
-      <zorder>label_lvl_max</zorder>
-      <zorder>lvl_max</zorder>
-      <zorder>cb_nm</zorder>
-      <zorder>cb_hd</zorder>
-      <zorder>cb_mx</zorder>
-      <zorder>cb_sc</zorder>
-      <zorder>lvl_min</zorder>
      </widget>
      <widget class="QGroupBox" name="mode_groupbox">
       <property name="geometry">
@@ -1240,9 +2131,9 @@ QPushButton{
        <property name="geometry">
         <rect>
          <x>40</x>
-         <y>20</y>
+         <y>30</y>
          <width>291</width>
-         <height>71</height>
+         <height>51</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
@@ -1256,8 +2147,8 @@ QPushButton{
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>images/freestyle_off.png</normaloff>
-            <normalon>images/freestyle_on.png</normalon>images/freestyle_off.png</iconset>
+            <normaloff>../images/freestyle_off.png</normaloff>
+            <normalon>../images/freestyle_on.png</normalon>../images/freestyle_off.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1286,8 +2177,8 @@ QPushButton{
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>images/online_off.png</normaloff>
-            <normalon>images/online_on.png</normalon>images/online_off.png</iconset>
+            <normaloff>../images/online_off.png</normaloff>
+            <normalon>../images/online_on.png</normalon>../images/online_off.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -1336,7 +2227,7 @@ QPushButton{
        <rect>
         <x>30</x>
         <y>20</y>
-        <width>700</width>
+        <width>680</width>
         <height>38</height>
        </rect>
       </property>
@@ -1362,12 +2253,12 @@ QPushButton{
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
-      <widget class="QSlider" name="slider_delay">
+      <widget class="QSlider" name="delay_slider">
        <property name="geometry">
         <rect>
-         <x>400</x>
+         <x>390</x>
          <y>9</y>
-         <width>250</width>
+         <width>240</width>
          <height>20</height>
         </rect>
        </property>
@@ -1403,10 +2294,10 @@ QSlider::handle:horizontal {
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
-      <widget class="QLabel" name="label_ms">
+      <widget class="QLabel" name="delay_ms">
        <property name="geometry">
         <rect>
-         <x>280</x>
+         <x>270</x>
          <y>-1</y>
          <width>60</width>
          <height>38</height>
@@ -1422,9 +2313,9 @@ QSlider::handle:horizontal {
       <widget class="QLabel" name="label_3">
        <property name="geometry">
         <rect>
-         <x>399</x>
-         <y>10</y>
-         <width>250</width>
+         <x>390</x>
+         <y>9</y>
+         <width>240</width>
          <height>20</height>
         </rect>
        </property>
@@ -1432,10 +2323,10 @@ QSlider::handle:horizontal {
         <string/>
        </property>
       </widget>
-      <widget class="QPushButton" name="input_lb">
+      <widget class="QPushButton" name="delay_lb">
        <property name="geometry">
         <rect>
-         <x>350</x>
+         <x>340</x>
          <y>0</y>
          <width>50</width>
          <height>38</height>
@@ -1446,13 +2337,13 @@ QSlider::handle:horizontal {
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>images/left_button.png</normaloff>images/left_button.png</iconset>
+         <normaloff>../images/left_button.png</normaloff>../images/left_button.png</iconset>
        </property>
       </widget>
-      <widget class="QPushButton" name="input_rb">
+      <widget class="QPushButton" name="delay_rb">
        <property name="geometry">
         <rect>
-         <x>649</x>
+         <x>630</x>
          <y>0</y>
          <width>50</width>
          <height>38</height>
@@ -1463,7 +2354,7 @@ QSlider::handle:horizontal {
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>images/right_button.png</normaloff>images/right_button.png</iconset>
+         <normaloff>../images/right_button.png</normaloff>../images/right_button.png</iconset>
        </property>
       </widget>
      </widget>
@@ -1472,7 +2363,7 @@ QSlider::handle:horizontal {
        <rect>
         <x>30</x>
         <y>70</y>
-        <width>700</width>
+        <width>680</width>
         <height>38</height>
        </rect>
       </property>
@@ -1498,12 +2389,12 @@ QSlider::handle:horizontal {
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="button_history">
+      <widget class="QPushButton" name="history_button">
        <property name="geometry">
         <rect>
-         <x>419</x>
+         <x>410</x>
          <y>-1</y>
-         <width>211</width>
+         <width>200</width>
          <height>39</height>
         </rect>
        </property>
@@ -1529,7 +2420,7 @@ QPushButton:checked{
        <rect>
         <x>30</x>
         <y>120</y>
-        <width>700</width>
+        <width>680</width>
         <height>38</height>
        </rect>
       </property>
@@ -1555,12 +2446,12 @@ QPushButton:checked{
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
-      <widget class="QSlider" name="slider_pre">
+      <widget class="QSlider" name="erm_slider">
        <property name="geometry">
         <rect>
-         <x>400</x>
+         <x>390</x>
          <y>9</y>
-         <width>250</width>
+         <width>240</width>
          <height>20</height>
         </rect>
        </property>
@@ -1590,10 +2481,10 @@ QSlider::handle:horizontal {
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
-      <widget class="QLabel" name="label_pre">
+      <widget class="QLabel" name="erm_num">
        <property name="geometry">
         <rect>
-         <x>280</x>
+         <x>270</x>
          <y>-1</y>
          <width>60</width>
          <height>38</height>
@@ -1612,7 +2503,7 @@ QSlider::handle:horizontal {
        <rect>
         <x>30</x>
         <y>170</y>
-        <width>700</width>
+        <width>680</width>
         <height>38</height>
        </rect>
       </property>
@@ -1638,12 +2529,12 @@ QSlider::handle:horizontal {
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="button_tray">
+      <widget class="QPushButton" name="tray_button">
        <property name="geometry">
         <rect>
-         <x>419</x>
+         <x>410</x>
          <y>-1</y>
-         <width>211</width>
+         <width>200</width>
          <height>39</height>
         </rect>
        </property>
@@ -1671,7 +2562,7 @@ QPushButton:checked{
      <rect>
       <x>0</x>
       <y>40</y>
-      <width>770</width>
+      <width>740</width>
       <height>40</height>
      </rect>
     </property>
@@ -1715,7 +2606,7 @@ QPushButton:checked {
     <widget class="QPushButton" name="filter_tab_bt">
      <property name="geometry">
       <rect>
-       <x>540</x>
+       <x>520</x>
        <y>-1</y>
        <width>61</width>
        <height>40</height>
@@ -1740,7 +2631,7 @@ QPushButton:checked {
     <widget class="QPushButton" name="advanced_tab_bt">
      <property name="geometry">
       <rect>
-       <x>630</x>
+       <x>610</x>
        <y>-1</y>
        <width>100</width>
        <height>40</height>
@@ -1762,7 +2653,7 @@ QPushButton:checked {
      <rect>
       <x>0</x>
       <y>480</y>
-      <width>770</width>
+      <width>740</width>
       <height>60</height>
      </rect>
     </property>
@@ -1780,7 +2671,7 @@ QPushButton:checked {
       <rect>
        <x>0</x>
        <y>-2</y>
-       <width>760</width>
+       <width>740</width>
        <height>60</height>
       </rect>
      </property>
@@ -1800,7 +2691,7 @@ QPushButton:checked {
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>770</width>
+      <width>560</width>
       <height>40</height>
      </rect>
     </property>
@@ -1823,55 +2714,6 @@ QPushButton:hover{
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="closeButton">
-     <property name="geometry">
-      <rect>
-       <x>700</x>
-       <y>0</y>
-       <width>60</width>
-       <height>40</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>images/close.png</normaloff>images/close.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>16</width>
-       <height>16</height>
-      </size>
-     </property>
-     <property name="checked">
-      <bool>false</bool>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="minimizeButton">
-     <property name="geometry">
-      <rect>
-       <x>640</x>
-       <y>0</y>
-       <width>60</width>
-       <height>40</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>images/minimize.png</normaloff>images/minimize.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>16</width>
-       <height>16</height>
-      </size>
-     </property>
-    </widget>
     <widget class="QLabel" name="titleLabel">
      <property name="geometry">
       <rect>
@@ -1886,7 +2728,7 @@ QPushButton:hover{
 font: 9pt &quot;Lato Black&quot;;</string>
      </property>
      <property name="text">
-      <string>DJMAX Random Selector V0.4.0</string>
+      <string>DJMAX Random Selector V0.6.0</string>
      </property>
     </widget>
    </widget>
@@ -1906,10 +2748,110 @@ font: 9pt &quot;Lato Black&quot;;</string>
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="minimize_button">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>0</y>
+      <width>60</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background: transparent;
+	border: none;
+}
+QPushButton:hover{
+	background:#3d3e3f;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../images/minimize.png</normaloff>../images/minimize.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>16</width>
+      <height>16</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="close_button">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>0</y>
+      <width>60</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background: transparent;
+	border: none;
+}
+QPushButton:hover{
+	background:#3d3e3f;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../images/close.png</normaloff>../images/close.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>16</width>
+      <height>16</height>
+     </size>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="info_button">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>0</y>
+      <width>60</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background: transparent;
+	border: none;
+	font: bold 12pt &quot;Lato&quot;;
+	color: #7f7f7f;
+}
+QPushButton:hover{
+	background:#3d3e3f;
+}</string>
+    </property>
+    <property name="text">
+     <string>?</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>16</width>
+      <height>16</height>
+     </size>
+    </property>
+   </widget>
    <zorder>frame_2</zorder>
    <zorder>tabWidget</zorder>
    <zorder>top_bar</zorder>
    <zorder>title_bar</zorder>
+   <zorder>minimize_button</zorder>
+   <zorder>close_button</zorder>
+   <zorder>info_button</zorder>
    <zorder>lock_all</zorder>
   </widget>
  </widget>

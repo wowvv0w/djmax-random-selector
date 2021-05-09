@@ -74,7 +74,7 @@ font: 14pt &quot;Lato&quot;;</string>
      <string>HISTORY</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="aotButton">
+   <widget class="QPushButton" name="aot_button">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -183,7 +183,7 @@ QScrollBar::add-page, QScrollBar::sub-page{
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QPushButton" name="closeButton">
+   <widget class="QPushButton" name="close_button">
     <property name="geometry">
      <rect>
       <x>350</x>
@@ -200,7 +200,7 @@ border:none;</string>
      <string>CLOSE</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="clearButton">
+   <widget class="QPushButton" name="clear_button">
     <property name="geometry">
      <rect>
       <x>250</x>
