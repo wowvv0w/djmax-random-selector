@@ -1,9 +1,16 @@
 import pandas as pd
+from requests import get, codes
 
 
 _name = ('Title', 'Artist', 'Series',
     '4BNM', '4BHD', '4BMX', '4BSC', '5BNM', '5BHD', '5BMX', '5BSC',
     '6BNM', '6BHD', '6BMX', '6BSC', '8BNM', '8BHD', '8BMX', '8BSC')
+
+ALL_TRACK_DATA = './AllTrackData.csv'
+TEST_DATA = './test_data.csv'
+YOUR_DATA = './data/YourData.csv'
+
+ALL_TRACK_DATA_URL = 'https://raw.githubusercontent.com/wowvv0w/DJMAX_Random_Selector/main/AllTrackData.csv'
 
 def read_data(test):
     """
@@ -15,9 +22,9 @@ def read_data(test):
     """
 
     if test:
-        data = pd.read_csv("./test_data.csv", names = _name)
+        data = pd.read_csv(TEST_DATA, names = _name)
     else:
-        data = pd.read_csv("./data/YourData.csv", names = _name)
+        data = pd.read_csv(YOUR_DATA, names = _name)
 
     return data
 
@@ -26,18 +33,18 @@ def edit_data(series, test):
     Edit YourData.csv
     """
 
-    data = pd.read_csv("./AllTrackData.csv", names = _name)
+    data = pd.read_csv(ALL_TRACK_DATA, names = _name)
 
     filtered = data[data['Series'].isin(series)]
 
-    filtered = filter_special_music(filtered, series)
+    filtered = _filter_special_music(filtered, series)
 
     if test:
-        filtered.to_csv("./test_data.csv", index=None, header=None)
+        filtered.to_csv(TEST_DATA, index=None, header=None)
     else:
-        filtered.to_csv("./data/YourData.csv", index=None, header=None)
+        filtered.to_csv(YOUR_DATA, index=None, header=None)
 
-def filter_special_music(df, series):
+def _filter_special_music(df, series):
     """
     Exclude music which has complicated condition
     """
@@ -68,3 +75,26 @@ def filter_special_music(df, series):
         df = df.drop(df[df['Title'] == 'SON OF SUN ~Extended Mix~'].index)
 
     return df
+
+def _update_database():
+    """
+    Updates AllTrackData.csv from remote repository.
+    """
+
+    try:
+        response = get(ALL_TRACK_DATA_URL)
+    except:
+        print('failed')
+        return
+
+    if response.status_code == codes.ok:
+        with open('test1.csv', 'w', encoding='UTF-8') as file:
+            file.write(response.text)
+        print('updated')
+    else:
+        print('there is something wrong')
+
+
+
+if __name__ == '__main__':
+    _update_database()
