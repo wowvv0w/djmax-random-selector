@@ -43,11 +43,8 @@ def edit_data(series_filter, test):
     title_filter = _generate_title_filter(series_filter)
 
     data = pd.read_csv(db)
-    filtered = data.values.tolist()
-    filtered = [
-        row for row in filtered
-        if row[0] not in title_filter and row[2] in series_filter
-        ]
+    filtered = data[data['Series'].isin(series_filter)]
+    filtered = filtered[filtered['Title'].isin(title_filter) == False]
     data = pd.DataFrame(filtered, columns=_column)
 
     data.to_csv(db, index=None, header=None)
@@ -104,7 +101,3 @@ def _get_database(database):
     else:
         print('there is something wrong')
         return
-
-if __name__ == '__main__':
-    ex_series = {'RP', 'P1', 'P2', 'GG'}
-    edit_data(ex_series, True)
