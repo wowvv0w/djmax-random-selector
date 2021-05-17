@@ -220,6 +220,7 @@ class SelectorUi(QMainWindow, main_ui):
         # ADVANCED
         self.delay_slider.valueChanged.connect(lambda: self.is_value_changed(self.delay_slider))
         self.erm_slider.valueChanged.connect(self.erm_initialize)
+        self.favorite_button.toggled.connect(self.favorite_signal)
 
     def lvl_signal(self, lvl):
         """
@@ -331,12 +332,16 @@ class SelectorUi(QMainWindow, main_ui):
         Changes 'FAVORITE' button's label.
         """
 
-        if self.tray_button.isChecked():
-            self.is_tray = True
-            self.tray_button.setText('ON')
+        if self.favorite_button.isChecked():
+            self.is_favor = True
+            self.favorite_button.setText('ON')
         else:
-            self.is_tray = False
-            self.tray_button.setText('OFF')
+            self.is_favor = False
+            self.favorite_button.setText('OFF')
+
+        if not self.is_init:
+            self.filtering()
+            self.erm_initialize()
 
 
     def is_checked(self, list_, obj, value):
@@ -401,7 +406,9 @@ class SelectorUi(QMainWindow, main_ui):
         self.fil_yourdata, self.fil_list, self.fil_title = \
                 dmrs.filter_music(
                     self.yourdata, self.bt_list, self.st_list,
-                    self.sr_list, self.min, self.max, self.is_freestyle)
+                    self.sr_list, self.min, self.max, self.is_freestyle,
+                    self.is_favor, self.is_favor_black, self.favorite
+                    )
         if self.fil_title:
             self.erm_slider.setMaximum(len(self.fil_title) - 1)
         else:
@@ -475,8 +482,9 @@ class SelectorUi(QMainWindow, main_ui):
         self.delay_slider.setValue(config['INPUT DELAY'])
         self.erm_slider.setValue(config['PREVIOUS'])
         self.tray_button.setChecked(config['TRAY'])
+        self.favorite_button.setChecked(config['FAVORITE']['Enabled'])
         self.favorite = set(config['FAVORITE']['List'])
-        self.favorite_ui.favor_black.setChecked(config['FAVORITE']['Black'])
+        self.is_favor_black = config['FAVORITE']['Black']
 
         self.filtering()
 
@@ -667,7 +675,6 @@ class FavoriteUi(QDialog):
         self.favor_all.clicked.connect(self.update_abled)
         self.favor_ena.clicked.connect(self.update_abled)
         self.favor_dis.clicked.connect(self.update_abled)
-        self.favor_black.toggled.connect(lambda: self.update_black(parent))
 
         self.controls_layout = QVBoxLayout()
         all_track_title = dmrs.generate_title_list()
@@ -695,6 +702,8 @@ class FavoriteUi(QDialog):
         
         for widget in self.widgets:
             widget.setChecked(widget.text() in parent.favorite)
+        self.favor_black.setChecked(parent.is_favor_black)
+        self.update_display(self.favor_search.text())
 
         self.show()
 
@@ -727,13 +736,7 @@ class FavoriteUi(QDialog):
             self.show_enabled = self.favor_ena.isChecked()
             self.show_disabled = self.favor_dis.isChecked()
         self.update_display(self.favor_search.text())
-
-    def update_black(self, parent):
-        """
         
-        """
-
-        parent.is_favor_black = self.favor_black.isChecked()
     
     def apply(self, parent):
         """
@@ -741,6 +744,7 @@ class FavoriteUi(QDialog):
         """
        
         parent.favorite = {widget.text() for widget in self.widgets if widget.isChecked()}
+        parent.is_favor_black = self.favor_black.isChecked()
         print(parent.favorite)
         parent.lock_all.move(0, -540)
         parent.filtering()

@@ -14,12 +14,17 @@ def is_alphabet(chr_):
     
     return chr_ in ascii_letters
 
-def filter_music(data, buttons, styles, series, diff_min, diff_max, is_freestyle):
+def filter_music(data, buttons, styles, series, diff_min, diff_max, is_freestyle, is_favor, is_favor_black, favorite):
     """
     Filter music.
     """
 
     filtered = data[data['Series'].isin(series)]
+    if is_favor:
+        if is_favor_black:
+            filtered = data[data['Title'].isin(favorite) == False]
+        else:
+            filtered = data[data['Title'].isin(favorite)]
     candidate_list = []
     fil_title = filtered['Title'].values
     diff_list = [f'{bt}{st}' for bt in buttons for st in styles]
