@@ -1,3 +1,4 @@
+import csv
 import pandas as pd
 import requests
 
@@ -6,6 +7,7 @@ _column = ('Title', 'Artist', 'Series',
     '4BNM', '4BHD', '4BMX', '4BSC', '5BNM', '5BHD', '5BMX', '5BSC',
     '6BNM', '6BHD', '6BMX', '6BSC', '8BNM', '8BHD', '8BMX', '8BSC')
 
+ALL_TRACK_DATA = './data/AllTrackData.csv'
 YOUR_DATA = './data/YourData.csv'
 TEST_DATA = './test_data.csv'
 
@@ -37,17 +39,41 @@ def edit_data(series_filter, test):
     else:
         db = TEST_DATA
     
-    success = _get_database(db)
-    if not success:
-        return
     title_filter = _generate_title_filter(series_filter)
 
-    data = pd.read_csv(db)
+    data = pd.read_csv(ALL_TRACK_DATA)
     filtered = data[data['Series'].isin(series_filter)]
     filtered = filtered[filtered['Title'].isin(title_filter) == False]
-    data = pd.DataFrame(filtered, columns=_column)
 
-    data.to_csv(db, index=None, header=None)
+    filtered.to_csv(db, index=None, header=None)
+
+def update_database():
+    """
+    Updates database from remote repository.
+    """
+
+    try:
+        response = requests.get(DATABASE_URL)
+    except:
+        print('failed')
+        return
+
+    if response.status_code == requests.codes.ok:
+        with open(ALL_TRACK_DATA, 'w', encoding='UTF-8') as file:
+            file.write(response.text)
+        print('updated')
+    else:
+        print('there is something wrong')
+
+def generate_title_list():
+    with open(ALL_TRACK_DATA, 'r', encoding='UTF-8') as file:
+        data = csv.reader(file)
+        next(data)
+
+        list_ = [i[0] for i in data]
+    
+    return list_
+
 
 def _generate_title_filter(series):
     """
@@ -81,23 +107,3 @@ def _generate_title_filter(series):
         title_filter.add('SON OF SUN ~Extended Mix~')
 
     return title_filter
-
-def _get_database(database):
-    """
-    Gets database from remote repository.
-    """
-
-    try:
-        response = requests.get(DATABASE_URL)
-    except:
-        print('failed')
-        return
-
-    if response.status_code == requests.codes.ok:
-        with open(database, 'w', encoding='UTF-8') as file:
-            file.write(response.text)
-        print('updated')
-        return True
-    else:
-        print('there is something wrong')
-        return

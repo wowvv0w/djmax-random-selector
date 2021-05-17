@@ -2469,7 +2469,7 @@ QSlider::handle:horizontal {
 }</string>
        </property>
        <property name="maximum">
-        <number>1</number>
+        <number>9999</number>
        </property>
        <property name="singleStep">
         <number>0</number>
@@ -2552,6 +2552,85 @@ QPushButton:checked{
        </property>
        <property name="checkable">
         <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="frame_8">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>220</y>
+        <width>680</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="label_10">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>-1</y>
+         <width>200</width>
+         <height>38</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>FAVORITE</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="favorite_button">
+       <property name="geometry">
+        <rect>
+         <x>410</x>
+         <y>-1</y>
+         <width>200</width>
+         <height>39</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	color: #7f7f7f;
+	font: 10pt &quot;Lato Black&quot;;
+}
+QPushButton:checked{
+	color: #ffffff;
+}</string>
+       </property>
+       <property name="text">
+        <string>OFF</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="favorite_edit">
+       <property name="geometry">
+        <rect>
+         <x>629</x>
+         <y>10</y>
+         <width>41</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    border: 3px solid #818282;
+	color: #818282;
+    background-color: rgba(0, 0, 0, 87);
+	border-radius: 6px;
+	font: 7pt &quot;Lato Black&quot;
+}</string>
+       </property>
+       <property name="text">
+        <string>EDIT</string>
        </property>
       </widget>
      </widget>

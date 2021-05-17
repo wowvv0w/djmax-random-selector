@@ -54,7 +54,7 @@ def pick_music(data, filtered, candidate_list, is_freestyle, previous, prefer):
 
     try:
         if is_freestyle:
-            picked_title, picked_btst, __ = random.choice(candidate_list)
+            picked_title, picked_btst, _ = random.choice(candidate_list)
         else:
             picked_title = random.choice(candidate_list)
             picked_btst = 'FREE'
@@ -66,10 +66,10 @@ def pick_music(data, filtered, candidate_list, is_freestyle, previous, prefer):
             if cand[0] == picked_title and cand[1][0] == picked_btst[0]]
         if prefer == 'beginner':
             same_tb_list.sort(key=lambda x: _styles.index(x[1][2:]))
-            picked_title, picked_btst, __ = min(same_tb_list, key=lambda x: x[2])
+            picked_title, picked_btst, _ = min(same_tb_list, key=lambda x: x[2])
         elif prefer == 'master':
             same_tb_list.sort(key=lambda x: _styles.index(x[1][2:]), reverse=True)
-            picked_title, picked_btst, __ = max(same_tb_list, key=lambda x: x[2])
+            picked_title, picked_btst, _ = max(same_tb_list, key=lambda x: x[2])
 
     if not is_alphabet(picked_title[0]):
         init_input = 'a'
@@ -122,8 +122,8 @@ def select_music(music, bt, init, down, right, input_delay, is_freestyle):
         send_and_delay('page up')
         send_and_delay('page up')
         send_and_delay('page down')
-    for __ in range(down):
+    for _ in range(down):
         send_and_delay('down arrow')
     if is_freestyle:
-        for __ in range(right):
+        for _ in range(right):
             send_and_delay('right arrow')

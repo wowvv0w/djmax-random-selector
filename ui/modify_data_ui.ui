@@ -150,6 +150,7 @@ QCheckBox{
 QCheckBox:Checked{
 	color: #ffbe00;
 }
+
 QRadioButton{
 	background: none;
 	color: #7f7f7f;

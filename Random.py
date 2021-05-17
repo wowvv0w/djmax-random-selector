@@ -3,7 +3,7 @@ import json
 from threading import Thread
 from collections import deque
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QSystemTrayIcon
+from PyQt5.QtWidgets import QApplication, QCheckBox, QCompleter, QMainWindow, QDialog, QSizePolicy, QSpacerItem, QSystemTrayIcon, QVBoxLayout, QWidget
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QFontDatabase
 import keyboard as kb
@@ -24,14 +24,12 @@ class SelectorUi(QMainWindow, main_ui):
     def __init__(self):
 
         super().__init__()
-
+        # Selector
         self.is_running = False
         self.is_init = True
-        self.is_tray = False
-
+        # Data
         self.yourdata = dmrs.read_data(self.IS_TEST)
-        self.previous = deque([])
-
+        # Filter
         self.bt_list = set()
         self.st_list = set()
         self.sr_list = set()
@@ -39,20 +37,27 @@ class SelectorUi(QMainWindow, main_ui):
         self.max = 15
         self.prefer = None
         self.is_freestyle = True
+        # Advanced
         self.input_delay = 0.03
-
+        self.previous = deque([])
+        self.is_tray = False
+        self.favorite = set()
+        self.is_favor = False
+        self.is_favor_black = False
+        # Filtered Data
         self.fil_yourdata = None
         self.fil_list = None
         self.fil_title = None
-
+        # Ui
         self.setupUi(self)
-        self.dataui = DataUi(self)
-        self.history = HistoryUi(self)
-
+        self.data_ui = DataUi(self)
+        self.history_ui = HistoryUi(self)
+        self.favorite_ui = FavoriteUi(self)
+        # Signals & Configuration
         self.ui_signal()
         self.filter_signal()
         self.import_config()
-
+        # Hotkey
         kb.add_hotkey('f7', self.check_state, suppress=True)
 
 
@@ -91,7 +96,7 @@ class SelectorUi(QMainWindow, main_ui):
 
             _str = picked_title + '  |  ' + picked_btst
             self.history_scrollbar.setMaximum(self.history_scrollbar.maximum() + 1)
-            self.history.history_list.addItem(_str)
+            self.history_ui.history_list.addItem(_str)
             self.history_scrollbar.setValue(self.history_scrollbar.maximum())
 
             if self.erm_slider.value():
@@ -148,7 +153,7 @@ class SelectorUi(QMainWindow, main_ui):
         self.cb_gf.toggled.connect(lambda: self.collab_child_signal(self.cb_gf))
         self.cb_chu.toggled.connect(lambda: self.collab_child_signal(self.cb_chu))
         # Modify data
-        self.data_button.clicked.connect(lambda: self.dataui.show_data_ui(self))
+        self.data_button.clicked.connect(lambda: self.data_ui.show_data_ui(self))
 
         # Input delay
         self.delay_ms.setText(f'{self.delay_slider.value()}ms')
@@ -161,13 +166,15 @@ class SelectorUi(QMainWindow, main_ui):
         # History
         self.history_button.toggled.connect(self.history_signal)
         self.history_scrollbar = \
-            self.history.history_list.verticalScrollBar()
+            self.history_ui.history_list.verticalScrollBar()
         # Exclude recent music (erm)
         self.erm_num.setText(f'{self.erm_slider.value()}')
         self.erm_slider.valueChanged.connect(
             lambda: self.erm_num.setText(f'{self.erm_slider.value()}'))
         # System tray
         self.tray_button.toggled.connect(self.tray_signal)
+        # Favorite
+        self.favorite_edit.clicked.connect(lambda: self.favorite_ui.show_favorite_ui(self))
 
     def filter_signal(self):
         """
@@ -289,10 +296,10 @@ class SelectorUi(QMainWindow, main_ui):
         """
 
         if self.history_button.isChecked():
-            self.history.show()
+            self.history_ui.show()
             self.history_button.setText('ON')
         else:
-            self.history.close()
+            self.history_ui.close()
             self.history_button.setText('OFF')
 
     def minimize_signal(self):
@@ -310,6 +317,18 @@ class SelectorUi(QMainWindow, main_ui):
     def tray_signal(self):
         """
         Changes 'SYSTEM TRAY' button's label.
+        """
+
+        if self.tray_button.isChecked():
+            self.is_tray = True
+            self.tray_button.setText('ON')
+        else:
+            self.is_tray = False
+            self.tray_button.setText('OFF')
+    
+    def favorite_signal(self):
+        """
+        Changes 'FAVORITE' button's label.
         """
 
         if self.tray_button.isChecked():
@@ -454,10 +473,12 @@ class SelectorUi(QMainWindow, main_ui):
             self.cb_online.setChecked(True)
 
         self.delay_slider.setValue(config['INPUT DELAY'])
+        self.erm_slider.setValue(config['PREVIOUS'])
         self.tray_button.setChecked(config['TRAY'])
+        self.favorite = set(config['FAVORITE']['List'])
+        self.favorite_ui.favor_black.setChecked(config['FAVORITE']['Black'])
 
         self.filtering()
-        self.erm_slider.setValue(config['PREVIOUS'])
 
         self.is_init = False
 
@@ -488,7 +509,9 @@ class SelectorUi(QMainWindow, main_ui):
 
         config['INPUT DELAY'] = self.delay_slider.value()
         config['PREVIOUS'] = self.erm_slider.value()
-        config['TRAY'] = self.tray_button.isChecked()
+        config['TRAY'] = self.is_tray
+        config['FAVORITE']['List'] = list(self.favorite)
+        config['FAVORITE']['Black'] = self.is_favor_black
 
         if self.IS_TEST:
             with open('./test_config.json', 'w') as f:
@@ -623,6 +646,116 @@ class HistoryUi(QDialog):
         else:
             self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
             self.show()
+
+
+
+
+class FavoriteUi(QDialog):
+    """
+    Favorite Window
+    """
+
+    def __init__(self, parent):
+        super().__init__(parent)
+        favorite_ui = './ui/favorite_ui.ui'
+        uic.loadUi(favorite_ui, self)
+        self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
+        self.setWindowModality(Qt.ApplicationModal)
+        self.apply_button.clicked.connect(lambda: self.apply(parent))
+        self.cancel_button.clicked.connect(lambda: self.cancel(parent))
+        self.favor_search.textChanged.connect(self.update_display)
+        self.favor_all.clicked.connect(self.update_abled)
+        self.favor_ena.clicked.connect(self.update_abled)
+        self.favor_dis.clicked.connect(self.update_abled)
+        self.favor_black.toggled.connect(lambda: self.update_black(parent))
+
+        self.controls_layout = QVBoxLayout()
+        all_track_title = dmrs.generate_title_list()
+        self.widgets = []
+
+        self.show_enabled = True
+        self.show_disabled = True
+
+        for name in all_track_title:
+            item = QCheckBox(text=name)
+            self.controls_layout.addWidget(item)
+            self.widgets.append(item)
+        
+        spacer = QSpacerItem(1, 1, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.controls_layout.addItem(spacer)
+        self.favor_list.setLayout(self.controls_layout)
+
+    
+    def show_favorite_ui(self, parent):
+        """
+        Shows 'FAVORITE' window.
+        """
+
+        parent.lock_all.move(0, 0)
+        
+        for widget in self.widgets:
+            widget.setChecked(widget.text() in parent.favorite)
+
+        self.show()
+
+    def update_display(self, text):
+        """
+        Shows search results.
+        """
+
+        for widget in self.widgets:
+            check = (widget.isChecked() and self.show_enabled) \
+                or (not widget.isChecked() and self.show_disabled)
+            if check:
+                title = widget.text()
+                if text.lower() in title.lower():
+                    widget.setVisible(True)
+                else:
+                    widget.setVisible(False)
+            else:
+                widget.setVisible(False)
+            
+            
+    def update_abled(self):
+        """
+        Applies on/off filter.
+        """
+
+        if self.favor_all.isChecked():
+            self.show_enabled, self.show_disabled = True, True
+        else:
+            self.show_enabled = self.favor_ena.isChecked()
+            self.show_disabled = self.favor_dis.isChecked()
+        self.update_display(self.favor_search.text())
+
+    def update_black(self, parent):
+        """
+        
+        """
+
+        parent.is_favor_black = self.favor_black.isChecked()
+    
+    def apply(self, parent):
+        """
+
+        """
+       
+        parent.favorite = {widget.text() for widget in self.widgets if widget.isChecked()}
+        print(parent.favorite)
+        parent.lock_all.move(0, -540)
+        parent.filtering()
+        parent.erm_initialize()
+        self.close()
+
+    def cancel(self, parent):
+        """
+        Cancels editing and closes window.
+        """
+
+        parent.lock_all.move(0, -540)
+        self.close()
+
+
 
 
 if __name__ == '__main__':
