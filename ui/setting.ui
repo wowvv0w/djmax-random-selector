@@ -196,7 +196,7 @@ QLabel{
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 15px</string>
+     <string notr="true">font: 15px;</string>
     </property>
     <property name="text">
      <string>Current:</string>

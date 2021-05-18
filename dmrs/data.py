@@ -67,18 +67,18 @@ def update_database():
         print('db failed')
         return
 
-def update_check(for_setting=False):
+def update_check():
     try:
         response = requests.get(VERSION_URL)
         if response.status_code == requests.codes.ok:
-            last_ver = response.text()
+            last_ver = response.text
             rs_last_ver, db_last_ver = map(int, last_ver.split(','))
             print('ver updated')
         else:
             print('there is something wrong')
     except:
         print('ver failed')
-        return
+        return False, 'Unknown', 'Unknown'
     
     with open(VERSION_TXT, 'r') as f:
         curr_ver = f.read()

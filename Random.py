@@ -1,4 +1,5 @@
 import sys
+import webbrowser
 from threading import Thread
 from collections import deque
 from PyQt5 import uic
@@ -157,6 +158,9 @@ class SelectorUi(QMainWindow, main_ui):
         # Top bar
         self.minimize_button.clicked.connect(self.minimize_signal)
         self.close_button.clicked.connect(self.close)
+        self.update_button.clicked.connect(lambda: webbrowser.open('https://github.com/wowvv0w/DJMAX_Random_Selector/releases'))
+        if not self.is_rs_updated:
+            self.update_button.setVisible(False)
         def move_window(event):
             if event.buttons() == Qt.LeftButton:
                 self.move(self.pos() + event.globalPos() - self.drag_pos)

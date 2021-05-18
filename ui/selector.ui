@@ -2864,6 +2864,30 @@ font: 15px &quot;Lato Black&quot;;</string>
       <string>DJMAX Random Selector V0.6.0</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="update_button">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>0</y>
+       <width>150</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	color: #ffbe00;
+	background: none;
+	border: none;
+	font: 13px &quot;Lato&quot;
+}
+QPushButton:hover{
+	background:#3d3e3f;
+}</string>
+     </property>
+     <property name="text">
+      <string>[New Update is Available]</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QLabel" name="lock_all">
     <property name="geometry">
@@ -2952,7 +2976,7 @@ QPushButton:hover{
     <property name="geometry">
      <rect>
       <x>560</x>
-      <y>0</y>
+      <y>-60</y>
       <width>60</width>
       <height>40</height>
      </rect>
