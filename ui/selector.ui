@@ -771,7 +771,7 @@ QPushButton:disabled{
       <widget class="QLabel" name="lock_ce">
        <property name="geometry">
         <rect>
-         <x>-20</x>
+         <x>70</x>
          <y>185</y>
          <width>20</width>
          <height>30</height>
@@ -787,7 +787,7 @@ QPushButton:disabled{
       <widget class="QLabel" name="lock_p3">
        <property name="geometry">
         <rect>
-         <x>-20</x>
+         <x>70</x>
          <y>125</y>
          <width>20</width>
          <height>30</height>
@@ -803,7 +803,7 @@ QPushButton:disabled{
       <widget class="QLabel" name="lock_tr">
        <property name="geometry">
         <rect>
-         <x>-20</x>
+         <x>70</x>
          <y>155</y>
          <width>20</width>
          <height>30</height>
@@ -819,7 +819,7 @@ QPushButton:disabled{
       <widget class="QLabel" name="lock_t3">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>210</x>
          <y>185</y>
          <width>20</width>
          <height>30</height>
@@ -835,7 +835,7 @@ QPushButton:disabled{
       <widget class="QLabel" name="lock_t2">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>210</x>
          <y>155</y>
          <width>20</width>
          <height>30</height>
@@ -851,7 +851,7 @@ QPushButton:disabled{
       <widget class="QLabel" name="lock_t1">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>210</x>
          <y>125</y>
          <width>20</width>
          <height>30</height>
@@ -867,7 +867,7 @@ QPushButton:disabled{
       <widget class="QLabel" name="lock_es">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>210</x>
          <y>95</y>
          <width>20</width>
          <height>30</height>
@@ -883,7 +883,7 @@ QPushButton:disabled{
       <widget class="QLabel" name="lock_ve">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>210</x>
          <y>65</y>
          <width>20</width>
          <height>30</height>
@@ -899,7 +899,7 @@ QPushButton:disabled{
       <widget class="QLabel" name="lock_bs">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>210</x>
          <y>35</y>
          <width>20</width>
          <height>30</height>
@@ -915,7 +915,7 @@ QPushButton:disabled{
       <widget class="QLabel" name="lock_gf">
        <property name="geometry">
         <rect>
-         <x>-20</x>
+         <x>70</x>
          <y>325</y>
          <width>20</width>
          <height>25</height>
@@ -931,7 +931,7 @@ QPushButton:disabled{
       <widget class="QLabel" name="lock_cy">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>210</x>
          <y>290</y>
          <width>20</width>
          <height>25</height>
@@ -947,7 +947,7 @@ QPushButton:disabled{
       <widget class="QLabel" name="lock_dm">
        <property name="geometry">
         <rect>
-         <x>-20</x>
+         <x>70</x>
          <y>290</y>
          <width>20</width>
          <height>25</height>
@@ -963,7 +963,7 @@ QPushButton:disabled{
       <widget class="QLabel" name="lock_gc">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>210</x>
          <y>255</y>
          <width>20</width>
          <height>25</height>
@@ -979,7 +979,7 @@ QPushButton:disabled{
       <widget class="QLabel" name="lock_chu">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>210</x>
          <y>325</y>
          <width>20</width>
          <height>25</height>

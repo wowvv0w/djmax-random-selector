@@ -78,14 +78,18 @@ def update_check():
             print('there is something wrong')
     except:
         print('ver failed')
-        return False, 'Unknown', 'Unknown'
+        return 0, 0, 0, 0
     
     with open(VERSION_TXT, 'r') as f:
         curr_ver = f.read()
         rs_curr_ver, db_curr_ver = map(int, curr_ver.split(','))
     
-    return rs_curr_ver < rs_last_ver, db_curr_ver, db_last_ver
+    return rs_curr_ver, rs_last_ver, db_curr_ver, db_last_ver
 
+def update_version(rs, db):
+    with open(VERSION_TXT, 'w') as f:
+        f.write(f'{rs},{db}')
+        
 
 def import_config(cls):
     """
@@ -102,12 +106,10 @@ def import_config(cls):
     for val, cb, lck in zip(cls.values, cls.checkboxes, cls.locks):
         try:
             cb.setChecked(config[val])
+            if lck != None:
+                lck.setVisible(False)
         except TypeError:
             cb.setEnabled(False)
-            if lck in cls.locks_left:
-                lck.move(70, lck.y())
-            else:
-                lck.move(210, lck.y())
 
     cls.lvl_min.setValue(config['MIN'])
     cls.lvl_max.setValue(config['MAX'])

@@ -1,7 +1,7 @@
 from PyQt5 import uic
 from PyQt5.QtWidgets import QCheckBox, QDialog, QSizePolicy, QSpacerItem, QVBoxLayout
 from PyQt5.QtCore import Qt
-from .data import edit_data, read_data, generate_title_list, update_database
+from .data import edit_data, read_data, generate_title_list, update_check, update_database, update_version
 
 SETTING_UI = './ui/setting.ui'
 HISTORY_UI = './ui/history.ui'
@@ -22,13 +22,6 @@ class SettingUi(QDialog):
         self.cancel_button.clicked.connect(lambda: self.cancel(parent))
 
         self.current_ver, self.lastest_ver = parent.db_curr_ver, parent.db_last_ver
-        self.current_label.setText(f'Current: {self.current_ver}')
-        self.lastest_label.setText(f'Lastest: {self.lastest_ver}')
-        if self.current_ver < self.lastest_ver:
-            self.lastest_label.setStyleSheet('color: #ffbe00;\nfont: 15px')
-        else:
-            self.lastest_label.setStyleSheet('color: #dddddd;\nfont: 15px')
-
         self.yd_values = ['P3', 'TR', 'CE', 'BS', 'VE',
                           'ES', 'T1', 'T2', 'T3', 'GC',
                           'DM', 'CY', 'GF', 'CHU']
@@ -44,9 +37,15 @@ class SettingUi(QDialog):
         parent.lock_all.move(0, 0)
 
         modify_data_check = set(parent.yourdata['Series'].values)
-
         for i, j in zip(self.yd_values, self.yd_checkboxes):
             j.setChecked(i in modify_data_check)
+        
+        self.current_label.setText(f'Current: {self.current_ver}')
+        self.lastest_label.setText(f'Lastest: {self.lastest_ver}')
+        if self.current_ver < self.lastest_ver:
+            self.lastest_label.setStyleSheet('color: #ffbe00;\nfont: 15px')
+        else:
+            self.lastest_label.setStyleSheet('color: #dddddd;\nfont: 15px')
 
         self.show()
 
@@ -57,6 +56,8 @@ class SettingUi(QDialog):
 
         if self.current_ver < self.lastest_ver:
             update_database()
+            update_version(parent.rs_curr_ver, self.lastest_ver)
+            _, _, self.current_ver, self.lastest_ver = update_check()
 
         fil_yd_sr = set(val for val, cb in zip(self.yd_values, self.yd_checkboxes) if cb.isChecked())
         fil_yd_sr.update(['RP', 'P1', 'P2', 'GG'])
@@ -68,17 +69,12 @@ class SettingUi(QDialog):
             try:
                 if val in enabled_check:
                     cb.setEnabled(True)
-                    if lck in parent.locks_left_check:
-                        lck.move(-20, lck.y())
-                    else:
-                        lck.move(300, lck.y())
-
+                    if lck != None:
+                        lck.setVisible(False)
                 else:
                     cb.setEnabled(False)
-                    if lck in parent.locks_left_check:
-                        lck.move(70, lck.y())
-                    else:
-                        lck.move(210, lck.y())
+                    if lck != None:
+                        lck.setVisible(True)
             except AttributeError:
                 pass
 

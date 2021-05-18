@@ -30,7 +30,8 @@ class SelectorUi(QMainWindow, main_ui):
         # Data
         self.yourdata = dmrs.read_data(self.IS_TEST)
         # Update Check
-        self.is_rs_updated, self.db_curr_ver, self.db_last_ver = dmrs.update_check()
+        self.rs_curr_ver, self.rs_last_ver, \
+            self.db_curr_ver, self.db_last_ver = dmrs.update_check()
         # Filter
         self.bt_list = set()
         self.st_list = set()
@@ -77,9 +78,6 @@ class SelectorUi(QMainWindow, main_ui):
             self.lock_es, self.lock_t1, self.lock_t2, self.lock_t3, None, self.lock_gc, self.lock_dm, self.lock_cy,
             self.lock_gf, self.lock_chu
             ]
-        self.locks_left = {
-            self.lock_p3, self.lock_tr, self.lock_ce, self.lock_dm, self.lock_gf
-            }
         dmrs.import_config(self)
         # Hotkey
         kb.add_hotkey('f7', self.check_state, suppress=True)
@@ -159,7 +157,7 @@ class SelectorUi(QMainWindow, main_ui):
         self.minimize_button.clicked.connect(self.minimize_signal)
         self.close_button.clicked.connect(self.close)
         self.update_button.clicked.connect(lambda: webbrowser.open('https://github.com/wowvv0w/DJMAX_Random_Selector/releases'))
-        if not self.is_rs_updated:
+        if self.rs_curr_ver == self.rs_last_ver:
             self.update_button.setVisible(False)
         def move_window(event):
             if event.buttons() == Qt.LeftButton:
