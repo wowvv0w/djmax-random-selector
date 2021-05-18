@@ -1,23 +1,34 @@
 from PyQt5 import uic
 from PyQt5.QtWidgets import QCheckBox, QDialog, QSizePolicy, QSpacerItem, QVBoxLayout
 from PyQt5.QtCore import Qt
-from .data import edit_data, read_data, generate_title_list
+from .data import edit_data, read_data, generate_title_list, update_database
 
+SETTING_UI = './ui/setting.ui'
+HISTORY_UI = './ui/history.ui'
+FAVORITE_UI = './ui/favorite.ui'
 
-class DataUi(QDialog):
+class SettingUi(QDialog):
     """
-    MODIFY DATA Window
+    SETTING Window
     """
 
     def __init__(self, parent):
 
         super().__init__(parent)
-        data_ui = './ui/modify_data_ui.ui'
-        uic.loadUi(data_ui, self)
+        uic.loadUi(SETTING_UI, self)
         self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
         self.setWindowModality(Qt.ApplicationModal)
-        self.modify_button.clicked.connect(lambda: self.modify_data(parent))
+        self.apply_button.clicked.connect(lambda: self.modify_data(parent))
         self.cancel_button.clicked.connect(lambda: self.cancel(parent))
+
+        self.current_ver, self.lastest_ver = parent.db_curr_ver, parent.db_last_ver
+        self.current_label.setText(f'Current: {self.current_ver}')
+        self.lastest_label.setText(f'Lastest: {self.lastest_ver}')
+        if self.current_ver < self.lastest_ver:
+            self.lastest_label.setStyleSheet('color: #ffbe00;\nfont: 15px')
+        else:
+            self.lastest_label.setStyleSheet('color: #dddddd;\nfont: 15px')
+
         self.yd_values = ['P3', 'TR', 'CE', 'BS', 'VE',
                           'ES', 'T1', 'T2', 'T3', 'GC',
                           'DM', 'CY', 'GF', 'CHU']
@@ -25,9 +36,9 @@ class DataUi(QDialog):
                               self.yd_cb_es, self.yd_cb_t1, self.yd_cb_t2, self.yd_cb_t3, self.yd_cb_gc,
                               self.yd_cb_dm, self.yd_cb_cy, self.yd_cb_gf, self.yd_cb_chu]
 
-    def show_data_ui(self, parent):
+    def show_setting_ui(self, parent):
         """
-        Shows 'MODIFY DATA' window.
+        Shows 'SETTING' window.
         """
 
         parent.lock_all.move(0, 0)
@@ -43,6 +54,9 @@ class DataUi(QDialog):
         """
         Modifies data.
         """
+
+        if self.current_ver < self.lastest_ver:
+            update_database()
 
         fil_yd_sr = set(val for val, cb in zip(self.yd_values, self.yd_checkboxes) if cb.isChecked())
         fil_yd_sr.update(['RP', 'P1', 'P2', 'GG'])
@@ -92,8 +106,7 @@ class HistoryUi(QDialog):
     def __init__(self, parent):
 
         super().__init__(parent)
-        history_ui = './ui/history_ui.ui'
-        uic.loadUi(history_ui, self)
+        uic.loadUi(HISTORY_UI, self)
         self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
         self.clear_button.clicked.connect(self.history_list.clear)
         self.close_button.clicked.connect(lambda: parent.history_button.setChecked(False))
@@ -131,8 +144,7 @@ class FavoriteUi(QDialog):
 
     def __init__(self, parent):
         super().__init__(parent)
-        favorite_ui = './ui/favorite_ui.ui'
-        uic.loadUi(favorite_ui, self)
+        uic.loadUi(FAVORITE_UI, self)
         self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
         self.setWindowModality(Qt.ApplicationModal)
         self.apply_button.clicked.connect(lambda: self.apply(parent))

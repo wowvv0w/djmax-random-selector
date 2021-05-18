@@ -9,7 +9,7 @@ import keyboard as kb
 import dmrs
 
 
-main_ui = uic.loadUiType("./ui/selector_ui.ui")[0]
+main_ui = uic.loadUiType("./ui/selector.ui")[0]
 
 class SelectorUi(QMainWindow, main_ui):
     """
@@ -28,6 +28,8 @@ class SelectorUi(QMainWindow, main_ui):
         self.is_init = True
         # Data
         self.yourdata = dmrs.read_data(self.IS_TEST)
+        # Update Check
+        self.is_rs_updated, self.db_curr_ver, self.db_last_ver = dmrs.update_check()
         # Filter
         self.bt_list = set()
         self.st_list = set()
@@ -49,7 +51,7 @@ class SelectorUi(QMainWindow, main_ui):
         self.fil_total = None
         # Ui
         self.setupUi(self)
-        self.data_ui = dmrs.DataUi(self)
+        self.data_ui = dmrs.SettingUi(self)
         self.history_ui = dmrs.HistoryUi(self)
         self.favorite_ui = dmrs.FavoriteUi(self)
         # Signals
@@ -176,7 +178,7 @@ class SelectorUi(QMainWindow, main_ui):
         self.cb_gf.toggled.connect(lambda: self.collab_child_signal(self.cb_gf))
         self.cb_chu.toggled.connect(lambda: self.collab_child_signal(self.cb_chu))
         # Modify data
-        self.data_button.clicked.connect(lambda: self.data_ui.show_data_ui(self))
+        self.setting_button.clicked.connect(lambda: self.data_ui.show_setting_ui(self))
 
         # Input delay
         self.delay_ms.setText(f'{self.delay_slider.value()}ms')

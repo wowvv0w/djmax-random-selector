@@ -11,7 +11,9 @@ _column = ('Title', 'Artist', 'Series',
 ALL_TRACK_DATA = './data/AllTrackData.csv'
 YOUR_DATA = './data/YourData.csv'
 TEST_DATA = './test_data.csv'
+VERSION_TXT = './data/version.txt'
 
+VERSION_URL = "https://raw.githubusercontent.com/wowvv0w/DJMAX_Random_Selector/main/data/version.txt"
 DATABASE_URL = 'https://raw.githubusercontent.com/wowvv0w/DJMAX_Random_Selector/main/data/AllTrackData.csv'
 
 def read_data(test):
@@ -55,25 +57,35 @@ def update_database():
 
     try:
         response = requests.get(DATABASE_URL)
+        if response.status_code == requests.codes.ok:
+            with open(ALL_TRACK_DATA, 'w', encoding='UTF-8') as file:
+                file.write(response.text)
+            print('db updated')
+        else:
+            print('there is something wrong')
     except:
-        print('failed')
+        print('db failed')
         return
 
-    if response.status_code == requests.codes.ok:
-        with open(ALL_TRACK_DATA, 'w', encoding='UTF-8') as file:
-            file.write(response.text)
-        print('updated')
-    else:
-        print('there is something wrong')
-
-def generate_title_list():
-    with open(ALL_TRACK_DATA, 'r', encoding='UTF-8') as file:
-        data = csv.reader(file)
-        next(data)
-
-        list_ = [i[0] for i in data]
+def update_check(for_setting=False):
+    try:
+        response = requests.get(VERSION_URL)
+        if response.status_code == requests.codes.ok:
+            last_ver = response.text()
+            rs_last_ver, db_last_ver = map(int, last_ver.split(','))
+            print('ver updated')
+        else:
+            print('there is something wrong')
+    except:
+        print('ver failed')
+        return
     
-    return list_
+    with open(VERSION_TXT, 'r') as f:
+        curr_ver = f.read()
+        rs_curr_ver, db_curr_ver = map(int, curr_ver.split(','))
+    
+    return rs_curr_ver < rs_last_ver, db_curr_ver, db_last_ver
+
 
 def import_config(cls):
     """
@@ -160,6 +172,15 @@ def export_config(cls):
         with open('./data/config.json', 'w') as f:
             json.dump(config, f, indent=4)
 
+
+def generate_title_list():
+    with open(ALL_TRACK_DATA, 'r', encoding='UTF-8') as file:
+        data = csv.reader(file)
+        next(data)
+
+        list_ = [i[0] for i in data]
+    
+    return list_
 
 def _generate_title_filter(series):
     """

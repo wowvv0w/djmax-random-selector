@@ -734,28 +734,6 @@ QPushButton:checked {
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="data_button">
-       <property name="geometry">
-        <rect>
-         <x>190</x>
-         <y>3</y>
-         <width>100</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-    border: 3px solid #818282;
-	color: #818282;
-    background-color: rgba(0, 0, 0, 87);
-	border-radius: 6px;
-	font: 12px &quot;Lato Black&quot;
-}</string>
-       </property>
-       <property name="text">
-        <string>MODIFY DATA</string>
-       </property>
-      </widget>
       <widget class="QPushButton" name="cb_p3">
        <property name="geometry">
         <rect>
@@ -1020,7 +998,6 @@ QPushButton:disabled{
       <zorder>cb_es</zorder>
       <zorder>cb_ve</zorder>
       <zorder>collab_frame</zorder>
-      <zorder>data_button</zorder>
       <zorder>cb_rp</zorder>
       <zorder>cb_p1</zorder>
       <zorder>cb_p2</zorder>
@@ -2645,12 +2622,15 @@ QPushButton:checked{
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel{
-	font: 25px &quot;Lato&quot;;
-	color: rgba(255, 255, 255, 64)
+	font: 23px &quot;Lato&quot;;
+	color: rgba(255, 255, 255, 32)
 }</string>
       </property>
       <property name="text">
        <string>FILTER FUNCTION</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
       </property>
      </widget>
      <widget class="QLabel" name="label_12">
@@ -2664,12 +2644,15 @@ QPushButton:checked{
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel{
-	font: 25px &quot;Lato&quot;;
-	color: rgba(255, 255, 255, 64)
+	font: 23px &quot;Lato&quot;;
+	color: rgba(255, 255, 255, 32)
 }</string>
       </property>
       <property name="text">
        <string>SELECTOR FUNCTION</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
       </property>
      </widget>
      <zorder>label_11</zorder>
@@ -2812,10 +2795,10 @@ QPushButton:checked {
     <widget class="QPushButton" name="setting_button">
      <property name="geometry">
       <rect>
-       <x>670</x>
-       <y>10</y>
-       <width>40</width>
-       <height>40</height>
+       <x>680</x>
+       <y>15</y>
+       <width>30</width>
+       <height>30</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -2830,8 +2813,8 @@ QPushButton:checked {
      </property>
      <property name="iconSize">
       <size>
-       <width>36</width>
-       <height>36</height>
+       <width>30</width>
+       <height>30</height>
       </size>
      </property>
     </widget>

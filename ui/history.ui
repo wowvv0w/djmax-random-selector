@@ -27,8 +27,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #1a1a1a;
-color: #ffffff;
-font: 15px &quot;Lato Black&quot;</string>
+color: #ffffff;</string>
   </property>
   <widget class="QFrame" name="title_bar">
    <property name="geometry">
@@ -87,6 +86,7 @@ font: 23px &quot;Lato&quot;;</string>
 	color:#7f7f7f;
 	background:transparent;
 	border:3px solid #7f7f7f;
+	font: 15px &quot;Lato Black&quot;
 }
 QPushButton:checked{
 	color: #242424;
@@ -174,7 +174,8 @@ QScrollBar::add-page, QScrollBar::sub-page{
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background:#242424</string>
+    <string notr="true">background: #242424;
+font: 15px &quot;Lato Black&quot;</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>

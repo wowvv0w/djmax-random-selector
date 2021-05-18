@@ -27,8 +27,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #1a1a1a;
-color: #ffffff;
-font: 15px &quot;Lato Black&quot;</string>
+color: #ffffff;</string>
   </property>
   <widget class="QFrame" name="frame_2">
    <property name="geometry">
@@ -40,7 +39,8 @@ font: 15px &quot;Lato Black&quot;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background:#242424</string>
+    <string notr="true">background: #242424;
+font: 15px &quot;Lato Black&quot;</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
