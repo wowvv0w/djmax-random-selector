@@ -64,10 +64,10 @@ QWidget{
 	background:transparent;
 }
 QGroupBox{
-	font: 12pt &quot;Lato&quot;
+	font: 20px &quot;Lato&quot;
 }
 QFrame{
-	font: 10pt &quot;Lato Black&quot;
+	font: 15px &quot;Lato Black&quot;
 }</string>
     </property>
     <property name="tabPosition">
@@ -105,7 +105,7 @@ QFrame{
 	border:none;
 }
 QPushButton{
-	font: 9pt &quot;Lato Black&quot;
+	font: 15px &quot;Lato Black&quot;
 }
 </string>
       </property>
@@ -511,7 +511,7 @@ QLabel{
     border: 3px solid #5e5e5e;
 	color: #5e5e5e;
     background-color: transparent;
-	font: 7pt &quot;Lato Black&quot;
+	font: 12px &quot;Lato Black&quot;
 }
 QPushButton:checked {
 	border-color: #d83e0e;
@@ -543,7 +543,7 @@ QPushButton:checked {
     border: 3px solid #5e5e5e;
 	color: #5e5e5e;
     background-color: transparent;
-	font: 7pt &quot;Lato Black&quot;
+	font: 12px &quot;Lato Black&quot;
 }
 QPushButton:checked {
 	border-color: #51eefe;
@@ -577,7 +577,7 @@ QPushButton:disabled{
     border: 3px solid #5e5e5e;
 	color: #5e5e5e;
     background-color: transparent;
-	font: 7pt &quot;Lato Black&quot;
+	font: 12px &quot;Lato Black&quot;
 }
 QPushButton:checked {
 	border-color: #ffd700;
@@ -611,7 +611,7 @@ QPushButton:disabled{
     border: 3px solid #5e5e5e;
 	color: #5e5e5e;
     background-color: transparent;
-	font: 7pt &quot;Lato Black&quot;
+	font: 12px &quot;Lato Black&quot;
 }
 QPushButton:checked {
 	border-color: #99e5d8;
@@ -645,7 +645,7 @@ QPushButton:disabled{
     border: 3px solid #5e5e5e;
 	color: #5e5e5e;
     background-color: transparent;
-	font: 7pt &quot;Lato Black&quot;
+	font: 12px &quot;Lato Black&quot;
 }
 QPushButton:checked {
 	border-color: #ee1538;
@@ -679,7 +679,7 @@ QPushButton:disabled{
     border: 3px solid #5e5e5e;
 	color: #5e5e5e;
     background-color: transparent;
-	font: 7pt &quot;Lato Black&quot;
+	font: 12px &quot;Lato Black&quot;
 }
 QPushButton:checked {
 	border-color: #fdb426;
@@ -749,7 +749,7 @@ QPushButton:checked {
 	color: #818282;
     background-color: rgba(0, 0, 0, 87);
 	border-radius: 6px;
-	font: 7pt &quot;Lato Black&quot;
+	font: 12px &quot;Lato Black&quot;
 }</string>
        </property>
        <property name="text">
@@ -1227,10 +1227,10 @@ QFrame{
 	color: #ffffff;
 }
 QPushButton{
-	font: 8pt &quot;Lato Black&quot;
+	font: 13px &quot;Lato Black&quot;
 }
 QSpinBox{
-	font: 9pt &quot;Lato Black&quot;;
+	font: 15px &quot;Lato Black&quot;;
 	color: #dfdfdf;
 	border:none;
 }
@@ -2012,7 +2012,7 @@ QPushButton:checked {
         </property>
         <property name="styleSheet">
          <string notr="true">QLabel{
-	font: 8pt &quot;Lato&quot;;
+	font: 13px &quot;Lato&quot;;
 	background: none;
 	color:#818282;
 }</string>
@@ -2073,7 +2073,7 @@ QPushButton:checked {
         </property>
         <property name="styleSheet">
          <string notr="true">QLabel{
-	font: 8pt &quot;Lato&quot;;
+	font: 13px &quot;Lato&quot;;
 	background: none;
 	color:#818282;
 }</string>
@@ -2226,9 +2226,9 @@ QPushButton{
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>20</y>
+        <y>30</y>
         <width>680</width>
-        <height>38</height>
+        <height>30</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -2243,7 +2243,7 @@ QPushButton{
          <x>10</x>
          <y>-1</y>
          <width>200</width>
-         <height>38</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="text">
@@ -2257,9 +2257,9 @@ QPushButton{
        <property name="geometry">
         <rect>
          <x>390</x>
-         <y>9</y>
+         <y>0</y>
          <width>240</width>
-         <height>20</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -2300,7 +2300,7 @@ QSlider::handle:horizontal {
          <x>270</x>
          <y>-1</y>
          <width>60</width>
-         <height>38</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="text">
@@ -2314,9 +2314,9 @@ QSlider::handle:horizontal {
        <property name="geometry">
         <rect>
          <x>390</x>
-         <y>9</y>
+         <y>0</y>
          <width>240</width>
-         <height>20</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="text">
@@ -2329,7 +2329,7 @@ QSlider::handle:horizontal {
          <x>340</x>
          <y>0</y>
          <width>50</width>
-         <height>38</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="text">
@@ -2346,7 +2346,7 @@ QSlider::handle:horizontal {
          <x>630</x>
          <y>0</y>
          <width>50</width>
-         <height>38</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="text">
@@ -2362,9 +2362,9 @@ QSlider::handle:horizontal {
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>70</y>
+        <y>180</y>
         <width>680</width>
-        <height>38</height>
+        <height>30</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -2379,7 +2379,7 @@ QSlider::handle:horizontal {
          <x>10</x>
          <y>-1</y>
          <width>200</width>
-         <height>38</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="text">
@@ -2395,13 +2395,13 @@ QSlider::handle:horizontal {
          <x>410</x>
          <y>-1</y>
          <width>200</width>
-         <height>39</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton{
 	color: #7f7f7f;
-	font: 10pt &quot;Lato Black&quot;;
+	font: 15px &quot;Lato Black&quot;;
 }
 QPushButton:checked{
 	color: #ffffff;
@@ -2419,9 +2419,9 @@ QPushButton:checked{
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>120</y>
+        <y>70</y>
         <width>680</width>
-        <height>38</height>
+        <height>30</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -2436,7 +2436,7 @@ QPushButton:checked{
          <x>10</x>
          <y>-1</y>
          <width>221</width>
-         <height>38</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="text">
@@ -2450,9 +2450,9 @@ QPushButton:checked{
        <property name="geometry">
         <rect>
          <x>390</x>
-         <y>9</y>
+         <y>0</y>
          <width>240</width>
-         <height>20</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -2487,7 +2487,7 @@ QSlider::handle:horizontal {
          <x>270</x>
          <y>-1</y>
          <width>60</width>
-         <height>38</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="text">
@@ -2502,9 +2502,9 @@ QSlider::handle:horizontal {
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>170</y>
+        <y>220</y>
         <width>680</width>
-        <height>38</height>
+        <height>30</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -2519,7 +2519,7 @@ QSlider::handle:horizontal {
          <x>10</x>
          <y>-1</y>
          <width>200</width>
-         <height>38</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="text">
@@ -2535,13 +2535,13 @@ QSlider::handle:horizontal {
          <x>410</x>
          <y>-1</y>
          <width>200</width>
-         <height>39</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton{
 	color: #7f7f7f;
-	font: 10pt &quot;Lato Black&quot;;
+	font: 15px &quot;Lato Black&quot;;
 }
 QPushButton:checked{
 	color: #ffffff;
@@ -2559,9 +2559,9 @@ QPushButton:checked{
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>220</y>
+        <y>110</y>
         <width>680</width>
-        <height>38</height>
+        <height>30</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -2576,7 +2576,7 @@ QPushButton:checked{
          <x>10</x>
          <y>-1</y>
          <width>200</width>
-         <height>38</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="text">
@@ -2592,13 +2592,13 @@ QPushButton:checked{
          <x>410</x>
          <y>-1</y>
          <width>200</width>
-         <height>39</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton{
 	color: #7f7f7f;
-	font: 10pt &quot;Lato Black&quot;;
+	font: 15px &quot;Lato Black&quot;;
 }
 QPushButton:checked{
 	color: #ffffff;
@@ -2615,8 +2615,8 @@ QPushButton:checked{
        <property name="geometry">
         <rect>
          <x>629</x>
-         <y>10</y>
-         <width>41</width>
+         <y>5</y>
+         <width>40</width>
          <height>20</height>
         </rect>
        </property>
@@ -2626,7 +2626,7 @@ QPushButton:checked{
 	color: #818282;
     background-color: rgba(0, 0, 0, 87);
 	border-radius: 6px;
-	font: 7pt &quot;Lato Black&quot;
+	font: 12px &quot;Lato Black&quot;
 }</string>
        </property>
        <property name="text">
@@ -2634,6 +2634,51 @@ QPushButton:checked{
        </property>
       </widget>
      </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>0</y>
+        <width>231</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	font: 25px &quot;Lato&quot;;
+	color: rgba(255, 255, 255, 64)
+}</string>
+      </property>
+      <property name="text">
+       <string>FILTER FUNCTION</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>150</y>
+        <width>301</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	font: 25px &quot;Lato&quot;;
+	color: rgba(255, 255, 255, 64)
+}</string>
+      </property>
+      <property name="text">
+       <string>SELECTOR FUNCTION</string>
+      </property>
+     </widget>
+     <zorder>label_11</zorder>
+     <zorder>frame</zorder>
+     <zorder>frame_3</zorder>
+     <zorder>frame_4</zorder>
+     <zorder>frame_5</zorder>
+     <zorder>frame_8</zorder>
+     <zorder>label_12</zorder>
     </widget>
    </widget>
    <widget class="QFrame" name="top_bar">
@@ -2649,12 +2694,12 @@ QPushButton:checked{
      <string notr="true">QLabel{
 	background: transparent;
 	color: #ffbe00;
-	font: 14pt &quot;Lato Light&quot;
+	font: 23px &quot;Lato Light&quot;
 }
 QPushButton {
 	color: #7f7f7f;
     background-color: transparent;
-	font: 10pt &quot;Lato Black&quot;
+	font: 17px &quot;Lato Black&quot;
 }
 QPushButton:checked {
  	color: #ffffff;
@@ -2755,13 +2800,39 @@ QPushButton:checked {
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 10pt &quot;Lato Black&quot;</string>
+      <string notr="true">font: 17px &quot;Lato Black&quot;</string>
      </property>
      <property name="text">
       <string>Press F7 to Start Random Selector</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="setting_button">
+     <property name="geometry">
+      <rect>
+       <x>670</x>
+       <y>10</y>
+       <width>40</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background: none;
+	border: none;
+}</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../images/setting.png</normaloff>../images/setting.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>36</width>
+       <height>36</height>
+      </size>
      </property>
     </widget>
    </widget>
@@ -2804,7 +2875,7 @@ QPushButton:hover{
      </property>
      <property name="styleSheet">
       <string notr="true">color:#989999;
-font: 9pt &quot;Lato Black&quot;;</string>
+font: 15px &quot;Lato Black&quot;;</string>
      </property>
      <property name="text">
       <string>DJMAX Random Selector V0.6.0</string>

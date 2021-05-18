@@ -28,7 +28,7 @@
   <property name="styleSheet">
    <string notr="true">background-color: #1a1a1a;
 color: #ffffff;
-font: 9pt &quot;Lato Black&quot;</string>
+font: 15px &quot;Lato Black&quot;</string>
   </property>
   <widget class="QFrame" name="title_bar">
    <property name="geometry">
@@ -42,7 +42,6 @@ font: 9pt &quot;Lato Black&quot;</string>
    <property name="font">
     <font>
      <family>Lato Black</family>
-     <pointsize>9</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -68,7 +67,7 @@ font: 9pt &quot;Lato Black&quot;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">color: #ffbe00;
-font: 14pt &quot;Lato&quot;;</string>
+font: 23px &quot;Lato&quot;;</string>
     </property>
     <property name="text">
      <string>HISTORY</string>
@@ -137,7 +136,7 @@ QPushButton:checked{
      <string notr="true">QListView{
 	background: transparent;
 	border:none;
-	font: 9pt &quot;Lato&quot;
+	font: 15px &quot;Lato&quot;
 }
 QScrollBar{
 	width: 10px;

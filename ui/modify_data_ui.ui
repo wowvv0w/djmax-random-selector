@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>510</width>
-    <height>360</height>
+    <width>679</width>
+    <height>539</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -16,19 +16,13 @@
     <height>300</height>
    </size>
   </property>
-  <property name="maximumSize">
-   <size>
-    <width>510</width>
-    <height>360</height>
-   </size>
-  </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #1a1a1a;
 color: #ffffff;
-font: bold 9pt &quot;Lato&quot;;</string>
+font: bold 15px &quot;Lato&quot;;</string>
   </property>
   <widget class="QFrame" name="frame">
    <property name="geometry">
@@ -42,7 +36,6 @@ font: bold 9pt &quot;Lato&quot;;</string>
    <property name="font">
     <font>
      <family>Lato</family>
-     <pointsize>9</pointsize>
      <weight>75</weight>
      <italic>false</italic>
      <bold>true</bold>
@@ -68,10 +61,10 @@ font: bold 9pt &quot;Lato&quot;;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">color: #ffbe00;
-font: 14pt &quot;Lato&quot;;</string>
+font: 23px &quot;Lato&quot;;</string>
     </property>
     <property name="text">
-     <string>MODIFY DATA</string>
+     <string>SETTING</string>
     </property>
    </widget>
   </widget>
@@ -79,14 +72,14 @@ font: 14pt &quot;Lato&quot;;</string>
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>310</y>
+     <y>420</y>
      <width>510</width>
      <height>50</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background:#242424;
-font: 9pt &quot;Lato Black&quot;</string>
+font: 15px &quot;Lato Black&quot;</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
@@ -135,7 +128,7 @@ border:none;</string>
      <x>0</x>
      <y>50</y>
      <width>510</width>
-     <height>260</height>
+     <height>351</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -157,6 +150,12 @@ QRadioButton{
 }
 QRadioButton:Checked{
 	color: #ffbe00;
+}
+QLabel{
+	background:transparent;
+	border: none;
+	color: #dddddd;
+	font: 18px &quot;Lato&quot;;
 }</string>
    </property>
    <property name="frameShape">
@@ -165,210 +164,37 @@ QRadioButton:Checked{
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>491</width>
-      <height>161</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="0">
-      <widget class="QCheckBox" name="yd_cb_es">
-       <property name="text">
-        <string>EMOTIONAL S.</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QCheckBox" name="yd_cb_gc">
-       <property name="text">
-        <string>GROOVE COASTER</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QCheckBox" name="yd_cb_tr">
-       <property name="text">
-        <string>TRILOGY</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="4">
-      <widget class="QCheckBox" name="yd_cb_ce">
-       <property name="text">
-        <string>CLAZZIQUAI</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="4">
-      <widget class="QCheckBox" name="yd_cb_bs">
-       <property name="text">
-        <string>BLACK SQUARE</string>
-       </property>
-       <property name="checked">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>0</width>
-         <height>10</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="3">
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="4" column="0">
-      <widget class="QCheckBox" name="yd_cb_cy">
-       <property name="text">
-        <string>CYTUS</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="QCheckBox" name="yd_cb_t2">
-       <property name="text">
-        <string>TECHNIKA 2</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="4">
-      <widget class="QCheckBox" name="yd_cb_p3">
-       <property name="text">
-        <string>PORTABLE 3</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="4">
-      <widget class="QCheckBox" name="yd_cb_gf">
-       <property name="text">
-        <string>GIRLS' FRONTLINE</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="2">
-      <widget class="QCheckBox" name="yd_cb_t3">
-       <property name="text">
-        <string>TECHNIKA 3</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="3" column="0">
-      <widget class="QCheckBox" name="yd_cb_dm">
-       <property name="text">
-        <string>DEEMO</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QCheckBox" name="yd_cb_ve">
-       <property name="text">
-        <string>V EXTENSION</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2">
-      <widget class="QCheckBox" name="yd_cb_t1">
-       <property name="text">
-        <string>TECHNIKA 1</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="4">
-      <widget class="QCheckBox" name="yd_cb_chu">
-       <property name="text">
-        <string>CHUNITHM</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>0</y>
+      <y>80</y>
       <width>141</width>
       <height>31</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">background:transparent;
-border: none;
-color: #dddddd;
-font: 13pt &quot;Lato&quot;;</string>
-    </property>
     <property name="text">
-     <string>DLC</string>
+     <string>Database Setting</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>190</y>
+      <y>270</y>
       <width>141</width>
       <height>31</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">background:transparent;
-border: none;
-color: #dddddd;
-font: 13pt &quot;Lato&quot;;</string>
-    </property>
     <property name="text">
-     <string>SORT</string>
+     <string>Sort</string>
     </property>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>220</y>
+      <y>300</y>
       <width>491</width>
       <height>31</height>
      </rect>
@@ -424,10 +250,281 @@ font: 13pt &quot;Lato&quot;;</string>
      </item>
     </layout>
    </widget>
-   <zorder>label_2</zorder>
-   <zorder>gridLayoutWidget</zorder>
-   <zorder>label_3</zorder>
-   <zorder>horizontalLayoutWidget</zorder>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Database Version</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>30</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 15px</string>
+    </property>
+    <property name="text">
+     <string>Current:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>30</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 15px</string>
+    </property>
+    <property name="text">
+     <string>Lastest:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Selector Version</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>0</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 15px</string>
+    </property>
+    <property name="text">
+     <string>Current: V0.6.0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>0</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 15px</string>
+    </property>
+    <property name="text">
+     <string>Lastest:</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="yd_cb_ve">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>VE</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="yd_cb_es">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>110</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ES</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="yd_cb_tr">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>110</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TR</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="yd_cb_gc">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>110</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>GC</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="yd_cb_ce">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>110</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>CE</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="yd_cb_bs">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>110</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>BS</string>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="yd_cb_dm">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>140</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>DM</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="yd_cb_cy">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>140</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>CY</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="yd_cb_t1">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>140</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>T1</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="yd_cb_t2">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>140</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>T2</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="yd_cb_t3">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>140</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>T3</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="yd_cb_chu">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>140</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>CHU</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="yd_cb_gf">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>140</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>GF</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="yd_cb_p3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>170</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>P3</string>
+    </property>
+   </widget>
   </widget>
   <zorder>frame_3</zorder>
   <zorder>frame_2</zorder>

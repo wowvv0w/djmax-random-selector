@@ -28,7 +28,7 @@
   <property name="styleSheet">
    <string notr="true">background-color: #1a1a1a;
 color: #ffffff;
-font: 9pt &quot;Lato Black&quot;</string>
+font: 15px &quot;Lato Black&quot;</string>
   </property>
   <widget class="QFrame" name="frame_2">
    <property name="geometry">
@@ -95,7 +95,6 @@ border:none;</string>
    <property name="font">
     <font>
      <family>Lato Black</family>
-     <pointsize>9</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -121,7 +120,7 @@ border:none;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">color: #ffbe00;
-font: 14pt &quot;Lato&quot;;</string>
+font: 23px &quot;Lato&quot;;</string>
     </property>
     <property name="text">
      <string>FAVORITE</string>
@@ -139,7 +138,7 @@ font: 14pt &quot;Lato&quot;;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">QWidget{
-	font: 9pt &quot;Lato&quot;
+	font: 15px &quot;Lato&quot;
 }
 QFrame{
 	background:transparent;
@@ -148,7 +147,7 @@ QFrame{
 QCheckBox{
 	background: none;
 	color: #7f7f7f;
-	font: bold 9pt &quot;Lato&quot;
+	font: bold 15px &quot;Lato&quot;
 }
 QCheckBox:Checked{
 	color: #ffbe00;
@@ -156,14 +155,14 @@ QCheckBox:Checked{
 QRadioButton{
 	background: none;
 	color: #7f7f7f;
-	font: bold 9pt &quot;Lato&quot;
+	font: bold 15px &quot;Lato&quot;
 }
 QRadioButton:Checked{
 	color: #ffbe00;
 }
 QLabel{
 	border: none;
-	font: 11pt &quot;Lato&quot;;
+	font: 18px &quot;Lato&quot;;
 	color: #dddddd;
 }</string>
    </property>
@@ -219,7 +218,7 @@ QScrollBar::add-page, QScrollBar::sub-page{
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>333</width>
+       <width>344</width>
        <height>344</height>
       </rect>
      </property>

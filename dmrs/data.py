@@ -1,4 +1,5 @@
 import csv
+import json
 import pandas as pd
 import requests
 
@@ -11,7 +12,7 @@ ALL_TRACK_DATA = './data/AllTrackData.csv'
 YOUR_DATA = './data/YourData.csv'
 TEST_DATA = './test_data.csv'
 
-DATABASE_URL = 'https://raw.githubusercontent.com/wowvv0w/DJMAX_Random_Selector/main/AllTrackData.csv'
+DATABASE_URL = 'https://raw.githubusercontent.com/wowvv0w/DJMAX_Random_Selector/main/data/AllTrackData.csv'
 
 def read_data(test):
     """
@@ -73,6 +74,91 @@ def generate_title_list():
         list_ = [i[0] for i in data]
     
     return list_
+
+def import_config(cls):
+    """
+    Import config.
+    """
+
+    if cls.IS_TEST:
+        with open('./test_config.json', 'r') as f:
+            config = json.load(f)
+    else:
+        with open('./data/config.json', 'r') as f:
+            config = json.load(f)
+
+    for val, cb, lck in zip(cls.values, cls.checkboxes, cls.locks):
+        try:
+            cb.setChecked(config[val])
+        except TypeError:
+            cb.setEnabled(False)
+            if lck in cls.locks_left:
+                lck.move(70, lck.y())
+            else:
+                lck.move(210, lck.y())
+
+    cls.lvl_min.setValue(config['MIN'])
+    cls.lvl_max.setValue(config['MAX'])
+    if config['BEGINNER']:
+        cls.cb_bgn.setChecked(True)
+    elif config['MASTER']:
+        cls.cb_mst.setChecked(True)
+    else:
+        cls.cb_std.setChecked(True)
+
+    if config['FREESTYLE']:
+        cls.cb_freestyle.setChecked(True)
+    else:
+        cls.cb_online.setChecked(True)
+
+    cls.delay_slider.setValue(config['INPUT DELAY'])
+    cls.erm_slider.setValue(config['PREVIOUS'])
+    cls.tray_button.setChecked(config['TRAY'])
+    cls.favorite_button.setChecked(config['FAVORITE']['Enabled'])
+    cls.favorite = set(config['FAVORITE']['List'])
+    cls.is_favor_black = config['FAVORITE']['Black']
+
+    cls.filtering()
+
+    cls.is_init = False
+
+def export_config(cls):
+    """
+    Export config.
+    """
+
+    if cls.IS_TEST:
+        with open('./test_config.json', 'r') as f:
+            config = json.load(f)
+    else:
+        with open('./data/config.json', 'r') as f:
+            config = json.load(f)
+
+    for i, j in zip(cls.checkboxes, cls.values):
+        if i.isEnabled():
+            config[j] = i.isChecked()
+        else:
+            config[j] = None
+
+    config['MIN'] = cls.lvl_min.value()
+    config['MAX'] = cls.lvl_max.value()
+    config['BEGINNER'] = cls.cb_bgn.isChecked()
+    config['MASTER'] = cls.cb_mst.isChecked()
+
+    config['FREESTYLE'] = cls.cb_freestyle.isChecked()
+
+    config['INPUT DELAY'] = cls.delay_slider.value()
+    config['PREVIOUS'] = cls.erm_slider.value()
+    config['TRAY'] = cls.is_tray
+    config['FAVORITE']['List'] = list(cls.favorite)
+    config['FAVORITE']['Black'] = cls.is_favor_black
+
+    if cls.IS_TEST:
+        with open('./test_config.json', 'w') as f:
+            json.dump(config, f, indent=4)
+    else:
+        with open('./data/config.json', 'w') as f:
+            json.dump(config, f, indent=4)
 
 
 def _generate_title_filter(series):

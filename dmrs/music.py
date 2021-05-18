@@ -1,7 +1,6 @@
 import random
 import time
 from string import ascii_letters
-
 import keyboard as kb
 
 
@@ -14,7 +13,10 @@ def is_alphabet(chr_):
     
     return chr_ in ascii_letters
 
-def filter_music(data, buttons, styles, series, diff_min, diff_max, is_freestyle, is_favor, is_favor_black, favorite):
+def filter_music(
+    data, buttons, styles, series, diff_min, diff_max,
+    is_freestyle, is_favor, is_favor_black, favorite
+):
     """
     Filter music.
     """
@@ -22,9 +24,10 @@ def filter_music(data, buttons, styles, series, diff_min, diff_max, is_freestyle
     filtered = data[data['Series'].isin(series)]
     if is_favor:
         if is_favor_black:
-            filtered = data[data['Title'].isin(favorite) == False]
+            filtered = filtered[filtered['Title'].isin(favorite) == False]
         else:
-            filtered = data[data['Title'].isin(favorite)]
+            filtered = filtered[filtered['Title'].isin(favorite)]
+
     candidate_list = []
     fil_title = filtered['Title'].values
     diff_list = [f'{bt}{st}' for bt in buttons for st in styles]
@@ -38,15 +41,15 @@ def filter_music(data, buttons, styles, series, diff_min, diff_max, is_freestyle
         candidate_list.extend(scan_candidate)
 
     try:
-        candidate_title = set(cand[0] for cand in candidate_list)
+        candidate_title = {cand[0] for cand in candidate_list}
         if not is_freestyle:
             candidate_list = list(candidate_title)
     except IndexError:
         candidate_title = []
 
-    return filtered, candidate_list, candidate_title
+    return filtered, candidate_list, len(candidate_title)
 
-def pick_music(data, filtered, candidate_list, is_freestyle, previous, prefer):
+def pick_music(data, filtered, candidate_list, prefer, is_freestyle, previous):
     """
     Pick music
     """
@@ -64,15 +67,16 @@ def pick_music(data, filtered, candidate_list, is_freestyle, previous, prefer):
             picked_title = random.choice(candidate_list)
             picked_btst = 'FREE'
     except IndexError:
-        return None, None, None, None, None, None
+        return [None] * 6
 
-    if is_freestyle and prefer:
-        same_tb_list = [cand for cand in candidate_list
-            if cand[0] == picked_title and cand[1][0] == picked_btst[0]]
+    if prefer and is_freestyle:
+        same_tb_list = [
+            cand for cand in candidate_list if cand[0] == picked_title and cand[1][0] == picked_btst[0]
+            ]
         if prefer == 'beginner':
             same_tb_list.sort(key=lambda x: _styles.index(x[1][2:]))
             picked_title, picked_btst, _ = min(same_tb_list, key=lambda x: x[2])
-        elif prefer == 'master':
+        else:
             same_tb_list.sort(key=lambda x: _styles.index(x[1][2:]), reverse=True)
             picked_title, picked_btst, _ = max(same_tb_list, key=lambda x: x[2])
 

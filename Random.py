@@ -1,9 +1,8 @@
 import sys
-import json
 from threading import Thread
 from collections import deque
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QCheckBox, QCompleter, QMainWindow, QDialog, QSizePolicy, QSpacerItem, QSystemTrayIcon, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QSystemTrayIcon
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QFontDatabase
 import keyboard as kb
@@ -47,18 +46,42 @@ class SelectorUi(QMainWindow, main_ui):
         # Filtered Data
         self.fil_yourdata = None
         self.fil_list = None
-        self.fil_title = None
+        self.fil_total = None
         # Ui
         self.setupUi(self)
-        self.data_ui = DataUi(self)
-        self.history_ui = HistoryUi(self)
-        self.favorite_ui = FavoriteUi(self)
-        # Signals & Configuration
+        self.data_ui = dmrs.DataUi(self)
+        self.history_ui = dmrs.HistoryUi(self)
+        self.favorite_ui = dmrs.FavoriteUi(self)
+        # Signals
         self.ui_signal()
         self.filter_signal()
-        self.import_config()
+        # Configuration
+        self.values = [
+            '4B', '5B', '6B', '8B', 'NM', 'HD', 'MX', 'SC',
+            'RP', 'P1', 'P2', 'P3', 'TR', 'CE', 'BS', 'VE',
+            'ES', 'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY',
+            'GF', 'CHU'
+            ]
+        self.checkboxes = [
+            self.cb_4b, self.cb_5b, self.cb_6b, self.cb_8b, self.cb_nm, self.cb_hd, self.cb_mx, self.cb_sc,
+            self.cb_rp, self.cb_p1, self.cb_p2, self.cb_p3, self.cb_tr, self.cb_ce, self.cb_bs, self.cb_ve,
+            self.cb_es, self.cb_t1, self.cb_t2, self.cb_t3, self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy,
+            self.cb_gf, self.cb_chu
+            ]
+        self.locks = [
+            None, None, None, None, None, None, None, None,
+            None, None, None, self.lock_p3, self.lock_tr, self.lock_ce, self.lock_bs, self.lock_ve,
+            self.lock_es, self.lock_t1, self.lock_t2, self.lock_t3, None, self.lock_gc, self.lock_dm, self.lock_cy,
+            self.lock_gf, self.lock_chu
+            ]
+        self.locks_left = {
+            self.lock_p3, self.lock_tr, self.lock_ce, self.lock_dm, self.lock_gf
+            }
+        dmrs.import_config(self)
         # Hotkey
         kb.add_hotkey('f7', self.check_state, suppress=True)
+        # Others
+        self.collab_children = {self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy, self.cb_gf, self.cb_chu}
 
 
     def check_state(self):
@@ -82,7 +105,7 @@ class SelectorUi(QMainWindow, main_ui):
         picked_title, picked_btst, bt_input, init_input, down_input, right_input = \
             dmrs.pick_music(
                 self.yourdata, self.fil_yourdata, self.fil_list,
-                self.is_freestyle, self.previous, self.prefer
+                self.prefer, self.is_freestyle, self.previous
                 )
         print(picked_title, ' | ', picked_btst)
 
@@ -227,9 +250,11 @@ class SelectorUi(QMainWindow, main_ui):
         Changes current level range ui: 15 stars in 'Difficulty.'
         """
 
-        indicators = [None, self.d1, self.d2, self.d3, self.d4, self.d5,
-                            self.d6, self.d7, self.d8, self.d9, self.d10,
-                            self.d11,self.d12,self.d13,self.d14,self.d15]
+        indicators = [None, # <-- remember me, index[0]
+            self.d1, self.d2, self.d3, self.d4, self.d5,
+            self.d6, self.d7, self.d8, self.d9, self.d10,
+            self.d11, self.d12, self.d13, self.d14, self.d15
+            ]
         d = lvl.value()
         if lvl == self.lvl_min:
             for i in range(1, d):
@@ -263,13 +288,12 @@ class SelectorUi(QMainWindow, main_ui):
         """
 
         self.is_init = True
-        checkboxes = [self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy, self.cb_gf, self.cb_chu]
         if self.cb_collab.isChecked():
-            for i in checkboxes:
+            for i in self.collab_children:
                 i.setChecked(True)
             self.collab_frame.setStyleSheet('QFrame{\n	background-color: #1e1e1e;\n}')
         else:
-            for i in checkboxes:
+            for i in self.collab_children:
                 i.setChecked(False)
             self.collab_frame.setStyleSheet('QFrame{\n	background-color: rgba(0, 0, 0, 87);\n}')
         self.is_init = False
@@ -285,11 +309,10 @@ class SelectorUi(QMainWindow, main_ui):
             self.cb_collab.setChecked(True)
             self.collab_frame.setStyleSheet('QFrame{\n	background-color: #1e1e1e;\n}')
         else:
-            if not self.cb_gg.isChecked() and not self.cb_gc.isChecked() \
-                and not self.cb_dm.isChecked() and not self.cb_cy.isChecked() \
-                and not self.cb_gf.isChecked() and not self.cb_chu.isChecked():
-                    self.cb_collab.setChecked(False)
-                    self.collab_frame.setStyleSheet('QFrame{\n	background-color: rgba(0, 0, 0, 87);\n}')
+            check = {cb.isChecked() for cb in self.collab_children}
+            if True not in check:
+                self.cb_collab.setChecked(False)
+                self.collab_frame.setStyleSheet('QFrame{\n	background-color: rgba(0, 0, 0, 87);\n}')
 
     def history_signal(self):
         """
@@ -403,14 +426,14 @@ class SelectorUi(QMainWindow, main_ui):
         Return music list filtered.
         """
 
-        self.fil_yourdata, self.fil_list, self.fil_title = \
+        self.fil_yourdata, self.fil_list, self.fil_total = \
                 dmrs.filter_music(
-                    self.yourdata, self.bt_list, self.st_list,
-                    self.sr_list, self.min, self.max, self.is_freestyle,
+                    self.yourdata, self.bt_list, self.st_list, self.sr_list,
+                    self.min, self.max, self.is_freestyle,
                     self.is_favor, self.is_favor_black, self.favorite
                     )
-        if self.fil_title:
-            self.erm_slider.setMaximum(len(self.fil_title) - 1)
+        if self.fil_total:
+            self.erm_slider.setMaximum(self.fil_total - 1)
         else:
             self.erm_slider.setMaximum(0)
 
@@ -423,341 +446,11 @@ class SelectorUi(QMainWindow, main_ui):
             print('initialized')
 
 
-    def import_config(self):
-        """
-        Import config.
-        """
-
-        if self.IS_TEST:
-            with open('./test_config.json', 'r') as f:
-                config = json.load(f)
-        else:
-            with open('./data/config.json', 'r') as f:
-                config = json.load(f)
-
-        self.values = [
-            '4B', '5B', '6B', '8B', 'NM', 'HD', 'MX', 'SC',
-            'RP', 'P1', 'P2', 'P3', 'TR', 'CE', 'BS', 'VE',
-            'ES', 'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY',
-            'GF', 'CHU'
-            ]
-        self.checkboxes = [
-            self.cb_4b, self.cb_5b, self.cb_6b, self.cb_8b, self.cb_nm, self.cb_hd, self.cb_mx, self.cb_sc,
-            self.cb_rp, self.cb_p1, self.cb_p2, self.cb_p3, self.cb_tr, self.cb_ce, self.cb_bs, self.cb_ve,
-            self.cb_es, self.cb_t1, self.cb_t2, self.cb_t3, self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy,
-            self.cb_gf, self.cb_chu
-            ]
-        self.locks = [
-            None, None, None, None, None, None, None, None,
-            None, None, None, self.lock_p3, self.lock_tr, self.lock_ce, self.lock_bs, self.lock_ve,
-            self.lock_es, self.lock_t1, self.lock_t2, self.lock_t3, None, self.lock_gc, self.lock_dm, self.lock_cy,
-            self.lock_gf, self.lock_chu
-            ]
-
-        self.locks_left_check = {self.lock_p3, self.lock_tr, self.lock_ce, self.lock_dm, self.lock_gf}
-        for val, cb, lck in zip(self.values, self.checkboxes, self.locks):
-            try:
-                cb.setChecked(config[val])
-            except TypeError:
-                cb.setEnabled(False)
-                if lck in self.locks_left_check:
-                    lck.move(70, lck.y())
-                else:
-                    lck.move(210, lck.y())
-
-        self.lvl_min.setValue(config['MIN'])
-        self.lvl_max.setValue(config['MAX'])
-        if config['BEGINNER']:
-            self.cb_bgn.setChecked(True)
-        elif config['MASTER']:
-            self.cb_mst.setChecked(True)
-        else:
-            self.cb_std.setChecked(True)
-
-        if config['FREESTYLE']:
-            self.cb_freestyle.setChecked(True)
-        else:
-            self.cb_online.setChecked(True)
-
-        self.delay_slider.setValue(config['INPUT DELAY'])
-        self.erm_slider.setValue(config['PREVIOUS'])
-        self.tray_button.setChecked(config['TRAY'])
-        self.favorite_button.setChecked(config['FAVORITE']['Enabled'])
-        self.favorite = set(config['FAVORITE']['List'])
-        self.is_favor_black = config['FAVORITE']['Black']
-
-        self.filtering()
-
-        self.is_init = False
-
-    def export_config(self):
-        """
-        Export config.
-        """
-
-        if self.IS_TEST:
-            with open('./test_config.json', 'r') as f:
-                config = json.load(f)
-        else:
-            with open('./data/config.json', 'r') as f:
-                config = json.load(f)
-
-        for i, j in zip(self.checkboxes, self.values):
-            if i.isEnabled():
-                config[j] = i.isChecked()
-            else:
-                config[j] = None
-
-        config['MIN'] = self.lvl_min.value()
-        config['MAX'] = self.lvl_max.value()
-        config['BEGINNER'] = self.cb_bgn.isChecked()
-        config['MASTER'] = self.cb_mst.isChecked()
-
-        config['FREESTYLE'] = self.cb_freestyle.isChecked()
-
-        config['INPUT DELAY'] = self.delay_slider.value()
-        config['PREVIOUS'] = self.erm_slider.value()
-        config['TRAY'] = self.is_tray
-        config['FAVORITE']['List'] = list(self.favorite)
-        config['FAVORITE']['Black'] = self.is_favor_black
-
-        if self.IS_TEST:
-            with open('./test_config.json', 'w') as f:
-                json.dump(config, f, indent=4)
-        else:
-            with open('./data/config.json', 'w') as f:
-                json.dump(config, f, indent=4)
-
-
-    def closeEvent(self, __):
-        self.export_config()
+    def closeEvent(self, _):
+        dmrs.export_config(self)
 
     def mousePressEvent(self, event):
         self.drag_pos = event.globalPos()
-
-
-
-
-class DataUi(QDialog):
-    """
-    MODIFY DATA Window
-    """
-
-    def __init__(self, parent):
-
-        super().__init__(parent)
-        data_ui = './ui/modify_data_ui.ui'
-        uic.loadUi(data_ui, self)
-        self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
-        self.setWindowModality(Qt.ApplicationModal)
-        self.modify_button.clicked.connect(lambda: self.modify_data(parent))
-        self.cancel_button.clicked.connect(lambda: self.cancel(parent))
-        self.yd_values = ['P3', 'TR', 'CE', 'BS', 'VE',
-                          'ES', 'T1', 'T2', 'T3', 'GC',
-                          'DM', 'CY', 'GF', 'CHU']
-        self.yd_checkboxes = [self.yd_cb_p3, self.yd_cb_tr, self.yd_cb_ce, self.yd_cb_bs, self.yd_cb_ve,
-                              self.yd_cb_es, self.yd_cb_t1, self.yd_cb_t2, self.yd_cb_t3, self.yd_cb_gc,
-                              self.yd_cb_dm, self.yd_cb_cy, self.yd_cb_gf, self.yd_cb_chu]
-
-    def show_data_ui(self, parent):
-        """
-        Shows 'MODIFY DATA' window.
-        """
-
-        parent.lock_all.move(0, 0)
-
-        modify_data_check = set(parent.yourdata['Series'].values)
-
-        for i, j in zip(self.yd_values, self.yd_checkboxes):
-            j.setChecked(i in modify_data_check)
-
-        self.show()
-
-    def modify_data(self, parent):
-        """
-        Modifies data.
-        """
-
-        fil_yd_sr = set(val for val, cb in zip(self.yd_values, self.yd_checkboxes) if cb.isChecked())
-        fil_yd_sr.update(['RP', 'P1', 'P2', 'GG'])
-        dmrs.edit_data(fil_yd_sr, parent.IS_TEST)
-        parent.yourdata = dmrs.read_data(parent.IS_TEST)
-
-        enabled_check = set(parent.yourdata['Series'].values)
-        for val, cb, lck in zip(parent.values[9:], parent.checkboxes[9:], parent.locks[9:]):
-            try:
-                if val in enabled_check:
-                    cb.setEnabled(True)
-                    if lck in parent.locks_left_check:
-                        lck.move(-20, lck.y())
-                    else:
-                        lck.move(300, lck.y())
-
-                else:
-                    cb.setEnabled(False)
-                    if lck in parent.locks_left_check:
-                        lck.move(70, lck.y())
-                    else:
-                        lck.move(210, lck.y())
-            except AttributeError:
-                pass
-
-        parent.lock_all.move(0, -540)
-        parent.filtering()
-        parent.erm_initialize()
-        self.close()
-
-    def cancel(self, parent):
-        """
-        Cancels modifying and closes window.
-        """
-
-        parent.lock_all.move(0, -540)
-        self.close()
-
-
-
-
-class HistoryUi(QDialog):
-    """
-    History Window
-    """
-
-    def __init__(self, parent):
-
-        super().__init__(parent)
-        history_ui = './ui/history_ui.ui'
-        uic.loadUi(history_ui, self)
-        self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
-        self.clear_button.clicked.connect(self.history_list.clear)
-        self.close_button.clicked.connect(lambda: parent.history_button.setChecked(False))
-        self.aot_button.toggled.connect(self.always_on_top)
-
-        def move_window(event):
-            if event.buttons() == Qt.LeftButton:
-                self.move(self.pos() + event.globalPos() - self.drag_pos)
-                self.drag_pos = event.globalPos()
-                event.accept()
-        self.title_bar.mouseMoveEvent = move_window
-
-    def mousePressEvent(self, event):
-        self.drag_pos = event.globalPos()
-
-    def always_on_top(self):
-        """
-        Sets window staying on top or not.
-        """
-
-        if self.aot_button.isChecked():
-            self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
-            self.show()
-        else:
-            self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
-            self.show()
-
-
-
-
-class FavoriteUi(QDialog):
-    """
-    Favorite Window
-    """
-
-    def __init__(self, parent):
-        super().__init__(parent)
-        favorite_ui = './ui/favorite_ui.ui'
-        uic.loadUi(favorite_ui, self)
-        self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
-        self.setWindowModality(Qt.ApplicationModal)
-        self.apply_button.clicked.connect(lambda: self.apply(parent))
-        self.cancel_button.clicked.connect(lambda: self.cancel(parent))
-        self.favor_search.textChanged.connect(self.update_display)
-        self.favor_all.clicked.connect(self.update_abled)
-        self.favor_ena.clicked.connect(self.update_abled)
-        self.favor_dis.clicked.connect(self.update_abled)
-
-        self.controls_layout = QVBoxLayout()
-        all_track_title = dmrs.generate_title_list()
-        self.widgets = []
-
-        self.show_enabled = True
-        self.show_disabled = True
-
-        for name in all_track_title:
-            item = QCheckBox(text=name)
-            self.controls_layout.addWidget(item)
-            self.widgets.append(item)
-        
-        spacer = QSpacerItem(1, 1, QSizePolicy.Minimum, QSizePolicy.Expanding)
-        self.controls_layout.addItem(spacer)
-        self.favor_list.setLayout(self.controls_layout)
-
-    
-    def show_favorite_ui(self, parent):
-        """
-        Shows 'FAVORITE' window.
-        """
-
-        parent.lock_all.move(0, 0)
-        
-        for widget in self.widgets:
-            widget.setChecked(widget.text() in parent.favorite)
-        self.favor_black.setChecked(parent.is_favor_black)
-        self.update_display(self.favor_search.text())
-
-        self.show()
-
-    def update_display(self, text):
-        """
-        Shows search results.
-        """
-
-        for widget in self.widgets:
-            check = (widget.isChecked() and self.show_enabled) \
-                or (not widget.isChecked() and self.show_disabled)
-            if check:
-                title = widget.text()
-                if text.lower() in title.lower():
-                    widget.setVisible(True)
-                else:
-                    widget.setVisible(False)
-            else:
-                widget.setVisible(False)
-            
-            
-    def update_abled(self):
-        """
-        Applies on/off filter.
-        """
-
-        if self.favor_all.isChecked():
-            self.show_enabled, self.show_disabled = True, True
-        else:
-            self.show_enabled = self.favor_ena.isChecked()
-            self.show_disabled = self.favor_dis.isChecked()
-        self.update_display(self.favor_search.text())
-        
-    
-    def apply(self, parent):
-        """
-
-        """
-       
-        parent.favorite = {widget.text() for widget in self.widgets if widget.isChecked()}
-        parent.is_favor_black = self.favor_black.isChecked()
-        print(parent.favorite)
-        parent.lock_all.move(0, -540)
-        parent.filtering()
-        parent.erm_initialize()
-        self.close()
-
-    def cancel(self, parent):
-        """
-        Cancels editing and closes window.
-        """
-
-        parent.lock_all.move(0, -540)
-        self.close()
 
 
 
