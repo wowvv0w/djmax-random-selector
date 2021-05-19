@@ -30,6 +30,10 @@ class SelectorUi(QMainWindow, main_ui):
         self.is_fil_changed = False
         # Data
         self.yourdata = dmrs.read_data(self.IS_TEST)
+        if self.IS_TEST:
+            self.config = dmrs.TEST_CONFIG
+        else:
+            self.config = dmrs.YOUR_CONFIG
         # Update Check
         self.rs_curr_ver, self.rs_last_ver, \
             self.db_curr_ver, self.db_last_ver = dmrs.update_check()
@@ -54,9 +58,10 @@ class SelectorUi(QMainWindow, main_ui):
         self.fil_total = None
         # Ui
         self.setupUi(self)
-        self.data_ui = dmrs.SettingUi(self)
+        self.setting_ui = dmrs.SettingUi(self)
         self.history_ui = dmrs.HistoryUi(self)
         self.favorite_ui = dmrs.FavoriteUi(self)
+        self.preset_ui = dmrs.PresetUi(self)
         # Signals
         self.ui_signal()
         self.filter_signal()
@@ -79,7 +84,7 @@ class SelectorUi(QMainWindow, main_ui):
             self.lock_es, self.lock_t1, self.lock_t2, self.lock_t3, None, self.lock_gc, self.lock_dm, self.lock_cy,
             self.lock_gf, self.lock_chu
             ]
-        dmrs.import_config(self)
+        dmrs.import_config(self, self.config)
         # Hotkey
         kb.add_hotkey('f7', self.check_state, suppress=True)
         # Others
@@ -177,8 +182,9 @@ class SelectorUi(QMainWindow, main_ui):
         self.cb_cy.toggled.connect(lambda: self.collab_child_signal(self.cb_cy))
         self.cb_gf.toggled.connect(lambda: self.collab_child_signal(self.cb_gf))
         self.cb_chu.toggled.connect(lambda: self.collab_child_signal(self.cb_chu))
-        # Modify data
-        self.setting_button.clicked.connect(lambda: self.data_ui.show_setting_ui(self))
+        # Bottom Bar
+        self.setting_button.clicked.connect(lambda: self.setting_ui.show_setting_ui(self))
+        self.preset_button.clicked.connect(lambda:self.preset_ui.show_preset_ui(self))
 
         # Input delay
         self.delay_ms.setText(f'{self.delay_slider.value()}ms')
@@ -449,7 +455,7 @@ class SelectorUi(QMainWindow, main_ui):
 
 
     def closeEvent(self, _):
-        dmrs.export_config(self)
+        dmrs.export_config(self, self.config)
 
     def mousePressEvent(self, event):
         self.drag_pos = event.globalPos()

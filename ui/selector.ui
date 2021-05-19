@@ -2309,12 +2309,15 @@ QSlider::handle:horizontal {
          <height>30</height>
         </rect>
        </property>
-       <property name="text">
-        <string/>
-       </property>
        <property name="icon">
         <iconset>
          <normaloff>../images/left_button.png</normaloff>../images/left_button.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>11</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
       <widget class="QPushButton" name="delay_rb">
@@ -2326,12 +2329,15 @@ QSlider::handle:horizontal {
          <height>30</height>
         </rect>
        </property>
-       <property name="text">
-        <string/>
-       </property>
        <property name="icon">
         <iconset>
          <normaloff>../images/right_button.png</normaloff>../images/right_button.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>11</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </widget>
@@ -2777,9 +2783,9 @@ QPushButton:checked {
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>-2</y>
+       <y>18</y>
        <width>740</width>
-       <height>60</height>
+       <height>20</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -2810,6 +2816,32 @@ QPushButton:checked {
      <property name="icon">
       <iconset>
        <normaloff>../images/setting.png</normaloff>../images/setting.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>30</width>
+       <height>30</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="preset_button">
+     <property name="geometry">
+      <rect>
+       <x>640</x>
+       <y>15</y>
+       <width>30</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background: none;
+	border: none;
+}</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../images/preset.png</normaloff>../images/preset.png</iconset>
      </property>
      <property name="iconSize">
       <size>

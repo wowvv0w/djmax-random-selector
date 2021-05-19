@@ -1,11 +1,12 @@
 from PyQt5 import uic
 from PyQt5.QtWidgets import QCheckBox, QDialog, QSizePolicy, QSpacerItem, QVBoxLayout
 from PyQt5.QtCore import Qt
-from .data import edit_data, read_data, generate_title_list, update_check, update_database, update_version
+from . import data
 
 SETTING_UI = './ui/setting.ui'
 HISTORY_UI = './ui/history.ui'
 FAVORITE_UI = './ui/favorite.ui'
+PRESET_UI = './ui/preset.ui'
 
 class SettingUi(QDialog):
     """
@@ -18,7 +19,7 @@ class SettingUi(QDialog):
         uic.loadUi(SETTING_UI, self)
         self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
         self.setWindowModality(Qt.ApplicationModal)
-        self.apply_button.clicked.connect(lambda: self.modify_data(parent))
+        self.apply_button.clicked.connect(lambda: self.apply(parent))
         self.cancel_button.clicked.connect(lambda: self.cancel(parent))
 
         self.current_ver, self.lastest_ver = parent.db_curr_ver, parent.db_last_ver
@@ -49,20 +50,20 @@ class SettingUi(QDialog):
 
         self.show()
 
-    def modify_data(self, parent):
+    def apply(self, parent):
         """
         Modifies data.
         """
 
         if self.current_ver < self.lastest_ver:
-            update_database()
-            update_version(parent.rs_curr_ver, self.lastest_ver)
-            _, _, self.current_ver, self.lastest_ver = update_check()
+            data.update_database()
+            data.update_version(parent.rs_curr_ver, self.lastest_ver)
+            _, _, self.current_ver, self.lastest_ver = data.update_check()
 
         fil_yd_sr = set(val for val, cb in zip(self.yd_values, self.yd_checkboxes) if cb.isChecked())
         fil_yd_sr.update(['RP', 'P1', 'P2', 'GG'])
-        edit_data(fil_yd_sr, parent.IS_TEST)
-        parent.yourdata = read_data(parent.IS_TEST)
+        data.edit_data(fil_yd_sr, parent.IS_TEST)
+        parent.yourdata = data.read_data(parent.IS_TEST)
 
         enabled_check = set(parent.yourdata['Series'].values)
         for val, cb, lck in zip(parent.values[9:], parent.checkboxes[9:], parent.locks[9:]):
@@ -151,7 +152,7 @@ class FavoriteUi(QDialog):
         self.favor_dis.clicked.connect(self.update_abled)
 
         self.controls_layout = QVBoxLayout()
-        all_track_title = generate_title_list()
+        all_track_title = data.generate_title_list()
         self.widgets = []
 
         self.show_enabled = True
@@ -228,6 +229,73 @@ class FavoriteUi(QDialog):
     def cancel(self, parent):
         """
         Cancels editing and closes window.
+        """
+
+        parent.lock_all.move(0, -540)
+        self.close()
+
+
+
+
+class PresetUi(QDialog):
+    """
+    Preset Window
+    """
+
+    def __init__(self, parent):
+        super().__init__(parent)
+        uic.loadUi(PRESET_UI, self)
+        self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
+        self.setWindowModality(Qt.ApplicationModal)
+        self.close_button.clicked.connect(lambda: self.close_preset_ui(parent))
+
+        self.preset_list = data.read_preset()
+
+        # self.preset_add.clicked.connect()
+        self.preset_remove.clicked.connect(self.remove_preset)
+        # self.preset_apply.clicked.connect()
+        self.preset_create.clicked.connect(lambda: self.create_preset(parent))
+    
+    def show_preset_ui(self, parent):
+        """
+        Shows 'PRESET' window.
+        """
+
+        parent.lock_all.move(0, 0)
+        
+        for preset in self.preset_list:
+            preset = preset.removesuffix('.json')
+            self.preset_box.addItem(preset)
+
+        self.show()
+    
+    def remove_preset(self):
+        row = self.preset_box.currentRow()
+        item = self.preset_box.currentItem()
+        self.preset_box.takeItem(row)
+        self.preset_list.remove(item.text())
+        print(self.preset_list)
+
+    def create_preset(self, parent):
+        name = self.preset_name.text()
+        if name in self.preset_list:
+            num = 1
+            while 1:
+                clone = f'{name}_{num}'
+                if clone in self.preset_list:
+                    num += 1
+                    continue
+                else:
+                    name = clone
+                    break
+    
+        # data.export_config(parent, f'./data/presets/{name}.json')
+        self.preset_list.append(name)
+        self.preset_box.addItem(name)
+
+    def close_preset_ui(self, parent):
+        """
+        closes window.
         """
 
         parent.lock_all.move(0, -540)

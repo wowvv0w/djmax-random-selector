@@ -1,3 +1,4 @@
+import os
 import csv
 import json
 import pandas as pd
@@ -12,6 +13,10 @@ ALL_TRACK_DATA = './data/AllTrackData.csv'
 YOUR_DATA = './data/YourData.csv'
 TEST_DATA = './test_data.csv'
 VERSION_TXT = './data/version.txt'
+PRESET_PATH = './data/presets'
+
+YOUR_CONFIG = './data/config.json'
+TEST_CONFIG = './test_config.json'
 
 VERSION_URL = "https://raw.githubusercontent.com/wowvv0w/DJMAX_Random_Selector/main/data/version.txt"
 DATABASE_URL = 'https://raw.githubusercontent.com/wowvv0w/DJMAX_Random_Selector/main/data/AllTrackData.csv'
@@ -60,7 +65,6 @@ def update_database():
         if response.status_code == requests.codes.ok:
             with open(ALL_TRACK_DATA, 'w', encoding='UTF-8') as file:
                 file.write(response.text)
-            print('db updated')
         else:
             print('there is something wrong')
     except:
@@ -73,7 +77,6 @@ def update_check():
         if response.status_code == requests.codes.ok:
             last_ver = response.text
             rs_last_ver, db_last_ver = map(int, last_ver.split(','))
-            print('ver updated')
         else:
             print('there is something wrong')
     except:
@@ -91,17 +94,13 @@ def update_version(rs, db):
         f.write(f'{rs},{db}')
         
 
-def import_config(cls):
+def import_config(cls, json_):
     """
     Import config.
     """
 
-    if cls.IS_TEST:
-        with open('./test_config.json', 'r') as f:
-            config = json.load(f)
-    else:
-        with open('./data/config.json', 'r') as f:
-            config = json.load(f)
+    with open(json_, 'r') as f:
+        config = json.load(f)
 
     for val, cb, lck in zip(cls.values, cls.checkboxes, cls.locks):
         try:
@@ -136,17 +135,13 @@ def import_config(cls):
 
     cls.is_init = False
 
-def export_config(cls):
+def export_config(cls, json_):
     """
     Export config.
     """
 
-    if cls.IS_TEST:
-        with open('./test_config.json', 'r') as f:
-            config = json.load(f)
-    else:
-        with open('./data/config.json', 'r') as f:
-            config = json.load(f)
+    with open(json_, 'r') as f:
+        config = json.load(f)
 
     for i, j in zip(cls.checkboxes, cls.values):
         if i.isEnabled():
@@ -167,12 +162,8 @@ def export_config(cls):
     config['FAVORITE']['List'] = list(cls.favorite)
     config['FAVORITE']['Black'] = cls.is_favor_black
 
-    if cls.IS_TEST:
-        with open('./test_config.json', 'w') as f:
-            json.dump(config, f, indent=4)
-    else:
-        with open('./data/config.json', 'w') as f:
-            json.dump(config, f, indent=4)
+    with open(json_, 'w') as f:
+        json.dump(config, f, indent=4)
 
 
 def generate_title_list():
@@ -183,6 +174,14 @@ def generate_title_list():
         list_ = [i[0] for i in data]
     
     return list_
+
+
+def read_preset():
+    list_ = os.listdir(PRESET_PATH)
+    list_json = [file for file in list_ if file.endswith('.json')]
+
+    return list_json
+
 
 def _generate_title_filter(series):
     """
