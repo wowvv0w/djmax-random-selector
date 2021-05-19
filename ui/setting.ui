@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>410</width>
+    <width>430</width>
     <height>340</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>410</width>
+    <width>430</width>
     <height>340</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>410</width>
+    <width>430</width>
     <height>340</height>
    </size>
   </property>
@@ -34,7 +34,7 @@ color: #ffffff;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>410</width>
+     <width>430</width>
      <height>50</height>
     </rect>
    </property>
@@ -78,7 +78,7 @@ font: 23px &quot;Lato&quot;;</string>
     <rect>
      <x>0</x>
      <y>290</y>
-     <width>410</width>
+     <width>430</width>
      <height>50</height>
     </rect>
    </property>
@@ -95,7 +95,7 @@ font: 15px &quot;Lato Black&quot;</string>
    <widget class="QPushButton" name="cancel_button">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>330</x>
       <y>10</y>
       <width>90</width>
       <height>30</height>
@@ -112,7 +112,7 @@ border:none;</string>
    <widget class="QPushButton" name="apply_button">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>230</x>
       <y>10</y>
       <width>90</width>
       <height>30</height>
@@ -132,7 +132,7 @@ border:none;</string>
     <rect>
      <x>0</x>
      <y>50</y>
-     <width>410</width>
+     <width>430</width>
      <height>240</height>
     </rect>
    </property>
@@ -146,11 +146,6 @@ QPushButton {
 	color: #5e5e5e;
     background-color: transparent;
 	font: 15px &quot;Lato Black&quot;
-}
-QPushButton:checked {
-	border-color: #ffbe00;
- 	color: #ffbe00;
-    background-color: rgba(0, 0, 0, 87);
 }
 QRadioButton{
 	background: none;
@@ -176,7 +171,7 @@ QLabel{
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>10</y>
       <width>141</width>
       <height>20</height>
@@ -189,7 +184,7 @@ QLabel{
    <widget class="QLabel" name="current_label">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>170</x>
       <y>10</y>
       <width>121</width>
       <height>20</height>
@@ -205,7 +200,7 @@ QLabel{
    <widget class="QLabel" name="lastest_label">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>290</x>
       <y>10</y>
       <width>121</width>
       <height>20</height>
@@ -221,7 +216,7 @@ QLabel{
    <widget class="QFrame" name="frame_4">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>50</y>
       <width>410</width>
       <height>90</height>
@@ -260,6 +255,13 @@ QLabel{
        <height>20</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton:checked {
+	border-color: #c0c0c0;
+ 	color: #fdb426;
+    background-color: rgba(0, 0, 0, 87);
+}</string>
+     </property>
      <property name="text">
       <string>GF</string>
      </property>
@@ -275,6 +277,13 @@ QLabel{
        <width>40</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton:checked {
+	border-color: #c0c0c0;
+ 	color: #fdd600;
+    background-color: rgba(0, 0, 0, 87);
+}</string>
      </property>
      <property name="text">
       <string>CHU</string>
@@ -292,6 +301,13 @@ QLabel{
        <height>20</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton:checked {
+	border-color: #7582ff;
+ 	color: #7582ff;
+    background-color: rgba(0, 0, 0, 87);
+}</string>
+     </property>
      <property name="text">
       <string>TR</string>
      </property>
@@ -307,6 +323,13 @@ QLabel{
        <width>40</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton:checked {
+	border-color: #e90000;
+ 	color: #e90000;
+    background-color: rgba(0, 0, 0, 87);
+}</string>
      </property>
      <property name="text">
       <string>BS</string>
@@ -324,6 +347,13 @@ QLabel{
        <height>20</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton:checked {
+	border-color: #e48609;
+ 	color: #e48609;
+    background-color: rgba(0, 0, 0, 87);
+}</string>
+     </property>
      <property name="text">
       <string>P3</string>
      </property>
@@ -339,6 +369,13 @@ QLabel{
        <width>40</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton:checked {
+	border-color: #ff7f42;
+ 	color: #ff7f42;
+    background-color: rgba(0, 0, 0, 87);
+}</string>
      </property>
      <property name="text">
       <string>VE</string>
@@ -356,6 +393,13 @@ QLabel{
        <height>20</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton:checked {
+	border-color: #c0c0c0;
+ 	color: #51ecfc;
+    background-color: rgba(0, 0, 0, 87);
+}</string>
+     </property>
      <property name="text">
       <string>GC</string>
      </property>
@@ -371,6 +415,13 @@ QLabel{
        <width>40</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton:checked {
+	border-color: #f01cc8;
+ 	color: #f01cc8;
+    background-color: rgba(0, 0, 0, 87);
+}</string>
      </property>
      <property name="text">
       <string>T1</string>
@@ -388,6 +439,13 @@ QLabel{
        <height>20</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton:checked {
+	border-color: #c35a00;
+ 	color: #c35a00;
+    background-color: rgba(0, 0, 0, 87);
+}</string>
+     </property>
      <property name="text">
       <string>T2</string>
      </property>
@@ -403,6 +461,13 @@ QLabel{
        <width>40</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton:checked {
+	border-color: #568bff;
+ 	color: #568bff;
+    background-color: rgba(0, 0, 0, 87);
+}</string>
      </property>
      <property name="text">
       <string>T3</string>
@@ -420,6 +485,13 @@ QLabel{
        <height>20</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton:checked {
+	border-color: #c0c0c0;
+ 	color: #98e4d7;
+    background-color: rgba(0, 0, 0, 87);
+}</string>
+     </property>
      <property name="text">
       <string>DM</string>
      </property>
@@ -435,6 +507,13 @@ QLabel{
        <width>40</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton:checked {
+	border-color: #ffffff;
+ 	color: #ffffff;
+    background-color: rgba(0, 0, 0, 87);
+}</string>
      </property>
      <property name="text">
       <string>CE</string>
@@ -452,6 +531,13 @@ QLabel{
        <height>20</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton:checked {
+	border-color: #34df26;
+ 	color: #34df26;
+    background-color: rgba(0, 0, 0, 87);
+}</string>
+     </property>
      <property name="text">
       <string>ES</string>
      </property>
@@ -468,6 +554,13 @@ QLabel{
        <height>20</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton:checked {
+	border-color: #c0c0c0;
+ 	color: #ec1538;
+    background-color: rgba(0, 0, 0, 87);
+}</string>
+     </property>
      <property name="text">
       <string>CY</string>
      </property>
@@ -479,7 +572,7 @@ QLabel{
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>150</y>
       <width>141</width>
       <height>20</height>
@@ -492,7 +585,7 @@ QLabel{
    <widget class="QRadioButton" name="radioButton">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>180</y>
       <width>151</width>
       <height>20</height>
@@ -508,7 +601,7 @@ QLabel{
    <widget class="QRadioButton" name="radioButton_2">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>220</x>
       <y>180</y>
       <width>141</width>
       <height>20</height>
