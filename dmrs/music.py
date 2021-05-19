@@ -92,7 +92,7 @@ def pick_music(data, filtered, candidate_list, prefer, is_freestyle, previous):
         same_init_list = [title for title in title_list if not check_alphabet(title[0])]
     
     whereisit = same_init_list.index(picked_title)
-    cnt = len(title_list)
+    cnt = len(same_init_list)
     is_forward = whereisit <= math.ceil(cnt / 2) or initial in 'wxyz'
     if is_forward:
         if is_alphabet:
