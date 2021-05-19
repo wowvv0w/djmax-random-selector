@@ -63,32 +63,32 @@ class SelectorUi(QMainWindow, main_ui):
         self.favorite_ui = dmrs.FavoriteUi(self)
         self.preset_ui = dmrs.PresetUi(self)
         # Signals
+        self.collab_children = {self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy, self.cb_gf, self.cb_chu}
         self.ui_signal()
         self.filter_signal()
         # Configuration
-        self.values = [
-            '4B', '5B', '6B', '8B', 'NM', 'HD', 'MX', 'SC',
-            'RP', 'P1', 'P2', 'P3', 'TR', 'CE', 'BS', 'VE',
-            'ES', 'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY',
-            'GF', 'CHU'
+        self.btn_diff = [
+            ('4B', self.cb_4b), ('5B', self.cb_5b), ('6B', self.cb_6b), ('8B', self.cb_8b),
+            ('NM', self.cb_nm), ('HD', self.cb_hd), ('MX', self.cb_mx), ('SC', self.cb_sc)
             ]
-        self.checkboxes = [
-            self.cb_4b, self.cb_5b, self.cb_6b, self.cb_8b, self.cb_nm, self.cb_hd, self.cb_mx, self.cb_sc,
-            self.cb_rp, self.cb_p1, self.cb_p2, self.cb_p3, self.cb_tr, self.cb_ce, self.cb_bs, self.cb_ve,
-            self.cb_es, self.cb_t1, self.cb_t2, self.cb_t3, self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy,
-            self.cb_gf, self.cb_chu
+        self.categories = [
+            ('RP', self.cb_rp, self.lock___), ('P1', self.cb_p1, self.lock___),
+            ('P2', self.cb_p2, self.lock___), ('P3', self.cb_p3, self.lock_p3),
+            ('TR', self.cb_tr, self.lock_tr), ('CE', self.cb_ce, self.lock_ce),
+            ('BS', self.cb_bs, self.lock_bs), ('VE', self.cb_ve, self.lock_ve),
+            ('ES', self.cb_es, self.lock_es), ('T1', self.cb_t1, self.lock_t1),
+            ('T2', self.cb_t2, self.lock_t2), ('T3', self.cb_t3, self.lock_t3),
+            ('GG', self.cb_gg, self.lock___), ('GC', self.cb_gc, self.lock_gc),
+            ('DM', self.cb_dm, self.lock_dm), ('CY', self.cb_cy, self.lock_cy),
+            ('GF', self.cb_gf, self.lock_gf), ('CHU', self.cb_chu, self.lock_chu)
             ]
-        self.locks = [
-            None, None, None, None, None, None, None, None,
-            None, None, None, self.lock_p3, self.lock_tr, self.lock_ce, self.lock_bs, self.lock_ve,
-            self.lock_es, self.lock_t1, self.lock_t2, self.lock_t3, None, self.lock_gc, self.lock_dm, self.lock_cy,
-            self.lock_gf, self.lock_chu
-            ]
+        self.enabled_check = set(self.yourdata['Series'].values)
         dmrs.import_config(self, self.config)
+        dmrs.lock_series(self.categories, self.enabled_check)
         # Hotkey
         kb.add_hotkey('f7', self.check_state, suppress=True)
         # Others
-        self.collab_children = {self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy, self.cb_gf, self.cb_chu}
+        
 
 
     def check_state(self):
@@ -444,6 +444,7 @@ class SelectorUi(QMainWindow, main_ui):
             self.erm_slider.setMaximum(self.fil_total - 1)
         else:
             self.erm_slider.setMaximum(0)
+        print('did')
 
     def erm_initialize(self):
         """

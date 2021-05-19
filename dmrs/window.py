@@ -1,3 +1,4 @@
+import os
 from PyQt5 import uic
 from PyQt5.QtWidgets import QCheckBox, QDialog, QSizePolicy, QSpacerItem, QVBoxLayout
 from PyQt5.QtCore import Qt
@@ -23,12 +24,12 @@ class SettingUi(QDialog):
         self.cancel_button.clicked.connect(lambda: self.cancel(parent))
 
         self.current_ver, self.lastest_ver = parent.db_curr_ver, parent.db_last_ver
-        self.yd_values = ['P3', 'TR', 'CE', 'BS', 'VE',
-                          'ES', 'T1', 'T2', 'T3', 'GC',
-                          'DM', 'CY', 'GF', 'CHU']
-        self.yd_checkboxes = [self.yd_cb_p3, self.yd_cb_tr, self.yd_cb_ce, self.yd_cb_bs, self.yd_cb_ve,
-                              self.yd_cb_es, self.yd_cb_t1, self.yd_cb_t2, self.yd_cb_t3, self.yd_cb_gc,
-                              self.yd_cb_dm, self.yd_cb_cy, self.yd_cb_gf, self.yd_cb_chu]
+        self.dlc_packs = [
+            ('VE', self.yd_cb_ve), ('ES', self.yd_cb_es), ('TR', self.yd_cb_tr), ('GC', self.yd_cb_gc),
+            ('CE', self.yd_cb_ce), ('BS', self.yd_cb_bs), ('DM', self.yd_cb_dm), ('CY', self.yd_cb_cy),
+            ('T1', self.yd_cb_t1), ('T2', self.yd_cb_t2), ('T3', self.yd_cb_t3),  
+            ('GF', self.yd_cb_gf), ('CHU', self.yd_cb_chu), ('P3', self.yd_cb_p3)
+            ]
 
     def show_setting_ui(self, parent):
         """
@@ -37,9 +38,8 @@ class SettingUi(QDialog):
 
         parent.lock_all.move(0, 0)
 
-        modify_data_check = set(parent.yourdata['Series'].values)
-        for i, j in zip(self.yd_values, self.yd_checkboxes):
-            j.setChecked(i in modify_data_check)
+        for val, cb in self.dlc_packs:
+            cb.setChecked(val in parent.enabled_check)
         
         self.current_label.setText(f'Current: {self.current_ver}')
         self.lastest_label.setText(f'Lastest: {self.lastest_ver}')
@@ -60,24 +60,13 @@ class SettingUi(QDialog):
             data.update_version(parent.rs_curr_ver, self.lastest_ver)
             _, _, self.current_ver, self.lastest_ver = data.update_check()
 
-        fil_yd_sr = set(val for val, cb in zip(self.yd_values, self.yd_checkboxes) if cb.isChecked())
+        fil_yd_sr = set(val for val, cb in self.dlc_packs if cb.isChecked())
         fil_yd_sr.update(['RP', 'P1', 'P2', 'GG'])
         data.edit_data(fil_yd_sr, parent.IS_TEST)
         parent.yourdata = data.read_data(parent.IS_TEST)
+        parent.enabled_check = set(parent.yourdata['Series'].values)
 
-        enabled_check = set(parent.yourdata['Series'].values)
-        for val, cb, lck in zip(parent.values[9:], parent.checkboxes[9:], parent.locks[9:]):
-            try:
-                if val in enabled_check:
-                    cb.setEnabled(True)
-                    if lck != None:
-                        lck.setVisible(False)
-                else:
-                    cb.setEnabled(False)
-                    if lck != None:
-                        lck.setVisible(True)
-            except AttributeError:
-                pass
+        data.lock_series(parent.categories, parent.enabled_check)
 
         parent.lock_all.move(0, -540)
         parent.filtering()
@@ -249,33 +238,50 @@ class PresetUi(QDialog):
         self.setWindowModality(Qt.ApplicationModal)
         self.close_button.clicked.connect(lambda: self.close_preset_ui(parent))
 
-        self.preset_list = data.read_preset()
+        self.preset_list = self.read_preset()
+        self.file = lambda name: f'./data/presets/{name}.json'
+
+        for preset in self.preset_list:
+            preset = preset.removesuffix('.json')
+            self.preset_box.addItem(preset)
 
         # self.preset_add.clicked.connect()
         self.preset_remove.clicked.connect(self.remove_preset)
-        # self.preset_apply.clicked.connect()
+        self.preset_apply.clicked.connect(lambda: self.apply_preset(parent))
         self.preset_create.clicked.connect(lambda: self.create_preset(parent))
-    
+
+    def read_preset(self):
+        list_ = os.listdir(data.PRESET_PATH)
+        list_json = [file for file in list_ if file.endswith('.json')]
+
+        return list_json
+
     def show_preset_ui(self, parent):
         """
         Shows 'PRESET' window.
         """
 
         parent.lock_all.move(0, 0)
-        
-        for preset in self.preset_list:
-            preset = preset.removesuffix('.json')
-            self.preset_box.addItem(preset)
-
         self.show()
-    
+
+
     def remove_preset(self):
         row = self.preset_box.currentRow()
         item = self.preset_box.currentItem()
-        self.preset_box.takeItem(row)
-        self.preset_list.remove(item.text())
-        print(self.preset_list)
+        name = item.text()
 
+        self.preset_box.takeItem(row)
+        self.preset_list.remove(name)
+
+        file = self.file(name)
+        if os.path.isfile(file):
+            os.remove(file)
+    
+    def apply_preset(self, parent):
+        item = self.preset_box.currentItem()
+        name = item.text()
+        data.import_config(parent, self.file(name))
+    
     def create_preset(self, parent):
         name = self.preset_name.text()
         if name in self.preset_list:
@@ -288,10 +294,10 @@ class PresetUi(QDialog):
                 else:
                     name = clone
                     break
-    
-        # data.export_config(parent, f'./data/presets/{name}.json')
+        data.export_config(parent, self.file(name))
         self.preset_list.append(name)
         self.preset_box.addItem(name)
+
 
     def close_preset_ui(self, parent):
         """

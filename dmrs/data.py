@@ -1,4 +1,3 @@
-import os
 import csv
 import json
 import pandas as pd
@@ -99,16 +98,16 @@ def import_config(cls, json_):
     Import config.
     """
 
+    cls.is_init = True
+
     with open(json_, 'r') as f:
         config = json.load(f)
 
-    for val, cb, lck in zip(cls.values, cls.checkboxes, cls.locks):
-        try:
-            cb.setChecked(config[val])
-            if lck != None:
-                lck.setVisible(False)
-        except TypeError:
-            cb.setEnabled(False)
+    for val, cb in cls.btn_diff:
+        cb.setChecked(config[val])
+
+    for val, cb, _ in cls.categories:
+        cb.setChecked(config[val])
 
     cls.lvl_min.setValue(config['MIN'])
     cls.lvl_max.setValue(config['MAX'])
@@ -132,6 +131,7 @@ def import_config(cls, json_):
     cls.is_favor_black = config['FAVORITE']['Black']
 
     cls.filtering()
+    cls.erm_initialize()
 
     cls.is_init = False
 
@@ -140,30 +140,42 @@ def export_config(cls, json_):
     Export config.
     """
 
-    with open(json_, 'r') as f:
-        config = json.load(f)
+    config = {}
 
-    for i, j in zip(cls.checkboxes, cls.values):
-        if i.isEnabled():
-            config[j] = i.isChecked()
-        else:
-            config[j] = None
+    for val, cb in cls.btn_diff:
+        config[val] = cb.isChecked()
+
+    for val, cb, _ in cls.categories:
+        config[val] = cb.isChecked()
 
     config['MIN'] = cls.lvl_min.value()
     config['MAX'] = cls.lvl_max.value()
     config['BEGINNER'] = cls.cb_bgn.isChecked()
     config['MASTER'] = cls.cb_mst.isChecked()
-
     config['FREESTYLE'] = cls.cb_freestyle.isChecked()
 
     config['INPUT DELAY'] = cls.delay_slider.value()
     config['PREVIOUS'] = cls.erm_slider.value()
     config['TRAY'] = cls.is_tray
+    config['FAVORITE'] = {}
+    config['FAVORITE']['Enabled'] = cls.is_favor
     config['FAVORITE']['List'] = list(cls.favorite)
     config['FAVORITE']['Black'] = cls.is_favor_black
 
     with open(json_, 'w') as f:
         json.dump(config, f, indent=4)
+
+def lock_series(categories, enabled):
+    for val, cb, lck in categories:
+        if val in enabled:
+            cb.setEnabled(True)
+            lck.setVisible(False)
+        else:
+            cb.setChecked(False)
+            cb.setEnabled(False)
+            lck.setVisible(True)
+
+
 
 
 def generate_title_list():
@@ -174,13 +186,6 @@ def generate_title_list():
         list_ = [i[0] for i in data]
     
     return list_
-
-
-def read_preset():
-    list_ = os.listdir(PRESET_PATH)
-    list_json = [file for file in list_ if file.endswith('.json')]
-
-    return list_json
 
 
 def _generate_title_filter(series):
