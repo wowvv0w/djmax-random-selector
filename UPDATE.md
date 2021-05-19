@@ -1,9 +1,14 @@
 # Update
 ## V0.6.0
 * Redesigned 'Difficulty' filter
+* re-sorted 'ADVANCED' options
 * Added 'prefer' option in 'Difficulty' filter (BEGINNER, STANDARD, MASTER)
-* Added disable function in 'Categories', which disables 'series' that YourData doesn't have
+* Added 'Disabled' sign in 'Categories', which disables 'series' that YourData doesn't have
+* Added 'FAVORITE' option
+* Added update check function
+* Added database-update function
 * Fixed wrong data in Database: "Gone Astray 4BSC" 13 -> 15
+* Improved selection method
 ## V0.5.1
 * Updated Database
 ## V0.5.0

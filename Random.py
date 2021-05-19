@@ -19,7 +19,7 @@ class SelectorUi(QMainWindow, main_ui):
 
     # You can change these constants when you test codes.
     IS_TEST = True  # Use test csv and config
-    IS_KEY_TEST = True  # Ignore `dmrs.select_music`
+    IS_KEY_TEST = False  # Ignore `dmrs.select_music`
 
     def __init__(self):
 
@@ -27,6 +27,7 @@ class SelectorUi(QMainWindow, main_ui):
         # Selector
         self.is_running = False
         self.is_init = True
+        self.is_fil_changed = False
         # Data
         self.yourdata = dmrs.read_data(self.IS_TEST)
         # Update Check
@@ -103,7 +104,7 @@ class SelectorUi(QMainWindow, main_ui):
         """
 
         self.is_running = True
-        picked_title, picked_btst, bt_input, init_input, down_input, right_input = \
+        picked_title, picked_btst, check_list, input_list = \
             dmrs.pick_music(
                 self.yourdata, self.fil_yourdata, self.fil_list,
                 self.prefer, self.is_freestyle, self.previous
@@ -113,10 +114,7 @@ class SelectorUi(QMainWindow, main_ui):
         if picked_title:
             print('macro activate')
             if not self.IS_KEY_TEST:
-                dmrs.select_music(
-                    picked_title, bt_input, init_input, down_input, right_input,
-                    self.input_delay, self.is_freestyle
-                    )
+                dmrs.select_music(self.input_delay, check_list, input_list)
 
             _str = picked_title + '  |  ' + picked_btst
             self.history_scrollbar.setMaximum(self.history_scrollbar.maximum() + 1)

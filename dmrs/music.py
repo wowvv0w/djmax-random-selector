@@ -1,12 +1,13 @@
 import random
 import time
+import math
 from string import ascii_letters
 import keyboard as kb
 
 
 _styles = ('NM', 'HD', 'MX', 'SC')
 
-def is_alphabet(chr_):
+def check_alphabet(chr_):
     """
     Checkes whether `chr_` is alphabet.
     """
@@ -80,17 +81,32 @@ def pick_music(data, filtered, candidate_list, prefer, is_freestyle, previous):
             same_tb_list.sort(key=lambda x: _styles.index(x[1][2:]), reverse=True)
             picked_title, picked_btst, _ = max(same_tb_list, key=lambda x: x[2])
 
-    if not is_alphabet(picked_title[0]):
-        init_input = 'a'
-    else:
-        init_input = picked_title[0].lower()
+
+    initial = picked_title[0].lower()
+    is_alphabet = check_alphabet(initial)
 
     title_list = data['Title'].values
-    if not is_alphabet(picked_title[0]):
-        same_init_list = [title for title in title_list if not is_alphabet(title[0])]
+    if is_alphabet:
+        same_init_list = [title for title in title_list if title[0].lower() == initial]
     else:
-        same_init_list = [title for title in title_list if title[0].lower() == init_input]
-    down_input = same_init_list.index(picked_title)
+        same_init_list = [title for title in title_list if not check_alphabet(title[0])]
+    
+    whereisit = same_init_list.index(picked_title)
+    cnt = len(title_list)
+    is_forward = whereisit <= math.ceil(cnt / 2) or initial in 'wxyz'
+    if is_forward:
+        if is_alphabet:
+            initial_input = initial
+        else:
+            initial_input = 'a'
+        vertical_input = whereisit
+    else:
+        if is_alphabet:
+            initial_input = chr(ord(initial) + 1)
+        else:
+            initial_input = 'a'
+        vertical_input = cnt - whereisit
+    
 
     if is_freestyle:
         find_same_music = filtered[filtered['Title'] == picked_title]
@@ -103,36 +119,37 @@ def pick_music(data, filtered, candidate_list, prefer, is_freestyle, previous):
 
         bt_input = picked_btst[0]
     else:
-        bt_input, right_input = None, None
+        bt_input, right_input = None, 0
+    
+    check_list = [is_alphabet, is_forward]
+    input_list = [bt_input, initial_input, vertical_input, right_input]
 
-    return picked_title, picked_btst, bt_input, init_input, down_input, right_input
+    return picked_title, picked_btst, check_list, input_list
 
-def select_music(music, bt, init, down, right, input_delay, is_freestyle):
+def select_music(input_delay, check_list, input_list):
     """
     Select music in game by inputing keys automatically.
-
-    - `music` is title of music.
-    - `bt` is button of pattern (one of '4, 5, 6, 8').
-    - `init` is the first letter of title.
-    - `down` is the number of down arrow inputs.
-    - `right` is the number of right arrow inputs.
-    - `input delay` is delay.
     """
 
-    def send_and_delay(key):
+    alphabet, forward = check_list
+    bt, init, vert, right = input_list
+    if forward:
+        direction = 'down arrow'
+    else:
+        direction = 'up arrow'
+    def typing(key):
         kb.send(key)
         time.sleep(input_delay)
 
-    if is_freestyle:
-        send_and_delay(bt)
-    send_and_delay('page up')
-    send_and_delay(init)
-    if not is_alphabet(music[0]):
-        send_and_delay('page up')
-        send_and_delay('page up')
-        send_and_delay('page down')
-    for _ in range(down):
-        send_and_delay('down arrow')
-    if is_freestyle:
-        for _ in range(right):
-            send_and_delay('right arrow')
+    if bt:
+        typing(bt)
+    typing('page up')
+    typing(init)
+    if not alphabet and forward:
+        typing('page up')
+        typing('page up')
+        typing('page down')
+    for _ in range(vert):
+        typing(direction)
+    for _ in range(right):
+        typing('right arrow')
