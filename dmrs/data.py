@@ -1,5 +1,6 @@
 import csv
 import json
+from json.decoder import JSONDecodeError
 import pandas as pd
 import requests
 
@@ -8,10 +9,23 @@ _column = ('Title', 'Artist', 'Series',
     '4BNM', '4BHD', '4BMX', '4BSC', '5BNM', '5BHD', '5BMX', '5BSC',
     '6BNM', '6BHD', '6BMX', '6BSC', '8BNM', '8BHD', '8BMX', '8BSC')
 
+_keys = {
+    '4B', '5B', '6B', '8B', 'NM', 'HD', 'MX', 'SC',
+    'RP', 'P1', 'P2', 'P3', 'TR', 'CE', 'BS', 'VE',
+    'ES', 'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY',
+    'GF', 'CHU',
+    'MIN', 'MAX', 'BEGINNER', 'MASTER', 'FREESTYLE',
+    'INPUT DELAY', 'PREVIOUS', 'TRAY', 'FAVORITE'
+    }
+
 ALL_TRACK_DATA = './data/AllTrackData.csv'
 YOUR_DATA = './data/YourData.csv'
 TEST_DATA = './test_data.csv'
 VERSION_TXT = './data/version.txt'
+PRESET_PATH = './data/presets'
+
+YOUR_CONFIG = './data/config.json'
+TEST_CONFIG = './test_config.json'
 
 VERSION_URL = "https://raw.githubusercontent.com/wowvv0w/DJMAX_Random_Selector/main/data/version.txt"
 DATABASE_URL = 'https://raw.githubusercontent.com/wowvv0w/DJMAX_Random_Selector/main/data/AllTrackData.csv'
@@ -60,7 +74,6 @@ def update_database():
         if response.status_code == requests.codes.ok:
             with open(ALL_TRACK_DATA, 'w', encoding='UTF-8') as file:
                 file.write(response.text)
-            print('db updated')
         else:
             print('there is something wrong')
     except:
@@ -73,7 +86,6 @@ def update_check():
         if response.status_code == requests.codes.ok:
             last_ver = response.text
             rs_last_ver, db_last_ver = map(int, last_ver.split(','))
-            print('ver updated')
         else:
             print('there is something wrong')
     except:
@@ -91,25 +103,21 @@ def update_version(rs, db):
         f.write(f'{rs},{db}')
         
 
-def import_config(cls):
+def import_config(cls, json_, init=False):
     """
     Import config.
     """
 
-    if cls.IS_TEST:
-        with open('./test_config.json', 'r') as f:
-            config = json.load(f)
-    else:
-        with open('./data/config.json', 'r') as f:
-            config = json.load(f)
+    cls.is_init = True
 
-    for val, cb, lck in zip(cls.values, cls.checkboxes, cls.locks):
-        try:
-            cb.setChecked(config[val])
-            if lck != None:
-                lck.setVisible(False)
-        except TypeError:
-            cb.setEnabled(False)
+    with open(json_, 'r') as f:
+        config = json.load(f)
+
+    for val, cb in cls.btn_diff:
+        cb.setChecked(config[val])
+
+    for val, cb, _ in cls.categories:
+        cb.setChecked(config[val])
 
     cls.lvl_min.setValue(config['MIN'])
     cls.lvl_max.setValue(config['MAX'])
@@ -125,54 +133,72 @@ def import_config(cls):
     else:
         cls.cb_online.setChecked(True)
 
-    cls.delay_slider.setValue(config['INPUT DELAY'])
-    cls.erm_slider.setValue(config['PREVIOUS'])
-    cls.tray_button.setChecked(config['TRAY'])
+    if init:
+        cls.delay_slider.setValue(config['INPUT DELAY'])
+        cls.erm_slider.setValue(config['PREVIOUS'])
+        cls.tray_button.setChecked(config['TRAY'])
     cls.favorite_button.setChecked(config['FAVORITE']['Enabled'])
     cls.favorite = set(config['FAVORITE']['List'])
     cls.is_favor_black = config['FAVORITE']['Black']
 
     cls.filtering()
+    cls.erm_initialize()
 
     cls.is_init = False
 
-def export_config(cls):
+def export_config(cls, json_):
     """
     Export config.
     """
 
-    if cls.IS_TEST:
-        with open('./test_config.json', 'r') as f:
-            config = json.load(f)
-    else:
-        with open('./data/config.json', 'r') as f:
-            config = json.load(f)
+    config = {}
 
-    for i, j in zip(cls.checkboxes, cls.values):
-        if i.isEnabled():
-            config[j] = i.isChecked()
-        else:
-            config[j] = None
+    for val, cb in cls.btn_diff:
+        config[val] = cb.isChecked()
+
+    for val, cb, _ in cls.categories:
+        config[val] = cb.isChecked()
 
     config['MIN'] = cls.lvl_min.value()
     config['MAX'] = cls.lvl_max.value()
     config['BEGINNER'] = cls.cb_bgn.isChecked()
     config['MASTER'] = cls.cb_mst.isChecked()
-
     config['FREESTYLE'] = cls.cb_freestyle.isChecked()
 
     config['INPUT DELAY'] = cls.delay_slider.value()
     config['PREVIOUS'] = cls.erm_slider.value()
     config['TRAY'] = cls.is_tray
+    config['FAVORITE'] = {}
+    config['FAVORITE']['Enabled'] = cls.is_favor
     config['FAVORITE']['List'] = list(cls.favorite)
     config['FAVORITE']['Black'] = cls.is_favor_black
 
-    if cls.IS_TEST:
-        with open('./test_config.json', 'w') as f:
-            json.dump(config, f, indent=4)
+    with open(json_, 'w') as f:
+        json.dump(config, f, indent=4)
+
+def lock_series(categories, enabled):
+    for val, cb, lck in categories:
+        if val in enabled:
+            cb.setEnabled(True)
+            lck.setVisible(False)
+        else:
+            cb.setChecked(False)
+            cb.setEnabled(False)
+            lck.setVisible(True)
+
+def check_config(json_):
+    with open(json_, 'r') as f:
+        try:
+            config = json.load(f)
+        except JSONDecodeError:
+            return False
+    
+    if set(config.keys()) == _keys:
+        return True
     else:
-        with open('./data/config.json', 'w') as f:
-            json.dump(config, f, indent=4)
+        return False
+
+
 
 
 def generate_title_list():
@@ -183,6 +209,7 @@ def generate_title_list():
         list_ = [i[0] for i in data]
     
     return list_
+
 
 def _generate_title_filter(series):
     """

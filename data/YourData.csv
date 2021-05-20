@@ -24,7 +24,7 @@ BlythE,M2U,P1,6,10,14,0,6,11,0,15,8,11,14,15,7,0,14,0
 Boom!,BEXTER,RP,4,8,12,0,6,8,12,15,5,9,13,0,6,10,13,14
 Brain Storm,Croove,P2,6,11,0,15,7,13,15,0,9,14,0,0,8,13,15,15
 Brandnew Days,Planetboom,P2,3,8,0,0,6,8,0,0,7,10,11,0,7,10,0,0
-Brave it Out,BEXTER,P2,6,8,0,0,5,9,11,0,6,10,13,0,7,10,12,0
+Brave it Out,BEXTER,P2,6,8,0,0,5,9,11,13,6,10,13,0,7,10,12,0
 Break a Spell,Daisuke Ishiwatari,GG,5,9,14,0,6,10,0,15,7,9,14,15,7,10,14,0
 Bright Dream,M2U,P1,2,4,0,0,5,8,0,0,4,7,10,0,6,9,0,0
 "Bullet, Wanted!",Mycin.T,RP,4,8,0,0,7,10,0,0,6,9,11,0,7,11,0,0
@@ -49,18 +49,18 @@ Enter The Universe,GOTH,RP,6,9,12,0,7,10,15,15,9,12,14,15,7,10,14,0
 Eternal Memory ~소녀의 꿈~,M2U,P1,2,6,0,0,3,9,0,0,2,7,0,0,5,7,0,0
 Extreme Z4,Forte Escape,P1,3,7,0,0,4,8,0,0,7,9,0,0,8,12,0,0
 Fallen Angel,DJ Mocha,P2,4,9,0,0,4,8,0,0,3,7,10,0,8,10,0,0
-Far East Princess,Nauts,RP,5,7,10,0,5,10,0,0,3,9,10,0,5,9,0,0
+Far East Princess,Nauts,RP,5,7,10,12,5,10,0,14,3,9,10,0,5,9,0,0
 FEAR,Supbaby,P1,4,9,0,0,5,9,12,0,6,12,0,0,8,11,12,0
 Fentanest,EarBreaker & Eszett,P2,4,10,0,14,6,9,0,0,7,11,0,15,6,9,0,0
 Fever GJ,xxdbxx,P1,3,7,0,0,3,6,0,0,3,7,9,0,7,0,0,0
 Fly Away,XeoN,RP,3,10,0,0,6,10,0,0,4,0,11,14,6,10,0,0
 For Seasons,makou,P2,1,6,0,0,6,9,0,0,4,7,11,0,5,10,0,0
-For the IKARUS,NieN,P2,4,8,0,0,5,11,0,0,8,0,12,0,6,12,0,0
+For the IKARUS,NieN,P2,4,8,0,0,5,11,0,0,8,0,12,15,6,12,0,0
 FTR,Supbaby,P1,6,10,0,0,5,10,0,14,8,11,0,0,7,11,0,13
 Funky Chups,Forte Escape,P1,4,8,0,0,5,10,0,0,4,6,0,0,7,0,0,0
 Futurism,Forte Escape,P1,4,8,0,0,7,9,0,14,6,8,11,0,8,10,0,14
 Get Jinxed,Agnete K,RP,5,8,13,0,5,8,12,14,5,9,11,14,5,8,12,14
-Get on Top,Planetboom,P2,3,7,0,0,6,9,0,0,5,8,12,0,7,10,0,0
+Get on Top,Planetboom,P2,3,7,0,0,6,9,0,0,5,8,12,14,7,10,0,14
 GET OUT,ND Lee,P2,5,8,0,0,4,9,0,0,4,8,13,0,7,10,0,0
 Ghost Voices,Virtual Self,RP,4,9,0,0,5,11,0,0,6,10,0,0,6,11,0,0
 glory day,BEXTER x Mycin.T,RP,8,10,0,13,7,10,0,0,6,11,0,13,7,10,0,13
@@ -92,7 +92,7 @@ Marionette,Daisuke Ishiwatari,GG,5,9,13,0,7,12,0,15,6,10,13,15,8,0,13,0
 MASAI,Croove,P1,4,7,11,0,5,8,12,0,7,10,12,0,10,0,0,0
 Memoirs,M2U,P2,4,7,0,13,7,10,0,13,6,9,11,0,7,10,0,0
 Memory of Beach,M2U,P1,6,11,0,0,7,12,0,13,6,9,12,0,8,0,13,12
-Mess it Up,Nauts,P2,5,9,0,0,4,9,0,0,9,12,0,0,6,10,0,0
+Mess it Up,Nauts,P2,5,9,0,0,4,9,0,14,9,12,0,14,6,10,0,0
 Midnight Blood,NieN,P2,6,13,0,0,6,13,0,14,7,10,13,0,6,9,13,14
 Miles,Electronic Boutique,P2,4,10,0,13,5,10,13,0,4,9,13,14,4,11,13,0
 Minimal Life,EarBreaker,P1,5,7,0,0,7,9,0,0,8,12,0,0,8,10,14,0
@@ -107,7 +107,7 @@ NB Rangers -Returns-,NieN,P2,5,9,0,15,7,11,0,0,9,11,13,0,7,13,0,15
 Negative Nature,Electronic Boutique,P2,4,8,0,0,4,7,0,13,7,12,0,14,4,8,0,0
 NEON 1989 (ESTi Remix),OREO,RP,4,7,0,0,3,7,0,0,4,7,0,0,5,9,0,0
 Never Say,ND Lee,P1,3,6,0,0,6,7,0,14,2,7,12,0,8,0,0,14
-Nightmare,M2U,P2,9,12,0,0,8,13,15,15,8,13,15,0,8,12,15,15
+Nightmare,M2U,P2,9,12,0,15,8,13,15,15,8,13,15,0,8,12,15,15
 OBLIVION,ESTi,P1,3,6,11,0,7,0,11,0,3,8,11,0,6,12,0,0
 OBLIVION ~Rockin' Night Style~,NieN,P1,3,8,12,0,4,10,13,15,7,9,13,0,6,10,14,15
 ON,ND Lee,P1,3,5,0,0,2,6,0,0,6,10,0,0,7,0,0,0
@@ -157,7 +157,7 @@ Syriana,BEXTER,P2,6,9,0,0,6,9,0,14,6,9,13,0,5,9,0,14
 Temptation,S-TRO,P1,4,10,0,0,4,10,0,0,6,0,12,0,9,0,0,0
 The Feelings,Supbaby,RP,5,7,0,0,6,9,0,0,6,10,0,0,6,10,0,0
 The Lost Story,NEOWIZ Bless Soundteam,RP,1,4,0,0,4,8,0,0,2,7,0,0,4,7,0,0
-The Obliterator,GOTH,RP,5,8,0,0,7,11,0,0,8,0,13,0,7,11,0,0
+The Obliterator,GOTH,RP,5,8,0,14,7,11,0,0,8,0,13,0,7,11,0,14
 Tok! Tok! Tok!,STARTRACK,RP,4,7,0,0,4,7,0,0,4,6,10,0,5,8,11,0
 Triple Zoe,Forte Escape,P1,4,12,0,0,6,11,0,14,8,12,0,14,10,13,0,0
 U.A.D,HAYAKO,RP,3,6,0,0,5,10,0,15,6,8,11,0,8,0,12,13

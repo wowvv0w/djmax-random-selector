@@ -992,6 +992,19 @@ QPushButton:disabled{
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <widget class="QLabel" name="lock___">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>0</y>
+         <width>20</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
       <zorder>cb_t3</zorder>
       <zorder>cb_t2</zorder>
       <zorder>cb_t1</zorder>
@@ -1020,6 +1033,7 @@ QPushButton:disabled{
       <zorder>lock_chu</zorder>
       <zorder>lock_cy</zorder>
       <zorder>lock_gc</zorder>
+      <zorder>lock___</zorder>
      </widget>
      <widget class="QGroupBox" name="bt_groupbox">
       <property name="geometry">
@@ -2309,12 +2323,15 @@ QSlider::handle:horizontal {
          <height>30</height>
         </rect>
        </property>
-       <property name="text">
-        <string/>
-       </property>
        <property name="icon">
         <iconset>
          <normaloff>../images/left_button.png</normaloff>../images/left_button.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>11</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
       <widget class="QPushButton" name="delay_rb">
@@ -2326,12 +2343,15 @@ QSlider::handle:horizontal {
          <height>30</height>
         </rect>
        </property>
-       <property name="text">
-        <string/>
-       </property>
        <property name="icon">
         <iconset>
          <normaloff>../images/right_button.png</normaloff>../images/right_button.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>11</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </widget>
@@ -2777,9 +2797,9 @@ QPushButton:checked {
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>-2</y>
+       <y>18</y>
        <width>740</width>
-       <height>60</height>
+       <height>20</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -2793,6 +2813,32 @@ QPushButton:checked {
      </property>
     </widget>
     <widget class="QPushButton" name="setting_button">
+     <property name="geometry">
+      <rect>
+       <x>640</x>
+       <y>15</y>
+       <width>30</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background: none;
+	border: none;
+}</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../images/setting.png</normaloff>../images/setting.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>30</width>
+       <height>30</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="preset_button">
      <property name="geometry">
       <rect>
        <x>680</x>
@@ -2809,7 +2855,7 @@ QPushButton:checked {
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>../images/setting.png</normaloff>../images/setting.png</iconset>
+       <normaloff>../images/preset.png</normaloff>../images/preset.png</iconset>
      </property>
      <property name="iconSize">
       <size>
