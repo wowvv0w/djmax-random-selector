@@ -7,8 +7,11 @@
 * Added 'FAVORITE' option
 * Added update check function
 * Added database-update function
+* Added 'PRESET' function
+* Changed 'MODIFY DATA' to 'SETTING'
 * Fixed wrong data in Database: "Gone Astray 4BSC" 13 -> 15
 * Improved selection method
+* Changed mechanism of 'EXCLUDE RECENT MUSIC' from initializing when filter is changed to not doing
 ## V0.5.1
 * Updated Database
 ## V0.5.0

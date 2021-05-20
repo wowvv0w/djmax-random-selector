@@ -88,7 +88,6 @@ class SelectorUi(QMainWindow, main_ui):
         # Hotkey
         kb.add_hotkey('f7', self.check_state, suppress=True)
         # Others
-        
 
 
     def check_state(self):
@@ -126,10 +125,7 @@ class SelectorUi(QMainWindow, main_ui):
             self.history_ui.history_list.addItem(_str)
             self.history_scrollbar.setValue(self.history_scrollbar.maximum())
 
-            if self.erm_slider.value():
-                self.previous.append(picked_title)
-                if len(self.previous) > self.erm_slider.value():
-                    self.previous.popleft()
+            self.erm_signal(title=picked_title)
 
         self.is_running = False
         print('finish')
@@ -183,8 +179,8 @@ class SelectorUi(QMainWindow, main_ui):
         self.cb_gf.toggled.connect(lambda: self.collab_child_signal(self.cb_gf))
         self.cb_chu.toggled.connect(lambda: self.collab_child_signal(self.cb_chu))
         # Bottom Bar
-        self.setting_button.clicked.connect(lambda: self.setting_ui.show_setting_ui(self))
-        self.preset_button.clicked.connect(lambda:self.preset_ui.show_preset_ui(self))
+        self.setting_button.clicked.connect(self.setting_ui.show_setting_ui)
+        self.preset_button.clicked.connect(self.preset_ui.show_preset_ui)
 
         # Input delay
         self.delay_ms.setText(f'{self.delay_slider.value()}ms')
@@ -205,7 +201,7 @@ class SelectorUi(QMainWindow, main_ui):
         # System tray
         self.tray_button.toggled.connect(self.tray_signal)
         # Favorite
-        self.favorite_edit.clicked.connect(lambda: self.favorite_ui.show_favorite_ui(self))
+        self.favorite_edit.clicked.connect(self.favorite_ui.show_favorite_ui)
 
     def filter_signal(self):
         """
@@ -250,7 +246,7 @@ class SelectorUi(QMainWindow, main_ui):
         self.cb_chu.toggled.connect(lambda: self.is_checked(self.sr_list, self.cb_chu, 'CHU'))
         # ADVANCED
         self.delay_slider.valueChanged.connect(lambda: self.is_value_changed(self.delay_slider))
-        self.erm_slider.valueChanged.connect(self.erm_initialize)
+        self.erm_slider.valueChanged.connect(self.erm_signal)
         self.favorite_button.toggled.connect(self.favorite_signal)
 
     def lvl_signal(self, lvl):
@@ -372,8 +368,6 @@ class SelectorUi(QMainWindow, main_ui):
 
         if not self.is_init:
             self.filtering()
-            self.erm_initialize()
-
 
     def is_checked(self, list_, obj, value):
         """
@@ -387,7 +381,6 @@ class SelectorUi(QMainWindow, main_ui):
 
         if not self.is_init:
             self.filtering()
-            self.erm_initialize()
 
     def is_value_changed(self, obj):
         """
@@ -403,7 +396,6 @@ class SelectorUi(QMainWindow, main_ui):
 
         if not self.is_init and obj != self.delay_slider:
             self.filtering()
-            self.erm_initialize()
 
     def is_fs_checked(self):
         """
@@ -414,7 +406,6 @@ class SelectorUi(QMainWindow, main_ui):
 
         if not self.is_init:
             self.filtering()
-            self.erm_initialize()
 
     def is_prefer_checked(self):
         """
@@ -445,13 +436,16 @@ class SelectorUi(QMainWindow, main_ui):
         else:
             self.erm_slider.setMaximum(0)
 
-    def erm_initialize(self):
+    def erm_signal(self, _=None, title=None):
         """
-        Initializes `previous`
+        `previous`
         """
-        if self.previous:
-            self.previous = deque([])
-            print('initialized')
+        value = self.erm_slider.value()
+        if title:
+            self.previous.append(title)
+        while len(self.previous) > value:
+            self.previous.popleft()
+        print(self.previous)
 
 
     def closeEvent(self, _):

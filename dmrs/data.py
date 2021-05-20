@@ -142,7 +142,6 @@ def import_config(cls, json_, init=False):
     cls.is_favor_black = config['FAVORITE']['Black']
 
     cls.filtering()
-    cls.erm_initialize()
 
     cls.is_init = False
 
