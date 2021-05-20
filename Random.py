@@ -444,7 +444,6 @@ class SelectorUi(QMainWindow, main_ui):
             self.erm_slider.setMaximum(self.fil_total - 1)
         else:
             self.erm_slider.setMaximum(0)
-        print('did')
 
     def erm_initialize(self):
         """

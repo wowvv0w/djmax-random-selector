@@ -1,6 +1,7 @@
 import os
+import shutil
 from PyQt5 import uic
-from PyQt5.QtWidgets import QCheckBox, QDialog, QSizePolicy, QSpacerItem, QVBoxLayout
+from PyQt5.QtWidgets import QCheckBox, QDialog, QFileDialog, QSizePolicy, QSpacerItem, QVBoxLayout
 from PyQt5.QtCore import Qt
 from . import data
 
@@ -242,17 +243,17 @@ class PresetUi(QDialog):
         self.file = lambda name: f'./data/presets/{name}.json'
 
         for preset in self.preset_list:
-            preset = preset.removesuffix('.json')
             self.preset_box.addItem(preset)
 
-        # self.preset_add.clicked.connect()
+        self.preset_add.clicked.connect(self.add_preset)
         self.preset_remove.clicked.connect(self.remove_preset)
         self.preset_apply.clicked.connect(lambda: self.apply_preset(parent))
+        self.preset_rename.clicked.connect(self.rename_preset)
         self.preset_create.clicked.connect(lambda: self.create_preset(parent))
 
     def read_preset(self):
         list_ = os.listdir(data.PRESET_PATH)
-        list_json = [file for file in list_ if file.endswith('.json')]
+        list_json = [file.removesuffix('.json') for file in list_ if file.endswith('.json')]
 
         return list_json
 
@@ -263,7 +264,17 @@ class PresetUi(QDialog):
 
         parent.lock_all.move(0, 0)
         self.show()
-
+    
+    def add_preset(self):
+        file = QFileDialog.getOpenFileName(self, 'Add Preset', '', 'Json Files(*.json)')
+        json_ = file[0].removesuffix('.json')
+        index = json_.rfind('/')
+        name = json_[index+1:]
+        file_copy = self.file(name)
+        
+        self.preset_list.append(name)
+        self.preset_box.addItem(name)
+        shutil.copy(file[0], file_copy)
 
     def remove_preset(self):
         row = self.preset_box.currentRow()
@@ -282,22 +293,42 @@ class PresetUi(QDialog):
         name = item.text()
         data.import_config(parent, self.file(name))
     
+    def rename_preset(self):
+        item = self.preset_box.currentItem()
+        bname = item.text()
+        aname = self.preset_name.text()
+        if aname in self.preset_list:
+            aname = self.generate_clone(aname)
+        before = self.file(bname)
+        after = self.file(aname)
+
+        item.setText(aname)
+        self.preset_list.remove(bname)
+        self.preset_list.append(aname)
+        try:
+            os.rename(before, after)
+        except FileExistsError:
+            pass
+    
     def create_preset(self, parent):
         name = self.preset_name.text()
         if name in self.preset_list:
-            num = 1
-            while 1:
-                clone = f'{name}_{num}'
-                if clone in self.preset_list:
-                    num += 1
-                    continue
-                else:
-                    name = clone
-                    break
+            name = self.generate_clone(name)
         data.export_config(parent, self.file(name))
         self.preset_list.append(name)
         self.preset_box.addItem(name)
 
+    def generate_clone(self, name):
+        num = 1
+        while 1:
+            clone = f'{name}_{num}'
+            if clone in self.preset_list:
+                num += 1
+                continue
+            else:
+                name = clone
+                break
+        return name
 
     def close_preset_ui(self, parent):
         """
