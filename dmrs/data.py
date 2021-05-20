@@ -1,5 +1,6 @@
 import csv
 import json
+from json.decoder import JSONDecodeError
 import pandas as pd
 import requests
 
@@ -7,6 +8,15 @@ import requests
 _column = ('Title', 'Artist', 'Series',
     '4BNM', '4BHD', '4BMX', '4BSC', '5BNM', '5BHD', '5BMX', '5BSC',
     '6BNM', '6BHD', '6BMX', '6BSC', '8BNM', '8BHD', '8BMX', '8BSC')
+
+_keys = {
+    '4B', '5B', '6B', '8B', 'NM', 'HD', 'MX', 'SC',
+    'RP', 'P1', 'P2', 'P3', 'TR', 'CE', 'BS', 'VE',
+    'ES', 'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY',
+    'GF', 'CHU',
+    'MIN', 'MAX', 'BEGINNER', 'MASTER', 'FREESTYLE',
+    'INPUT DELAY', 'PREVIOUS', 'TRAY', 'FAVORITE'
+    }
 
 ALL_TRACK_DATA = './data/AllTrackData.csv'
 YOUR_DATA = './data/YourData.csv'
@@ -93,7 +103,7 @@ def update_version(rs, db):
         f.write(f'{rs},{db}')
         
 
-def import_config(cls, json_):
+def import_config(cls, json_, init=False):
     """
     Import config.
     """
@@ -123,9 +133,10 @@ def import_config(cls, json_):
     else:
         cls.cb_online.setChecked(True)
 
-    cls.delay_slider.setValue(config['INPUT DELAY'])
-    cls.erm_slider.setValue(config['PREVIOUS'])
-    cls.tray_button.setChecked(config['TRAY'])
+    if init:
+        cls.delay_slider.setValue(config['INPUT DELAY'])
+        cls.erm_slider.setValue(config['PREVIOUS'])
+        cls.tray_button.setChecked(config['TRAY'])
     cls.favorite_button.setChecked(config['FAVORITE']['Enabled'])
     cls.favorite = set(config['FAVORITE']['List'])
     cls.is_favor_black = config['FAVORITE']['Black']
@@ -174,6 +185,18 @@ def lock_series(categories, enabled):
             cb.setChecked(False)
             cb.setEnabled(False)
             lck.setVisible(True)
+
+def check_config(json_):
+    with open(json_, 'r') as f:
+        try:
+            config = json.load(f)
+        except JSONDecodeError:
+            return False
+    
+    if set(config.keys()) == _keys:
+        return True
+    else:
+        return False
 
 
 

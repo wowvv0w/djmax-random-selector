@@ -26,7 +26,7 @@ class SelectorUi(QMainWindow, main_ui):
         super().__init__()
         # Selector
         self.is_running = False
-        self.is_init = True
+        self.is_init = False
         self.is_fil_changed = False
         # Data
         self.yourdata = dmrs.read_data(self.IS_TEST)
@@ -83,7 +83,7 @@ class SelectorUi(QMainWindow, main_ui):
             ('GF', self.cb_gf, self.lock_gf), ('CHU', self.cb_chu, self.lock_chu)
             ]
         self.enabled_check = set(self.yourdata['Series'].values)
-        dmrs.import_config(self, self.config)
+        dmrs.import_config(self, self.config, True)
         dmrs.lock_series(self.categories, self.enabled_check)
         # Hotkey
         kb.add_hotkey('f7', self.check_state, suppress=True)

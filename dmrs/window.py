@@ -1,7 +1,7 @@
 import os
 import shutil
 from PyQt5 import uic
-from PyQt5.QtWidgets import QCheckBox, QDialog, QFileDialog, QSizePolicy, QSpacerItem, QVBoxLayout
+from PyQt5.QtWidgets import QCheckBox, QDialog, QFileDialog, QMessageBox, QSizePolicy, QSpacerItem, QVBoxLayout
 from PyQt5.QtCore import Qt
 from . import data
 
@@ -267,6 +267,9 @@ class PresetUi(QDialog):
     
     def add_preset(self):
         file = QFileDialog.getOpenFileName(self, 'Add Preset', '', 'Json Files(*.json)')
+        if not data.check_config(file[0]):
+            QMessageBox.critical(self, 'Failed', 'This JSON Document is not for me.')
+            return
         json_ = file[0].removesuffix('.json')
         index = json_.rfind('/')
         name = json_[index+1:]
