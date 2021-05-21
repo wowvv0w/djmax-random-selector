@@ -7,6 +7,26 @@ import keyboard as kb
 
 _styles = ('NM', 'HD', 'MX', 'SC')
 
+def filtering(func):
+        """
+        Return music list filtered.
+        """
+
+        def wrapper(self, *args):
+            func(self, *args)
+            if not self.is_init:
+                self.fil_yourdata, self.fil_list, self.fil_total = \
+                        filter_music(
+                            self.yourdata, self.bt_list, self.st_list, self.sr_list,
+                            self.min, self.max, self.is_freestyle,
+                            self.is_favor, self.is_favor_black, self.favorite
+                            )
+                if self.fil_total:
+                    self.erm_slider.setMaximum(self.fil_total - 1)
+                else:
+                    self.erm_slider.setMaximum(0)
+        return wrapper
+
 def check_alphabet(chr_):
     """
     Checkes whether `chr_` is alphabet.

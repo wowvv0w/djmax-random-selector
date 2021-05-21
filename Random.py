@@ -12,6 +12,7 @@ import dmrs
 
 main_ui = uic.loadUiType("./ui/selector.ui")[0]
 
+
 class SelectorUi(QMainWindow, main_ui):
     """
     Main Window
@@ -245,7 +246,7 @@ class SelectorUi(QMainWindow, main_ui):
         self.cb_gf.toggled.connect(lambda: self.is_checked(self.sr_list, self.cb_gf, 'GF'))
         self.cb_chu.toggled.connect(lambda: self.is_checked(self.sr_list, self.cb_chu, 'CHU'))
         # ADVANCED
-        self.delay_slider.valueChanged.connect(lambda: self.is_value_changed(self.delay_slider))
+        self.delay_slider.valueChanged.connect(self.is_delay_changed)
         self.erm_slider.valueChanged.connect(self.erm_signal)
         self.favorite_button.toggled.connect(self.favorite_signal)
 
@@ -285,6 +286,7 @@ class SelectorUi(QMainWindow, main_ui):
             self.tabWidget.setCurrentIndex(1)
             self.current_tab.setText('ADVANCED')
 
+    @dmrs.filtering
     def collab_signal(self):
         """
         Checkes or uncheckes all categories in 'COLLABORATION' when
@@ -301,7 +303,6 @@ class SelectorUi(QMainWindow, main_ui):
                 i.setChecked(False)
             self.collab_frame.setStyleSheet('QFrame{\n	background-color: rgba(0, 0, 0, 87);\n}')
         self.is_init = False
-        self.filtering()
 
     def collab_child_signal(self, child):
         """
@@ -354,6 +355,7 @@ class SelectorUi(QMainWindow, main_ui):
             self.is_tray = False
             self.tray_button.setText('OFF')
     
+    @dmrs.filtering
     def favorite_signal(self):
         """
         Changes 'FAVORITE' button's label.
@@ -366,9 +368,7 @@ class SelectorUi(QMainWindow, main_ui):
             self.is_favor = False
             self.favorite_button.setText('OFF')
 
-        if not self.is_init:
-            self.filtering()
-
+    @dmrs.filtering
     def is_checked(self, list_, obj, value):
         """
         Checkes `obj` is checked.
@@ -379,9 +379,7 @@ class SelectorUi(QMainWindow, main_ui):
         else:
             list_.discard(value)
 
-        if not self.is_init:
-            self.filtering()
-
+    @dmrs.filtering
     def is_value_changed(self, obj):
         """
         Checkes `obj`'s value.
@@ -389,23 +387,20 @@ class SelectorUi(QMainWindow, main_ui):
 
         if obj == self.lvl_min:
             self.min = obj.value()
-        elif obj == self.lvl_max:
-            self.max = obj.value()
         else:
-            self.input_delay = obj.value() / 1000
+            self.max = obj.value()
 
-        if not self.is_init and obj != self.delay_slider:
-            self.filtering()
-
+    @dmrs.filtering
     def is_fs_checked(self):
         """
         Checkes 'Freestyle' button in 'MODE' is checked.
         """
 
         self.is_freestyle = self.cb_freestyle.isChecked()
+    
+    def is_delay_changed(self):
 
-        if not self.is_init:
-            self.filtering()
+        self.input_delay = self.delay_slider.value() / 1000
 
     def is_prefer_checked(self):
         """
@@ -418,23 +413,6 @@ class SelectorUi(QMainWindow, main_ui):
             self.prefer = 'master'
         else:
             self.prefer = None
-
-
-    def filtering(self):
-        """
-        Return music list filtered.
-        """
-
-        self.fil_yourdata, self.fil_list, self.fil_total = \
-                dmrs.filter_music(
-                    self.yourdata, self.bt_list, self.st_list, self.sr_list,
-                    self.min, self.max, self.is_freestyle,
-                    self.is_favor, self.is_favor_black, self.favorite
-                    )
-        if self.fil_total:
-            self.erm_slider.setMaximum(self.fil_total - 1)
-        else:
-            self.erm_slider.setMaximum(0)
 
     def erm_signal(self, _=None, title=None):
         """
