@@ -15,7 +15,7 @@ _keys = {
     'ES', 'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY',
     'GF', 'CHU',
     'MIN', 'MAX', 'BEGINNER', 'MASTER', 'FREESTYLE',
-    'INPUT DELAY', 'PREVIOUS', 'TRAY', 'FAVORITE'
+    'INPUT DELAY', 'PREVIOUS', 'TRAY', 'FAVORITE', 'AUTO START'
     }
 
 ALL_TRACK_DATA = './data/AllTrackData.csv'
@@ -128,6 +128,11 @@ def filtering(func):
                     self.erm_slider.setMaximum(self.fil_total - 1)
                 else:
                     self.erm_slider.setMaximum(0)
+
+                erm_value = self.erm_slider.value()
+                if erm_value < self.pre_cnt:
+                    self.erm_slider.setValue(self.pre_cnt)
+
         return wrapper
 
 
@@ -165,7 +170,8 @@ def import_config(self, json_, init=False):
     if init:
         self.delay_slider.setValue(config['INPUT DELAY'])
         self.tray_button.setChecked(config['TRAY'])
-    self.erm_slider.setValue(config['PREVIOUS'])
+        self.autostart_button.setChecked(config['AUTO START'])
+    self.pre_cnt = config['PREVIOUS']
     self.favorite_button.setChecked(config['FAVORITE']['Enabled'])
     self.favorite = set(config['FAVORITE']['List'])
     self.is_favor_black = config['FAVORITE']['Black']
@@ -192,6 +198,7 @@ def export_config(self, json_):
     config['FREESTYLE'] = self.cb_freestyle.isChecked()
 
     config['INPUT DELAY'] = self.delay_slider.value()
+    config['AUTO START'] = self.autostart_button.isChecked()
     config['PREVIOUS'] = self.erm_slider.value()
     config['TRAY'] = self.is_tray
     config['FAVORITE'] = {}

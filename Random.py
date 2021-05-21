@@ -20,7 +20,7 @@ class SelectorUi(QMainWindow, main_ui):
 
     # You can change these constants when you test codes.
     IS_TEST = True  # Use test csv and config
-    IS_KEY_TEST = True  # Ignore `dmrs.select_music`
+    IS_KEY_TEST = False  # Ignore `dmrs.select_music`
 
     def __init__(self):
 
@@ -46,9 +46,11 @@ class SelectorUi(QMainWindow, main_ui):
         self.prefer = None
         self.is_freestyle = True
         # Advanced
-        self.input_delay = 0.03
         self.previous = deque([])
+        self.pre_cnt = 0
         self.is_tray = False
+        self.input_delay = 0.03
+        self.auto_start = False
         self.favorite = set()
         self.is_favor = False
         self.is_favor_black = False
@@ -108,10 +110,12 @@ class SelectorUi(QMainWindow, main_ui):
         """
 
         self.is_running = True
+        self.update_previous()
+        
         picked_title, picked_btst, check_list, input_list = \
             dmrs.pick_music(
                 self.yourdata, self.fil_yourdata, self.fil_list,
-                self.prefer, self.is_freestyle, self.previous
+                self.prefer, self.is_freestyle, self.previous, self.auto_start
                 )
         print(picked_title, ' | ', picked_btst)
 
@@ -125,7 +129,7 @@ class SelectorUi(QMainWindow, main_ui):
             self.history_ui.history_list.addItem(_str)
             self.history_scrollbar.setValue(self.history_scrollbar.maximum())
 
-            self.erm_signal(title=picked_title)
+            self.update_previous(title=picked_title)
 
         self.is_running = False
         print('finish')
@@ -190,14 +194,14 @@ class SelectorUi(QMainWindow, main_ui):
             lambda: self.delay_slider.setValue(self.delay_slider.value() - 10))
         self.delay_rb.clicked.connect(
             lambda: self.delay_slider.setValue(self.delay_slider.value() + 10))
+        # Auto Start
+        self.autostart_button.toggled.connect(self.auto_start_signal)
         # History
         self.history_button.toggled.connect(self.history_signal)
         self.history_scrollbar = \
             self.history_ui.history_list.verticalScrollBar()
         # Exclude recent music (erm)
-        self.erm_num.setText(f'{self.erm_slider.value()}')
-        self.erm_slider.valueChanged.connect(
-            lambda: self.erm_num.setText(f'{self.erm_slider.value()}'))
+        self.erm_slider.valueChanged.connect(self.erm_signal)
         # System tray
         self.tray_button.toggled.connect(self.tray_signal)
         # Favorite
@@ -246,7 +250,6 @@ class SelectorUi(QMainWindow, main_ui):
         self.cb_chu.toggled.connect(lambda: self.is_checked(self.sr_list, self.cb_chu, 'CHU'))
         # ADVANCED
         self.delay_slider.valueChanged.connect(self.is_delay_changed)
-        self.erm_slider.valueChanged.connect(self.erm_signal)
         self.favorite_button.toggled.connect(self.favorite_signal)
 
     def lvl_signal(self, lvl):
@@ -353,6 +356,18 @@ class SelectorUi(QMainWindow, main_ui):
         else:
             self.is_tray = False
             self.tray_button.setText('OFF')
+
+    def auto_start_signal(self):
+        """
+        Changes 'AUTO START' button's label.
+        """
+
+        if self.autostart_button.isChecked():
+            self.auto_start = True
+            self.autostart_button.setText('ON')
+        else:
+            self.auto_start = False
+            self.autostart_button.setText('OFF')
     
     @dmrs.filtering
     def favorite_signal(self):
@@ -412,8 +427,12 @@ class SelectorUi(QMainWindow, main_ui):
             self.prefer = 'master'
         else:
             self.prefer = None
+    
+    def erm_signal(self, value):
+        self.erm_num.setText(f'{value}')
 
-    def erm_signal(self, _=None, title=None):
+
+    def update_previous(self, title=None):
         """
         `previous`
         """
@@ -422,6 +441,7 @@ class SelectorUi(QMainWindow, main_ui):
             self.previous.append(title)
         while len(self.previous) > value:
             self.previous.popleft()
+        print(self.previous)
 
 
     def closeEvent(self, _):

@@ -265,6 +265,9 @@ class PresetUi(QDialog):
         shutil.copy(file[0], file_copy)
 
     def remove_preset(self):
+        msg = QMessageBox.warning(self, 'Remove Preset', 'Are you sure to remove it?', QMessageBox.Yes | QMessageBox.No)
+        if msg == QMessageBox.No:
+            return
         row = self.preset_box.currentRow()
         item = self.preset_box.currentItem()
         name = item.text()
