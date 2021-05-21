@@ -23,7 +23,7 @@ class SettingUi(QDialog):
         self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
         self.setWindowModality(Qt.ApplicationModal)
         self.apply_button.clicked.connect(self.apply)
-        self.cancel_button.clicked.connect(self.cancel)
+        self.cancel_button.clicked.connect(self.close)
 
         self.current_ver, self.lastest_ver = self.parent_.db_curr_ver, self.parent_.db_last_ver
         self.dlc_packs = [
@@ -33,25 +33,7 @@ class SettingUi(QDialog):
             ('GF', self.yd_cb_gf), ('CHU', self.yd_cb_chu), ('P3', self.yd_cb_p3)
             ]
 
-    def show_setting_ui(self):
-        """
-        Shows 'SETTING' window.
-        """
-
-        self.parent_.lock_all.move(0, 0)
-
-        for val, cb in self.dlc_packs:
-            cb.setChecked(val in self.parent_.enabled_check)
-        
-        self.current_label.setText(f'Current: {self.current_ver}')
-        self.lastest_label.setText(f'Lastest: {self.lastest_ver}')
-        if self.current_ver < self.lastest_ver:
-            self.lastest_label.setStyleSheet('color: #ffbe00;\nfont: 15px')
-        else:
-            self.lastest_label.setStyleSheet('color: #dddddd;\nfont: 15px')
-
-        self.show()
-
+    @data.filtering
     def apply(self):
         """
         Modifies data.
@@ -70,17 +52,23 @@ class SettingUi(QDialog):
 
         data.lock_series(self.parent_.categories, self.parent_.enabled_check)
 
-        self.parent_.lock_all.move(0, -540)
-        self.parent_.filtering()
         self.close()
 
-    def cancel(self):
-        """
-        Cancels modifying and closes window.
-        """
+    def showEvent(self, _):
+        self.parent_.lock_all.move(0, 0)
 
+        for val, cb in self.dlc_packs:
+            cb.setChecked(val in self.parent_.enabled_check)
+        
+        self.current_label.setText(f'Current: {self.current_ver}')
+        self.lastest_label.setText(f'Lastest: {self.lastest_ver}')
+        if self.current_ver < self.lastest_ver:
+            self.lastest_label.setStyleSheet('color: #ffbe00;\nfont: 15px')
+        else:
+            self.lastest_label.setStyleSheet('color: #dddddd;\nfont: 15px')
+
+    def closeEvent(self, _):
         self.parent_.lock_all.move(0, -540)
-        self.close()
 
 
 
@@ -136,7 +124,7 @@ class FavoriteUi(QDialog):
         self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
         self.setWindowModality(Qt.ApplicationModal)
         self.apply_button.clicked.connect(self.apply)
-        self.cancel_button.clicked.connect(self.cancel)
+        self.cancel_button.clicked.connect(self.close)
         self.favor_search.textChanged.connect(self.update_display)
         self.favor_all.clicked.connect(self.update_abled)
         self.favor_ena.clicked.connect(self.update_abled)
@@ -159,19 +147,6 @@ class FavoriteUi(QDialog):
         self.favor_list.setLayout(self.controls_layout)
 
     
-    def show_favorite_ui(self):
-        """
-        Shows 'FAVORITE' window.
-        """
-
-        self.parent_.lock_all.move(0, 0)
-        
-        for widget in self.widgets:
-            widget.setChecked(widget.text() in self.parent_.favorite)
-        self.favor_black.setChecked(self.parent_.is_favor_black)
-        self.update_display(self.favor_search.text())
-
-        self.show()
 
     def update_display(self, text):
         """
@@ -203,7 +178,7 @@ class FavoriteUi(QDialog):
             self.show_disabled = self.favor_dis.isChecked()
         self.update_display(self.favor_search.text())
         
-    
+    @data.filtering
     def apply(self):
         """
 
@@ -212,19 +187,31 @@ class FavoriteUi(QDialog):
         self.parent_.favorite = {widget.text() for widget in self.widgets if widget.isChecked()}
         self.parent_.is_favor_black = self.favor_black.isChecked()
         print(self.parent_.favorite)
-        self.parent_.lock_all.move(0, -540)
-        self.parent_.filtering()
         self.close()
 
-    def cancel(self):
-        """
-        Cancels editing and closes window.
-        """
+    def showEvent(self, _):
+        self.parent_.lock_all.move(0, 0)
+        
+        for widget in self.widgets:
+            widget.setChecked(widget.text() in self.parent_.favorite)
+        self.favor_black.setChecked(self.parent_.is_favor_black)
+        self.update_display(self.favor_search.text())
 
+    def closeEvent(self, _):
         self.parent_.lock_all.move(0, -540)
-        self.close()
 
 
+
+
+# def _update_preset(func):
+    
+#     def wrapper(self: PresetUi, add: str = '', del: Tuple[str, int] = ()):
+#         if add:
+#             self.preset_list.append(add)
+#             self.preset_box.addItem(add)
+#         if del:
+#             self.preset_list.remove(del[0])
+#             self.preset_box.takeItem(del[1])
 
 
 class PresetUi(QDialog):
@@ -238,7 +225,7 @@ class PresetUi(QDialog):
         self.parent_ = parent
         self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
         self.setWindowModality(Qt.ApplicationModal)
-        self.close_button.clicked.connect(self.close_preset_ui)
+        self.close_button.clicked.connect(self.close)
 
         self.preset_list = self.read_preset()
         self.file = lambda name: f'./data/presets/{name}.json'
@@ -258,18 +245,14 @@ class PresetUi(QDialog):
 
         return list_json
 
-    def show_preset_ui(self):
-        """
-        Shows 'PRESET' window.
-        """
 
-        self.parent_.lock_all.move(0, 0)
-        self.show()
-    
     def add_preset(self):
-        file = QFileDialog.getOpenFileName(self, 'Add Preset', '', 'Json Files(*.json)')
-        if not data.check_config(file[0]):
-            QMessageBox.critical(self, 'Failed', 'This JSON Document is not for me.')
+        file = QFileDialog.getOpenFileName(self, 'Add Preset', '/home', 'Json Files(*.json)')
+        try:
+            if not data.check_config(file[0]):
+                QMessageBox.critical(self, 'Failed', 'This JSON Document is not for me.')
+                return
+        except FileNotFoundError:
             return
         json_ = file[0].removesuffix('.json')
         index = json_.rfind('/')
@@ -332,10 +315,8 @@ class PresetUi(QDialog):
             name = clone
         return name
 
-    def close_preset_ui(self):
-        """
-        closes window.
-        """
+    def showEvent(self, _):
+        self.parent_.lock_all.move(0, 0)
 
+    def closeEvent(self, _):
         self.parent_.lock_all.move(0, -540)
-        self.close()

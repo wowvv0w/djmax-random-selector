@@ -3,7 +3,7 @@ import json
 from json.decoder import JSONDecodeError
 import pandas as pd
 import requests
-from .music import filtering
+from .music import filter_music
 
 _column = ('Title', 'Artist', 'Series',
     '4BNM', '4BHD', '4BMX', '4BSC', '5BNM', '5BHD', '5BMX', '5BSC',
@@ -101,7 +101,36 @@ def update_check():
 def update_version(rs, db):
     with open(VERSION_TXT, 'w') as f:
         f.write(f'{rs},{db}')
-        
+
+
+def filtering(func):
+        """
+        Return music list filtered.
+        """
+
+        def wrapper(self, *args):
+            try:
+                func(self, *args)
+            except TypeError:
+                func(self)
+
+            if not hasattr(self, 'is_init'):
+                self = self.parent_
+
+            if not self.is_init:
+                self.fil_yourdata, self.fil_list, self.fil_total = \
+                        filter_music(
+                            self.yourdata, self.bt_list, self.st_list, self.sr_list,
+                            self.min, self.max, self.is_freestyle,
+                            self.is_favor, self.is_favor_black, self.favorite
+                            )
+                if self.fil_total:
+                    self.erm_slider.setMaximum(self.fil_total - 1)
+                else:
+                    self.erm_slider.setMaximum(0)
+        return wrapper
+
+
 @filtering
 def import_config(self, json_, init=False):
     """
@@ -135,8 +164,8 @@ def import_config(self, json_, init=False):
 
     if init:
         self.delay_slider.setValue(config['INPUT DELAY'])
-        self.erm_slider.setValue(config['PREVIOUS'])
         self.tray_button.setChecked(config['TRAY'])
+    self.erm_slider.setValue(config['PREVIOUS'])
     self.favorite_button.setChecked(config['FAVORITE']['Enabled'])
     self.favorite = set(config['FAVORITE']['List'])
     self.is_favor_black = config['FAVORITE']['Black']
@@ -189,12 +218,11 @@ def check_config(json_):
             config = json.load(f)
         except JSONDecodeError:
             return False
-    
-    if set(config.keys()) == _keys:
-        return True
-    else:
-        return False
-
+        else:
+            if set(config.keys()) == _keys:
+                return True
+            else:
+                return False
 
 
 

@@ -28,7 +28,6 @@ class SelectorUi(QMainWindow, main_ui):
         # Selector
         self.is_running = False
         self.is_init = False
-        self.is_fil_changed = False
         # Data
         self.yourdata = dmrs.read_data(self.IS_TEST)
         if self.IS_TEST:
@@ -180,8 +179,8 @@ class SelectorUi(QMainWindow, main_ui):
         self.cb_gf.toggled.connect(lambda: self.collab_child_signal(self.cb_gf))
         self.cb_chu.toggled.connect(lambda: self.collab_child_signal(self.cb_chu))
         # Bottom Bar
-        self.setting_button.clicked.connect(self.setting_ui.show_setting_ui)
-        self.preset_button.clicked.connect(self.preset_ui.show_preset_ui)
+        self.setting_button.clicked.connect(self.setting_ui.show)
+        self.preset_button.clicked.connect(self.preset_ui.show)
 
         # Input delay
         self.delay_ms.setText(f'{self.delay_slider.value()}ms')
@@ -202,7 +201,7 @@ class SelectorUi(QMainWindow, main_ui):
         # System tray
         self.tray_button.toggled.connect(self.tray_signal)
         # Favorite
-        self.favorite_edit.clicked.connect(self.favorite_ui.show_favorite_ui)
+        self.favorite_edit.clicked.connect(self.favorite_ui.show)
 
     def filter_signal(self):
         """
@@ -423,7 +422,6 @@ class SelectorUi(QMainWindow, main_ui):
             self.previous.append(title)
         while len(self.previous) > value:
             self.previous.popleft()
-        print(self.previous)
 
 
     def closeEvent(self, _):
