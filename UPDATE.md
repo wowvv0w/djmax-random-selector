@@ -1,5 +1,5 @@
 # Update
-## V0.6.0
+## V1.0.0
 * Redesigned 'Difficulty' filter
 * re-sorted 'ADVANCED' options
 * Added 'prefer' option in 'Difficulty' filter (BEGINNER, STANDARD, MASTER)

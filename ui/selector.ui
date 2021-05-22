@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>DJMAX Random Selector V0.6.0</string>
+   <string>DJMAX Random Selector V1.0.0</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color:qlineargradient(spread:repeat, x1:0.99, y1:0.007, x2:1, y2:0, stop:0 rgba(45, 46, 47, 255), stop:0.4 rgba(45, 46, 47, 255), stop:0.475 rgba(42, 43, 44, 255), stop:0.525 rgba(42, 43, 44, 255), stop:0.6 rgba(45, 46, 47, 255), stop:1 rgba(45, 46, 47, 255));</string>
@@ -2956,7 +2956,7 @@ QPushButton:hover{
       <rect>
        <x>10</x>
        <y>-1</y>
-       <width>391</width>
+       <width>231</width>
        <height>41</height>
       </rect>
      </property>
@@ -2965,7 +2965,7 @@ QPushButton:hover{
 font: 15px &quot;Lato Black&quot;;</string>
      </property>
      <property name="text">
-      <string>DJMAX Random Selector V0.6.0</string>
+      <string>DJMAX Random Selector V1.0.0</string>
      </property>
     </widget>
     <widget class="QPushButton" name="update_button">
