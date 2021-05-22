@@ -80,7 +80,11 @@ def pick_music(
 
     try:
         if is_freestyle:
-            picked_title, picked_btst, _ = random.choice(candidate_list)
+            if prefer:
+                list_ = list({(cand[0], cand[1][0]) for cand in candidate_list})
+                picked_title, picked_btst = random.choice(list_)
+            else:
+                picked_title, picked_btst, _ = random.choice(candidate_list)
         else:
             picked_title = random.choice(candidate_list)
             picked_btst = 'FREE'
@@ -89,7 +93,7 @@ def pick_music(
 
     if prefer and is_freestyle:
         same_tb_list = [
-            cand for cand in candidate_list if cand[0] == picked_title and cand[1][0] == picked_btst[0]
+            cand for cand in candidate_list if cand[0] == picked_title and cand[1][0] == picked_btst
             ]
         if prefer == 'beginner':
             same_tb_list.sort(key=lambda x: _styles.index(x[1][2:]))
