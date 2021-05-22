@@ -12,6 +12,7 @@ import dmrs
 
 main_ui = uic.loadUiType("./ui/selector.ui")[0]
 
+
 class SelectorUi(QMainWindow, main_ui):
     """
     Main Window
@@ -27,7 +28,6 @@ class SelectorUi(QMainWindow, main_ui):
         # Selector
         self.is_running = False
         self.is_init = False
-        self.is_fil_changed = False
         # Data
         self.yourdata = dmrs.read_data(self.IS_TEST)
         if self.IS_TEST:
@@ -46,9 +46,12 @@ class SelectorUi(QMainWindow, main_ui):
         self.prefer = None
         self.is_freestyle = True
         # Advanced
-        self.input_delay = 0.03
         self.previous = deque([])
+        self.pre_cnt = 0
+        self.pre_is_under = True
         self.is_tray = False
+        self.input_delay = 0.03
+        self.auto_start = False
         self.favorite = set()
         self.is_favor = False
         self.is_favor_black = False
@@ -108,10 +111,14 @@ class SelectorUi(QMainWindow, main_ui):
         """
 
         self.is_running = True
+
+        if self.erm_slider.value() < len(self.previous):
+            self.update_previous()
+        
         picked_title, picked_btst, check_list, input_list = \
             dmrs.pick_music(
                 self.yourdata, self.fil_yourdata, self.fil_list,
-                self.prefer, self.is_freestyle, self.previous
+                self.prefer, self.is_freestyle, self.previous, self.auto_start
                 )
         print(picked_title, ' | ', picked_btst)
 
@@ -125,7 +132,7 @@ class SelectorUi(QMainWindow, main_ui):
             self.history_ui.history_list.addItem(_str)
             self.history_scrollbar.setValue(self.history_scrollbar.maximum())
 
-            self.erm_signal(title=picked_title)
+            self.update_previous(title=picked_title)
 
         self.is_running = False
         print('finish')
@@ -179,8 +186,8 @@ class SelectorUi(QMainWindow, main_ui):
         self.cb_gf.toggled.connect(lambda: self.collab_child_signal(self.cb_gf))
         self.cb_chu.toggled.connect(lambda: self.collab_child_signal(self.cb_chu))
         # Bottom Bar
-        self.setting_button.clicked.connect(self.setting_ui.show_setting_ui)
-        self.preset_button.clicked.connect(self.preset_ui.show_preset_ui)
+        self.setting_button.clicked.connect(self.setting_ui.show)
+        self.preset_button.clicked.connect(self.preset_ui.show)
 
         # Input delay
         self.delay_ms.setText(f'{self.delay_slider.value()}ms')
@@ -190,18 +197,18 @@ class SelectorUi(QMainWindow, main_ui):
             lambda: self.delay_slider.setValue(self.delay_slider.value() - 10))
         self.delay_rb.clicked.connect(
             lambda: self.delay_slider.setValue(self.delay_slider.value() + 10))
+        # Auto Start
+        self.autostart_button.toggled.connect(self.auto_start_signal)
         # History
         self.history_button.toggled.connect(self.history_signal)
         self.history_scrollbar = \
             self.history_ui.history_list.verticalScrollBar()
         # Exclude recent music (erm)
-        self.erm_num.setText(f'{self.erm_slider.value()}')
-        self.erm_slider.valueChanged.connect(
-            lambda: self.erm_num.setText(f'{self.erm_slider.value()}'))
+        self.erm_slider.valueChanged.connect(self.erm_signal)
         # System tray
         self.tray_button.toggled.connect(self.tray_signal)
         # Favorite
-        self.favorite_edit.clicked.connect(self.favorite_ui.show_favorite_ui)
+        self.favorite_edit.clicked.connect(self.favorite_ui.show)
 
     def filter_signal(self):
         """
@@ -245,8 +252,7 @@ class SelectorUi(QMainWindow, main_ui):
         self.cb_gf.toggled.connect(lambda: self.is_checked(self.sr_list, self.cb_gf, 'GF'))
         self.cb_chu.toggled.connect(lambda: self.is_checked(self.sr_list, self.cb_chu, 'CHU'))
         # ADVANCED
-        self.delay_slider.valueChanged.connect(lambda: self.is_value_changed(self.delay_slider))
-        self.erm_slider.valueChanged.connect(self.erm_signal)
+        self.delay_slider.valueChanged.connect(self.is_delay_changed)
         self.favorite_button.toggled.connect(self.favorite_signal)
 
     def lvl_signal(self, lvl):
@@ -285,6 +291,7 @@ class SelectorUi(QMainWindow, main_ui):
             self.tabWidget.setCurrentIndex(1)
             self.current_tab.setText('ADVANCED')
 
+    @dmrs.filtering
     def collab_signal(self):
         """
         Checkes or uncheckes all categories in 'COLLABORATION' when
@@ -301,7 +308,6 @@ class SelectorUi(QMainWindow, main_ui):
                 i.setChecked(False)
             self.collab_frame.setStyleSheet('QFrame{\n	background-color: rgba(0, 0, 0, 87);\n}')
         self.is_init = False
-        self.filtering()
 
     def collab_child_signal(self, child):
         """
@@ -353,7 +359,20 @@ class SelectorUi(QMainWindow, main_ui):
         else:
             self.is_tray = False
             self.tray_button.setText('OFF')
+
+    def auto_start_signal(self):
+        """
+        Changes 'AUTO START' button's label.
+        """
+
+        if self.autostart_button.isChecked():
+            self.auto_start = True
+            self.autostart_button.setText('ON')
+        else:
+            self.auto_start = False
+            self.autostart_button.setText('OFF')
     
+    @dmrs.filtering
     def favorite_signal(self):
         """
         Changes 'FAVORITE' button's label.
@@ -366,9 +385,7 @@ class SelectorUi(QMainWindow, main_ui):
             self.is_favor = False
             self.favorite_button.setText('OFF')
 
-        if not self.is_init:
-            self.filtering()
-
+    @dmrs.filtering
     def is_checked(self, list_, obj, value):
         """
         Checkes `obj` is checked.
@@ -379,9 +396,7 @@ class SelectorUi(QMainWindow, main_ui):
         else:
             list_.discard(value)
 
-        if not self.is_init:
-            self.filtering()
-
+    @dmrs.filtering
     def is_value_changed(self, obj):
         """
         Checkes `obj`'s value.
@@ -389,23 +404,20 @@ class SelectorUi(QMainWindow, main_ui):
 
         if obj == self.lvl_min:
             self.min = obj.value()
-        elif obj == self.lvl_max:
-            self.max = obj.value()
         else:
-            self.input_delay = obj.value() / 1000
+            self.max = obj.value()
 
-        if not self.is_init and obj != self.delay_slider:
-            self.filtering()
-
+    @dmrs.filtering
     def is_fs_checked(self):
         """
         Checkes 'Freestyle' button in 'MODE' is checked.
         """
 
         self.is_freestyle = self.cb_freestyle.isChecked()
+    
+    def is_delay_changed(self):
 
-        if not self.is_init:
-            self.filtering()
+        self.input_delay = self.delay_slider.value() / 1000
 
     def is_prefer_checked(self):
         """
@@ -418,25 +430,23 @@ class SelectorUi(QMainWindow, main_ui):
             self.prefer = 'master'
         else:
             self.prefer = None
+    
+    def erm_signal(self, value):
+        self.erm_num.setText(f'{value}')
 
+        erm = self.erm_slider
+        max_ = erm.maximum()
 
-    def filtering(self):
-        """
-        Return music list filtered.
-        """
-
-        self.fil_yourdata, self.fil_list, self.fil_total = \
-                dmrs.filter_music(
-                    self.yourdata, self.bt_list, self.st_list, self.sr_list,
-                    self.min, self.max, self.is_freestyle,
-                    self.is_favor, self.is_favor_black, self.favorite
-                    )
-        if self.fil_total:
-            self.erm_slider.setMaximum(self.fil_total - 1)
+        if self.pre_cnt <= max_:
+            self.pre_cnt = value
         else:
-            self.erm_slider.setMaximum(0)
+            if value == max_:
+                pass
+            else:
+                self.pre_cnt = value
 
-    def erm_signal(self, _=None, title=None):
+
+    def update_previous(self, title=None):
         """
         `previous`
         """
@@ -445,7 +455,8 @@ class SelectorUi(QMainWindow, main_ui):
             self.previous.append(title)
         while len(self.previous) > value:
             self.previous.popleft()
-        print(self.previous)
+        self.pre_cnt = value
+        print(self.pre_cnt, self.previous)
 
 
     def closeEvent(self, _):

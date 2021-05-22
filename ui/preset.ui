@@ -158,6 +158,9 @@ QLabel{
 	border: 3px solid #000000;
 	font: 15px &quot;Lato&quot;
 }
+QListView::item:selected{
+	background: rgba(255, 255, 255, 64);
+}
 QScrollBar{
 	width: 10px;
 	background: #252525;

@@ -31,6 +31,7 @@
     "MASTER": false,
     "FREESTYLE": true,
     "INPUT DELAY": 30,
+    "AUTO START": false,
     "PREVIOUS": 0,
     "TRAY": false,
     "FAVORITE": {

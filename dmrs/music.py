@@ -2,22 +2,31 @@ import random
 import time
 import math
 from string import ascii_letters
+from typing import Any, Iterable, List, Tuple, Union, Deque
 import keyboard as kb
 
 
 _styles = ('NM', 'HD', 'MX', 'SC')
 
-def check_alphabet(chr_):
+def check_alphabet(word: str) -> bool:
     """
-    Checkes whether `chr_` is alphabet.
+    Checkes whether `word` is alphabet.
     """
     
-    return chr_ in ascii_letters
+    return word in ascii_letters
 
 def filter_music(
-    data, buttons, styles, series, diff_min, diff_max,
-    is_freestyle, is_favor, is_favor_black, favorite
-):
+    data: Any,
+    buttons: Iterable,
+    styles: Iterable,
+    series: Iterable,
+    diff_min: int,
+    diff_max: int,
+    is_freestyle: bool,
+    is_favor: bool,
+    is_favor_black: bool,
+    favorite: Iterable
+) -> Tuple[Any, list, int]:
     """
     Filter music.
     """
@@ -50,7 +59,15 @@ def filter_music(
 
     return filtered, candidate_list, len(candidate_title)
 
-def pick_music(data, filtered, candidate_list, prefer, is_freestyle, previous):
+def pick_music(
+    data: Any,
+    filtered: Any,
+    candidate_list: Iterable,
+    prefer: Union[str, None],
+    is_freestyle: bool,
+    previous: Deque,
+    auto_start: bool
+) -> Union[Tuple[str, str, List[bool], Tuple[str, str, int, int]], List[None]]:
     """
     Pick music
     """
@@ -68,7 +85,7 @@ def pick_music(data, filtered, candidate_list, prefer, is_freestyle, previous):
             picked_title = random.choice(candidate_list)
             picked_btst = 'FREE'
     except IndexError:
-        return [None] * 6
+        return [None] * 4
 
     if prefer and is_freestyle:
         same_tb_list = [
@@ -118,20 +135,26 @@ def pick_music(data, filtered, candidate_list, prefer, is_freestyle, previous):
         right_input = len(find_btst) - sub_count - 1
 
         bt_input = picked_btst[0]
+        is_autostart = auto_start
     else:
-        bt_input, right_input = None, 0
+        bt_input, right_input, is_autostart = None, 0, False
+
     
-    check_list = [is_alphabet, is_forward]
-    input_list = [bt_input, initial_input, vertical_input, right_input]
+    check_list = [is_alphabet, is_forward, is_autostart]
+    input_list = (bt_input, initial_input, vertical_input, right_input)
 
     return picked_title, picked_btst, check_list, input_list
 
-def select_music(input_delay, check_list, input_list):
+def select_music(
+    input_delay: float,
+    check_list: List[bool],
+    input_list: Tuple[str, str, int, int]
+) -> None:
     """
     Select music in game by inputing keys automatically.
     """
 
-    alphabet, forward = check_list
+    alphabet, forward, start = check_list
     bt, init, vert, right = input_list
     if forward:
         direction = 'down arrow'
@@ -153,3 +176,7 @@ def select_music(input_delay, check_list, input_list):
         typing(direction)
     for _ in range(right):
         typing('right arrow')
+    if start:
+        time.sleep(0.8 - input_delay)
+        kb.send('f5')
+        

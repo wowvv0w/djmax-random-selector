@@ -2217,7 +2217,7 @@ QPushButton{
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>30</y>
+        <y>140</y>
         <width>680</width>
         <height>30</height>
        </rect>
@@ -2359,7 +2359,7 @@ QSlider::handle:horizontal {
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>180</y>
+        <y>220</y>
         <width>680</width>
         <height>30</height>
        </rect>
@@ -2416,7 +2416,7 @@ QPushButton:checked{
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>70</y>
+        <y>30</y>
         <width>680</width>
         <height>30</height>
        </rect>
@@ -2499,7 +2499,7 @@ QSlider::handle:horizontal {
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>220</y>
+        <y>260</y>
         <width>680</width>
         <height>30</height>
        </rect>
@@ -2556,7 +2556,7 @@ QPushButton:checked{
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>110</y>
+        <y>70</y>
         <width>680</width>
         <height>30</height>
        </rect>
@@ -2657,7 +2657,7 @@ QPushButton:checked{
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>150</y>
+        <y>110</y>
         <width>301</width>
         <height>30</height>
        </rect>
@@ -2675,6 +2675,63 @@ QPushButton:checked{
        <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
       </property>
      </widget>
+     <widget class="QFrame" name="frame_9">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>180</y>
+        <width>680</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="label_16">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>-1</y>
+         <width>200</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>AUTO START</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="autostart_button">
+       <property name="geometry">
+        <rect>
+         <x>410</x>
+         <y>-1</y>
+         <width>200</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	color: #7f7f7f;
+	font: 15px &quot;Lato Black&quot;;
+}
+QPushButton:checked{
+	color: #ffffff;
+}</string>
+       </property>
+       <property name="text">
+        <string>OFF</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
      <zorder>label_11</zorder>
      <zorder>frame</zorder>
      <zorder>frame_3</zorder>
@@ -2682,6 +2739,7 @@ QPushButton:checked{
      <zorder>frame_5</zorder>
      <zorder>frame_8</zorder>
      <zorder>label_12</zorder>
+     <zorder>frame_9</zorder>
     </widget>
    </widget>
    <widget class="QFrame" name="top_bar">

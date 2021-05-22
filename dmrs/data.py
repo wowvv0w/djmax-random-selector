@@ -3,7 +3,7 @@ import json
 from json.decoder import JSONDecodeError
 import pandas as pd
 import requests
-
+from .music import filter_music
 
 _column = ('Title', 'Artist', 'Series',
     '4BNM', '4BHD', '4BMX', '4BSC', '5BNM', '5BHD', '5BMX', '5BSC',
@@ -15,7 +15,7 @@ _keys = {
     'ES', 'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY',
     'GF', 'CHU',
     'MIN', 'MAX', 'BEGINNER', 'MASTER', 'FREESTYLE',
-    'INPUT DELAY', 'PREVIOUS', 'TRAY', 'FAVORITE'
+    'INPUT DELAY', 'PREVIOUS', 'TRAY', 'FAVORITE', 'AUTO START'
     }
 
 ALL_TRACK_DATA = './data/AllTrackData.csv'
@@ -101,76 +101,112 @@ def update_check():
 def update_version(rs, db):
     with open(VERSION_TXT, 'w') as f:
         f.write(f'{rs},{db}')
-        
 
-def import_config(cls, json_, init=False):
+
+def filtering(func):
+        """
+        Return music list filtered.
+        """
+
+        def wrapper(self, *args):
+            try:
+                func(self, *args)
+            except TypeError:
+                func(self)
+
+            if not hasattr(self, 'is_init'):
+                self = self.parent_
+
+            if not self.is_init:
+                self.fil_yourdata, self.fil_list, self.fil_total = \
+                        filter_music(
+                            self.yourdata, self.bt_list, self.st_list, self.sr_list,
+                            self.min, self.max, self.is_freestyle,
+                            self.is_favor, self.is_favor_black, self.favorite
+                            )
+                
+                erm = self.erm_slider
+                if self.fil_total:
+                    erm.setMaximum(self.fil_total - 1)
+                else:
+                    erm.setMaximum(0)
+                
+                if erm.value() < self.pre_cnt:
+                    erm.setValue(self.pre_cnt)
+
+        return wrapper
+
+
+@filtering
+def import_config(self, json_, init=False):
     """
     Import config.
     """
 
-    cls.is_init = True
+    self.is_init = True
 
     with open(json_, 'r') as f:
         config = json.load(f)
 
-    for val, cb in cls.btn_diff:
+    for val, cb in self.btn_diff:
         cb.setChecked(config[val])
 
-    for val, cb, _ in cls.categories:
+    for val, cb, _ in self.categories:
         cb.setChecked(config[val])
 
-    cls.lvl_min.setValue(config['MIN'])
-    cls.lvl_max.setValue(config['MAX'])
+    self.lvl_min.setValue(config['MIN'])
+    self.lvl_max.setValue(config['MAX'])
     if config['BEGINNER']:
-        cls.cb_bgn.setChecked(True)
+        self.cb_bgn.setChecked(True)
     elif config['MASTER']:
-        cls.cb_mst.setChecked(True)
+        self.cb_mst.setChecked(True)
     else:
-        cls.cb_std.setChecked(True)
+        self.cb_std.setChecked(True)
 
     if config['FREESTYLE']:
-        cls.cb_freestyle.setChecked(True)
+        self.cb_freestyle.setChecked(True)
     else:
-        cls.cb_online.setChecked(True)
+        self.cb_online.setChecked(True)
 
     if init:
-        cls.delay_slider.setValue(config['INPUT DELAY'])
-        cls.erm_slider.setValue(config['PREVIOUS'])
-        cls.tray_button.setChecked(config['TRAY'])
-    cls.favorite_button.setChecked(config['FAVORITE']['Enabled'])
-    cls.favorite = set(config['FAVORITE']['List'])
-    cls.is_favor_black = config['FAVORITE']['Black']
+        self.delay_slider.setValue(config['INPUT DELAY'])
+        self.tray_button.setChecked(config['TRAY'])
+        self.autostart_button.setChecked(config['AUTO START'])
+    self.erm_slider.setValue(config['PREVIOUS'])
+    self.pre_cnt = config['PREVIOUS']
+    self.favorite_button.setChecked(config['FAVORITE']['Enabled'])
+    self.favorite = set(config['FAVORITE']['List'])
+    self.is_favor_black = config['FAVORITE']['Black']
 
-    cls.filtering()
+    self.is_init = False
 
-    cls.is_init = False
-
-def export_config(cls, json_):
+def export_config(self, json_):
     """
     Export config.
     """
 
     config = {}
 
-    for val, cb in cls.btn_diff:
+    for val, cb in self.btn_diff:
         config[val] = cb.isChecked()
 
-    for val, cb, _ in cls.categories:
+    for val, cb, _ in self.categories:
         config[val] = cb.isChecked()
 
-    config['MIN'] = cls.lvl_min.value()
-    config['MAX'] = cls.lvl_max.value()
-    config['BEGINNER'] = cls.cb_bgn.isChecked()
-    config['MASTER'] = cls.cb_mst.isChecked()
-    config['FREESTYLE'] = cls.cb_freestyle.isChecked()
+    config['MIN'] = self.lvl_min.value()
+    config['MAX'] = self.lvl_max.value()
+    config['BEGINNER'] = self.cb_bgn.isChecked()
+    config['MASTER'] = self.cb_mst.isChecked()
+    config['FREESTYLE'] = self.cb_freestyle.isChecked()
 
-    config['INPUT DELAY'] = cls.delay_slider.value()
-    config['PREVIOUS'] = cls.erm_slider.value()
-    config['TRAY'] = cls.is_tray
+    config['INPUT DELAY'] = self.delay_slider.value()
+    config['AUTO START'] = self.autostart_button.isChecked()
+    config['PREVIOUS'] = self.erm_slider.value()
+    config['TRAY'] = self.is_tray
     config['FAVORITE'] = {}
-    config['FAVORITE']['Enabled'] = cls.is_favor
-    config['FAVORITE']['List'] = list(cls.favorite)
-    config['FAVORITE']['Black'] = cls.is_favor_black
+    config['FAVORITE']['Enabled'] = self.is_favor
+    config['FAVORITE']['List'] = list(self.favorite)
+    config['FAVORITE']['Black'] = self.is_favor_black
 
     with open(json_, 'w') as f:
         json.dump(config, f, indent=4)
@@ -191,12 +227,11 @@ def check_config(json_):
             config = json.load(f)
         except JSONDecodeError:
             return False
-    
-    if set(config.keys()) == _keys:
-        return True
-    else:
-        return False
-
+        else:
+            if set(config.keys()) == _keys:
+                return True
+            else:
+                return False
 
 
 
