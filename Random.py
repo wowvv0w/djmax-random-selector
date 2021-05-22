@@ -20,7 +20,7 @@ class SelectorUi(QMainWindow, main_ui):
 
     # You can change these constants when you test codes.
     IS_TEST = True  # Use test csv and config
-    IS_KEY_TEST = False  # Ignore `dmrs.select_music`
+    IS_KEY_TEST = True  # Ignore `dmrs.select_music`
 
     def __init__(self):
 
@@ -48,6 +48,7 @@ class SelectorUi(QMainWindow, main_ui):
         # Advanced
         self.previous = deque([])
         self.pre_cnt = 0
+        self.pre_is_under = True
         self.is_tray = False
         self.input_delay = 0.03
         self.auto_start = False
@@ -110,7 +111,9 @@ class SelectorUi(QMainWindow, main_ui):
         """
 
         self.is_running = True
-        self.update_previous()
+
+        if self.erm_slider.value() < len(self.previous):
+            self.update_previous()
         
         picked_title, picked_btst, check_list, input_list = \
             dmrs.pick_music(
@@ -431,6 +434,17 @@ class SelectorUi(QMainWindow, main_ui):
     def erm_signal(self, value):
         self.erm_num.setText(f'{value}')
 
+        erm = self.erm_slider
+        max_ = erm.maximum()
+
+        if self.pre_cnt <= max_:
+            self.pre_cnt = value
+        else:
+            if value == max_:
+                pass
+            else:
+                self.pre_cnt = value
+
 
     def update_previous(self, title=None):
         """
@@ -441,7 +455,8 @@ class SelectorUi(QMainWindow, main_ui):
             self.previous.append(title)
         while len(self.previous) > value:
             self.previous.popleft()
-        print(self.previous)
+        self.pre_cnt = value
+        print(self.pre_cnt, self.previous)
 
 
     def closeEvent(self, _):

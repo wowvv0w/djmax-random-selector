@@ -124,14 +124,15 @@ def filtering(func):
                             self.min, self.max, self.is_freestyle,
                             self.is_favor, self.is_favor_black, self.favorite
                             )
+                
+                erm = self.erm_slider
                 if self.fil_total:
-                    self.erm_slider.setMaximum(self.fil_total - 1)
+                    erm.setMaximum(self.fil_total - 1)
                 else:
-                    self.erm_slider.setMaximum(0)
-
-                erm_value = self.erm_slider.value()
-                if erm_value < self.pre_cnt:
-                    self.erm_slider.setValue(self.pre_cnt)
+                    erm.setMaximum(0)
+                
+                if erm.value() < self.pre_cnt:
+                    erm.setValue(self.pre_cnt)
 
         return wrapper
 
@@ -171,6 +172,7 @@ def import_config(self, json_, init=False):
         self.delay_slider.setValue(config['INPUT DELAY'])
         self.tray_button.setChecked(config['TRAY'])
         self.autostart_button.setChecked(config['AUTO START'])
+    self.erm_slider.setValue(config['PREVIOUS'])
     self.pre_cnt = config['PREVIOUS']
     self.favorite_button.setChecked(config['FAVORITE']['Enabled'])
     self.favorite = set(config['FAVORITE']['List'])
