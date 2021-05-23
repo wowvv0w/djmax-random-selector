@@ -19,8 +19,8 @@ class SelectorUi(QMainWindow, main_ui):
     """
 
     # You can change these constants when you test codes.
-    IS_TEST = False  # Use test csv and config
-    IS_KEY_TEST = False  # Ignore `dmrs.select_music`
+    IS_TEST = True  # Use test csv and config
+    IS_KEY_TEST = True  # Ignore `dmrs.select_music`
 
     def __init__(self):
 

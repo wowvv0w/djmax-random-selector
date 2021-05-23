@@ -1,4 +1,7 @@
 # Update
+## V1.0.1
+* Fixed font issue
+* Fixed esc issue
 ## V1.0.0
 * Redesigned 'Difficulty' filter
 * re-sorted 'ADVANCED' options

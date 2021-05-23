@@ -69,6 +69,10 @@ class SettingUi(QDialog):
 
     def closeEvent(self, _):
         self.parent_.lock_all.move(0, -540)
+    
+    def reject(self):
+        self.parent_.lock_all.move(0, -540)
+        super().reject()
 
 
 
@@ -199,6 +203,10 @@ class FavoriteUi(QDialog):
 
     def closeEvent(self, _):
         self.parent_.lock_all.move(0, -540)
+    
+    def reject(self):
+        self.parent_.lock_all.move(0, -540)
+        super().reject()
 
 
 
@@ -323,3 +331,7 @@ class PresetUi(QDialog):
 
     def closeEvent(self, _):
         self.parent_.lock_all.move(0, -540)
+
+    def reject(self):
+        self.parent_.lock_all.move(0, -540)
+        super().reject()

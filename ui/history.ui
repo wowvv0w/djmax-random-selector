@@ -136,7 +136,6 @@ QPushButton:checked{
      <string notr="true">QListView{
 	background: transparent;
 	border:none;
-	font: 15px &quot;Lato&quot;
 }
 QScrollBar{
 	width: 10px;

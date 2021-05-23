@@ -137,10 +137,7 @@ font: 23px &quot;Lato&quot;;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QWidget{
-	font: 15px &quot;Lato&quot;
-}
-QFrame{
+    <string notr="true">QFrame{
 	background:transparent;
 	border: 3px solid #000000;
 }

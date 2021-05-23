@@ -75,18 +75,6 @@ font: 23px &quot;Lato&quot;;</string>
 	background:transparent;
 	border: 3px solid #000000;
 }
-QComboBox{
-	background: #2d2d2d;
-	border: none;
-	font: bold 15px &quot;Lato&quot;
-}
-QComboBox::drop-down{
-	border: none;
-}
-QComboBox::down-arrow{
-	image: url(images/down_button.png);
-	width: 13px;
-}
 QPushButton {
     border: none;
 	color: #ffffff;
@@ -156,7 +144,6 @@ QLabel{
      <string notr="true">QListView{
 	background: transparent;
 	border: 3px solid #000000;
-	font: 15px &quot;Lato&quot;
 }
 QListView::item:selected{
 	background: rgba(255, 255, 255, 64);
