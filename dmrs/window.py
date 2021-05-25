@@ -34,7 +34,7 @@ class SettingUi(QDialog):
             ]
 
     @data.filtering
-    def apply(self):
+    def apply(self, _=None):
         """
         Modifies data.
         """
@@ -183,7 +183,7 @@ class FavoriteUi(QDialog):
         self.update_display(self.favor_search.text())
         
     @data.filtering
-    def apply(self):
+    def apply(self, _=None):
         """
 
         """

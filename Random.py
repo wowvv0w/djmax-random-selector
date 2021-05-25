@@ -19,7 +19,7 @@ class SelectorUi(QMainWindow, main_ui):
     """
 
     # You can change these constants when you test codes.
-    IS_TEST = False  # Use test csv and config
+    IS_TEST = True  # Use test csv and config
     IS_KEY_TEST = False  # Ignore `dmrs.select_music`
 
     def __init__(self):
@@ -279,12 +279,12 @@ class SelectorUi(QMainWindow, main_ui):
                 indicators[i].setChecked(True)
             self.lvl_min.setMaximum(d)
 
-    def tab_signal(self):
+    def tab_signal(self, checked):
         """
         Highlights which tab has selected.
         """
 
-        if self.filter_tab_bt.isChecked():
+        if checked:
             self.tabWidget.setCurrentIndex(0)
             self.current_tab.setText('FILTER')
         else:
@@ -292,14 +292,14 @@ class SelectorUi(QMainWindow, main_ui):
             self.current_tab.setText('ADVANCED')
 
     @dmrs.filtering
-    def collab_signal(self):
+    def collab_signal(self, checked):
         """
         Checkes or uncheckes all categories in 'COLLABORATION' when
         'COLLABORATION' button is clicked.
         """
 
         self.is_init = True
-        if self.cb_collab.isChecked():
+        if checked:
             for i in self.collab_children:
                 i.setChecked(True)
             self.collab_frame.setStyleSheet('QFrame{\n	background-color: #1e1e1e;\n}')
@@ -319,17 +319,17 @@ class SelectorUi(QMainWindow, main_ui):
             self.cb_collab.setChecked(True)
             self.collab_frame.setStyleSheet('QFrame{\n	background-color: #1e1e1e;\n}')
         else:
-            check = {cb.isChecked() for cb in self.collab_children}
+            check = {cb.isChecked() for cb in self.collab_children if cb.isEnabled()}
             if True not in check:
                 self.cb_collab.setChecked(False)
                 self.collab_frame.setStyleSheet('QFrame{\n	background-color: rgba(0, 0, 0, 87);\n}')
 
-    def history_signal(self):
+    def history_signal(self, checked):
         """
         Opens or closes 'History' window when 'SHOW HISTORY' button is clicked.
         """
 
-        if self.history_button.isChecked():
+        if checked:
             self.history_ui.show()
             self.history_button.setText('ON')
         else:
@@ -348,24 +348,24 @@ class SelectorUi(QMainWindow, main_ui):
         else:
             self.showMinimized()
 
-    def tray_signal(self):
+    def tray_signal(self, checked):
         """
         Changes 'SYSTEM TRAY' button's label.
         """
 
-        if self.tray_button.isChecked():
+        if checked:
             self.is_tray = True
             self.tray_button.setText('ON')
         else:
             self.is_tray = False
             self.tray_button.setText('OFF')
 
-    def auto_start_signal(self):
+    def auto_start_signal(self, checked):
         """
         Changes 'AUTO START' button's label.
         """
 
-        if self.autostart_button.isChecked():
+        if checked:
             self.auto_start = True
             self.autostart_button.setText('ON')
         else:
@@ -373,12 +373,12 @@ class SelectorUi(QMainWindow, main_ui):
             self.autostart_button.setText('OFF')
     
     @dmrs.filtering
-    def favorite_signal(self):
+    def favorite_signal(self, checked):
         """
         Changes 'FAVORITE' button's label.
         """
 
-        if self.favorite_button.isChecked():
+        if checked:
             self.is_favor = True
             self.favorite_button.setText('ON')
         else:
@@ -408,16 +408,16 @@ class SelectorUi(QMainWindow, main_ui):
             self.max = obj.value()
 
     @dmrs.filtering
-    def is_fs_checked(self):
+    def is_fs_checked(self, checked):
         """
         Checkes 'Freestyle' button in 'MODE' is checked.
         """
 
-        self.is_freestyle = self.cb_freestyle.isChecked()
+        self.is_freestyle = checked
     
-    def is_delay_changed(self):
+    def is_delay_changed(self, value):
 
-        self.input_delay = self.delay_slider.value() / 1000
+        self.input_delay = value / 1000
 
     def is_prefer_checked(self):
         """

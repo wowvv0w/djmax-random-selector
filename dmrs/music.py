@@ -1,6 +1,6 @@
+import math
 import random
 import time
-import math
 from string import ascii_letters
 from typing import Any, Iterable, List, Tuple, Union, Deque
 import keyboard as kb

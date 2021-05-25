@@ -109,10 +109,7 @@ def filtering(func):
         """
 
         def wrapper(self, *args):
-            try:
-                func(self, *args)
-            except TypeError:
-                func(self)
+            func(self, *args)
 
             if not hasattr(self, 'is_init'):
                 self = self.parent_
