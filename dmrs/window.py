@@ -54,7 +54,7 @@ class SettingUi(QDialog):
 
         self.close()
 
-    def showEvent(self, _):
+    def show(self):
         self.parent_.lock_all.move(0, 0)
 
         for val, cb in self.dlc_packs:
@@ -66,9 +66,12 @@ class SettingUi(QDialog):
             self.lastest_label.setStyleSheet('color: #ffbe00;\nfont: 15px')
         else:
             self.lastest_label.setStyleSheet('color: #dddddd;\nfont: 15px')
+        
+        super().show()
 
-    def closeEvent(self, _):
+    def close(self):
         self.parent_.lock_all.move(0, -540)
+        super().close()
     
     def reject(self):
         self.parent_.lock_all.move(0, -540)
@@ -193,7 +196,7 @@ class FavoriteUi(QDialog):
         print(self.parent_.favorite)
         self.close()
 
-    def showEvent(self, _):
+    def show(self):
         self.parent_.lock_all.move(0, 0)
         
         for widget in self.widgets:
@@ -201,8 +204,11 @@ class FavoriteUi(QDialog):
         self.favor_black.setChecked(self.parent_.is_favor_black)
         self.update_display(self.favor_search.text())
 
-    def closeEvent(self, _):
+        super().show()
+
+    def close(self):
         self.parent_.lock_all.move(0, -540)
+        super().close()
     
     def reject(self):
         self.parent_.lock_all.move(0, -540)
@@ -326,11 +332,13 @@ class PresetUi(QDialog):
             name = clone
         return name
 
-    def showEvent(self, _):
+    def show(self):
         self.parent_.lock_all.move(0, 0)
+        super().show()
 
-    def closeEvent(self, _):
+    def close(self):
         self.parent_.lock_all.move(0, -540)
+        super().close()
 
     def reject(self):
         self.parent_.lock_all.move(0, -540)

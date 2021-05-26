@@ -10,10 +10,7 @@ import keyboard as kb
 import dmrs
 
 
-main_ui = uic.loadUiType("./ui/selector.ui")[0]
-
-
-class SelectorUi(QMainWindow, main_ui):
+class SelectorUi(QMainWindow):
     """
     Main Window
     """
@@ -25,6 +22,7 @@ class SelectorUi(QMainWindow, main_ui):
     def __init__(self):
 
         super().__init__()
+        uic.loadUi("./ui/selector.ui", self)
         # Selector
         self.is_running = False
         self.is_init = False
@@ -60,7 +58,6 @@ class SelectorUi(QMainWindow, main_ui):
         self.fil_list = None
         self.fil_total = None
         # Ui
-        self.setupUi(self)
         self.setting_ui = dmrs.SettingUi(self)
         self.history_ui = dmrs.HistoryUi(self)
         self.favorite_ui = dmrs.FavoriteUi(self)
@@ -470,6 +467,6 @@ class SelectorUi(QMainWindow, main_ui):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = SelectorUi()
-    ex.show()
+    selector = SelectorUi()
+    selector.show()
     sys.exit(app.exec_())
