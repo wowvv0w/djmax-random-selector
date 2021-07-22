@@ -1,4 +1,7 @@
 # Update
+## V1.1.0
+* Added available database-update highlight
+* Added 'ESTiMATE' category
 ## V1.0.1
 * Fixed font issue
 * Fixed esc issue

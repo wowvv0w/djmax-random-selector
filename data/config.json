@@ -25,6 +25,7 @@
     "CY": false,
     "GF": false,
     "CHU": false,
+    "ESTI": false,
     "MIN": 1,
     "MAX": 15,
     "BEGINNER": false,

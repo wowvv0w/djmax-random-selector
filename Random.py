@@ -11,12 +11,9 @@ import dmrs
 
 
 class SelectorUi(QMainWindow):
-    """
-    Main Window
-    """
 
     # You can change these constants when you test codes.
-    IS_TEST = True  # Use test csv and config
+    IS_TEST = False  # Use test csv and config
     IS_KEY_TEST = False  # Ignore `dmrs.select_music`
 
     def __init__(self):
@@ -63,7 +60,7 @@ class SelectorUi(QMainWindow):
         self.favorite_ui = dmrs.FavoriteUi(self)
         self.preset_ui = dmrs.PresetUi(self)
         # Signals
-        self.collab_children = {self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy, self.cb_gf, self.cb_chu}
+        self.collab_children = {self.cb_gg, self.cb_gc, self.cb_dm, self.cb_cy, self.cb_gf, self.cb_chu, self.cb_esti}
         self.ui_signal()
         self.filter_signal()
         # Configuration
@@ -80,7 +77,8 @@ class SelectorUi(QMainWindow):
             ('T2', self.cb_t2, self.lock_t2), ('T3', self.cb_t3, self.lock_t3),
             ('GG', self.cb_gg, self.lock___), ('GC', self.cb_gc, self.lock_gc),
             ('DM', self.cb_dm, self.lock_dm), ('CY', self.cb_cy, self.lock_cy),
-            ('GF', self.cb_gf, self.lock_gf), ('CHU', self.cb_chu, self.lock_chu)
+            ('GF', self.cb_gf, self.lock_gf), ('CHU', self.cb_chu, self.lock_chu),
+            ('ESTI', self.cb_esti, self.lock_esti)
             ]
         self.enabled_check = set(self.yourdata['Series'].values)
         dmrs.import_config(self, self.config, True)
@@ -91,9 +89,6 @@ class SelectorUi(QMainWindow):
 
 
     def check_state(self):
-        """
-        Checkes availability to start.
-        """
 
         if not self.is_running:
             print('start')
@@ -103,9 +98,6 @@ class SelectorUi(QMainWindow):
             print('denied')
 
     def random_start(self):
-        """
-        Starts random select.
-        """
 
         self.is_running = True
 
@@ -136,9 +128,6 @@ class SelectorUi(QMainWindow):
 
 
     def ui_signal(self):
-        """
-        Defines signals related to visual design. (and sets fonts)
-        """
 
         # FontDB
         self.fontDB = QFontDatabase()
@@ -160,7 +149,7 @@ class SelectorUi(QMainWindow):
         self.minimize_button.clicked.connect(self.minimize_signal)
         self.close_button.clicked.connect(self.close)
         self.update_button.clicked.connect(lambda: webbrowser.open('https://github.com/wowvv0w/DJMAX_Random_Selector/releases'))
-        if self.rs_curr_ver == self.rs_last_ver:
+        if self.rs_curr_ver >= self.rs_last_ver:
             self.update_button.setVisible(False)
         def move_window(event):
             if event.buttons() == Qt.LeftButton:
@@ -182,7 +171,10 @@ class SelectorUi(QMainWindow):
         self.cb_cy.toggled.connect(lambda: self.collab_child_signal(self.cb_cy))
         self.cb_gf.toggled.connect(lambda: self.collab_child_signal(self.cb_gf))
         self.cb_chu.toggled.connect(lambda: self.collab_child_signal(self.cb_chu))
+        self.cb_esti.toggled.connect(lambda: self.collab_child_signal(self.cb_esti))
         # Bottom Bar
+        if self.db_curr_ver < self.db_last_ver:
+            self.setting_button.setIcon(QIcon('./images/setting_update.png'))
         self.setting_button.clicked.connect(self.setting_ui.show)
         self.preset_button.clicked.connect(self.preset_ui.show)
 
@@ -208,10 +200,7 @@ class SelectorUi(QMainWindow):
         self.favorite_edit.clicked.connect(self.favorite_ui.show)
 
     def filter_signal(self):
-        """
-        Defines signals related to filter.
-        """
-
+        
         # BUTTON TUNES
         self.cb_4b.toggled.connect(lambda: self.is_checked(self.bt_list, self.cb_4b, '4B'))
         self.cb_5b.toggled.connect(lambda: self.is_checked(self.bt_list, self.cb_5b, '5B'))
@@ -248,14 +237,12 @@ class SelectorUi(QMainWindow):
         self.cb_cy.toggled.connect(lambda: self.is_checked(self.sr_list, self.cb_cy, 'CY'))
         self.cb_gf.toggled.connect(lambda: self.is_checked(self.sr_list, self.cb_gf, 'GF'))
         self.cb_chu.toggled.connect(lambda: self.is_checked(self.sr_list, self.cb_chu, 'CHU'))
+        self.cb_esti.toggled.connect(lambda: self.is_checked(self.sr_list, self.cb_esti, 'ESTI'))
         # ADVANCED
         self.delay_slider.valueChanged.connect(self.is_delay_changed)
         self.favorite_button.toggled.connect(self.favorite_signal)
 
     def lvl_signal(self, lvl):
-        """
-        Changes current level range ui: 15 stars in 'Difficulty.'
-        """
 
         indicators = [None, # <-- remember me, index[0]
             self.d1, self.d2, self.d3, self.d4, self.d5,
@@ -277,9 +264,6 @@ class SelectorUi(QMainWindow):
             self.lvl_min.setMaximum(d)
 
     def tab_signal(self, checked):
-        """
-        Highlights which tab has selected.
-        """
 
         if checked:
             self.tabWidget.setCurrentIndex(0)
@@ -290,10 +274,6 @@ class SelectorUi(QMainWindow):
 
     @dmrs.filtering
     def collab_signal(self, checked):
-        """
-        Checkes or uncheckes all categories in 'COLLABORATION' when
-        'COLLABORATION' button is clicked.
-        """
 
         self.is_init = True
         if checked:
@@ -307,10 +287,6 @@ class SelectorUi(QMainWindow):
         self.is_init = False
 
     def collab_child_signal(self, child):
-        """
-        Changes 'COLLABORATION' background color and check state depend on
-        whether all categories in 'COLLABORATION' are checked or not.
-        """
 
         if child.isChecked():
             self.cb_collab.setChecked(True)
@@ -322,9 +298,6 @@ class SelectorUi(QMainWindow):
                 self.collab_frame.setStyleSheet('QFrame{\n	background-color: rgba(0, 0, 0, 87);\n}')
 
     def history_signal(self, checked):
-        """
-        Opens or closes 'History' window when 'SHOW HISTORY' button is clicked.
-        """
 
         if checked:
             self.history_ui.show()
@@ -334,10 +307,6 @@ class SelectorUi(QMainWindow):
             self.history_button.setText('OFF')
 
     def minimize_signal(self):
-        """
-        Turns to system tray or minimizes window depending on
-        whether 'SYSTEM TRAY' button is checked or not.
-        """
 
         if self.is_tray:
             self.hide()
@@ -346,9 +315,6 @@ class SelectorUi(QMainWindow):
             self.showMinimized()
 
     def tray_signal(self, checked):
-        """
-        Changes 'SYSTEM TRAY' button's label.
-        """
 
         if checked:
             self.is_tray = True
@@ -358,9 +324,6 @@ class SelectorUi(QMainWindow):
             self.tray_button.setText('OFF')
 
     def auto_start_signal(self, checked):
-        """
-        Changes 'AUTO START' button's label.
-        """
 
         if checked:
             self.auto_start = True
@@ -371,9 +334,6 @@ class SelectorUi(QMainWindow):
     
     @dmrs.filtering
     def favorite_signal(self, checked):
-        """
-        Changes 'FAVORITE' button's label.
-        """
 
         if checked:
             self.is_favor = True
@@ -384,9 +344,6 @@ class SelectorUi(QMainWindow):
 
     @dmrs.filtering
     def is_checked(self, list_, obj, value):
-        """
-        Checkes `obj` is checked.
-        """
 
         if obj.isChecked():
             list_.add(value)
@@ -395,9 +352,6 @@ class SelectorUi(QMainWindow):
 
     @dmrs.filtering
     def is_value_changed(self, obj):
-        """
-        Checkes `obj`'s value.
-        """
 
         if obj == self.lvl_min:
             self.min = obj.value()
@@ -406,9 +360,6 @@ class SelectorUi(QMainWindow):
 
     @dmrs.filtering
     def is_fs_checked(self, checked):
-        """
-        Checkes 'Freestyle' button in 'MODE' is checked.
-        """
 
         self.is_freestyle = checked
     
@@ -417,9 +368,6 @@ class SelectorUi(QMainWindow):
         self.input_delay = value / 1000
 
     def is_prefer_checked(self):
-        """
-        Checkes prefer
-        """
 
         if self.cb_bgn.isChecked():
             self.prefer = 'beginner'
@@ -429,6 +377,7 @@ class SelectorUi(QMainWindow):
             self.prefer = None
     
     def erm_signal(self, value):
+
         self.erm_num.setText(f'{value}')
 
         erm = self.erm_slider
@@ -444,9 +393,7 @@ class SelectorUi(QMainWindow):
 
 
     def update_previous(self, title=None):
-        """
-        `previous`
-        """
+
         value = self.erm_slider.value()
         if title:
             self.previous.append(title)

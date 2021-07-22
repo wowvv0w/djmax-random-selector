@@ -9,9 +9,6 @@ import keyboard as kb
 _styles = ('NM', 'HD', 'MX', 'SC')
 
 def check_alphabet(word: str) -> bool:
-    """
-    Checkes whether `word` is alphabet.
-    """
     
     return word in ascii_letters
 
@@ -27,9 +24,6 @@ def filter_music(
     is_favor_black: bool,
     favorite: Iterable
 ) -> Tuple[Any, list, int]:
-    """
-    Filter music.
-    """
 
     filtered = data[data['Series'].isin(series)]
     if is_favor:
@@ -68,9 +62,6 @@ def pick_music(
     previous: Deque,
     auto_start: bool
 ) -> Union[Tuple[str, str, List[bool], Tuple[str, str, int, int]], List[None]]:
-    """
-    Pick music
-    """
 
     if previous:
         if is_freestyle:
@@ -154,9 +145,6 @@ def select_music(
     check_list: List[bool],
     input_list: Tuple[str, str, int, int]
 ) -> None:
-    """
-    Select music in game by inputing keys automatically.
-    """
 
     alphabet, forward, start = check_list
     bt, init, vert, right = input_list

@@ -3,6 +3,7 @@ import shutil
 from PyQt5 import uic
 from PyQt5.QtWidgets import QCheckBox, QDialog, QFileDialog, QMessageBox, QSizePolicy, QSpacerItem, QVBoxLayout
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 from . import data
 
 SETTING_UI = './ui/setting.ui'
@@ -11,9 +12,6 @@ FAVORITE_UI = './ui/favorite.ui'
 PRESET_UI = './ui/preset.ui'
 
 class SettingUi(QDialog):
-    """
-    SETTING Window
-    """
 
     def __init__(self, parent):
 
@@ -29,20 +27,18 @@ class SettingUi(QDialog):
         self.dlc_packs = [
             ('VE', self.yd_cb_ve), ('ES', self.yd_cb_es), ('TR', self.yd_cb_tr), ('GC', self.yd_cb_gc),
             ('CE', self.yd_cb_ce), ('BS', self.yd_cb_bs), ('DM', self.yd_cb_dm), ('CY', self.yd_cb_cy),
-            ('T1', self.yd_cb_t1), ('T2', self.yd_cb_t2), ('T3', self.yd_cb_t3),  
-            ('GF', self.yd_cb_gf), ('CHU', self.yd_cb_chu), ('P3', self.yd_cb_p3)
+            ('T1', self.yd_cb_t1), ('T2', self.yd_cb_t2), ('T3', self.yd_cb_t3), ('GF', self.yd_cb_gf),
+            ('CHU', self.yd_cb_chu), ('P3', self.yd_cb_p3), ('ESTI', self.yd_cb_esti)
             ]
 
     @data.filtering
     def apply(self, _=None):
-        """
-        Modifies data.
-        """
 
         if self.current_ver < self.lastest_ver:
             data.update_database()
             data.update_version(self.parent_.rs_curr_ver, self.lastest_ver)
             _, _, self.current_ver, self.lastest_ver = data.update_check()
+            self.parent_.setting_button.setIcon(QIcon('./images/setting.png'))
 
         fil_yd_sr = set(val for val, cb in self.dlc_packs if cb.isChecked())
         fil_yd_sr.update(['RP', 'P1', 'P2', 'GG'])
@@ -81,9 +77,6 @@ class SettingUi(QDialog):
 
 
 class HistoryUi(QDialog):
-    """
-    History Window
-    """
 
     def __init__(self, parent):
 
@@ -105,9 +98,6 @@ class HistoryUi(QDialog):
         self.drag_pos = event.globalPos()
 
     def always_on_top(self):
-        """
-        Sets window staying on top or not.
-        """
 
         if self.aot_button.isChecked():
             self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
@@ -120,9 +110,6 @@ class HistoryUi(QDialog):
 
 
 class FavoriteUi(QDialog):
-    """
-    Favorite Window
-    """
 
     def __init__(self, parent):
         super().__init__(parent)
@@ -156,9 +143,6 @@ class FavoriteUi(QDialog):
     
 
     def update_display(self, text):
-        """
-        Shows search results.
-        """
 
         for widget in self.widgets:
             check = (widget.isChecked() and self.show_enabled) \
@@ -174,9 +158,6 @@ class FavoriteUi(QDialog):
             
             
     def update_abled(self):
-        """
-        Applies on/off filter.
-        """
 
         if self.favor_all.isChecked():
             self.show_enabled, self.show_disabled = True, True
@@ -187,9 +168,6 @@ class FavoriteUi(QDialog):
         
     @data.filtering
     def apply(self, _=None):
-        """
-
-        """
        
         self.parent_.favorite = {widget.text() for widget in self.widgets if widget.isChecked()}
         self.parent_.is_favor_black = self.favor_black.isChecked()
@@ -229,9 +207,6 @@ class FavoriteUi(QDialog):
 
 
 class PresetUi(QDialog):
-    """
-    Preset Window
-    """
 
     def __init__(self, parent):
         super().__init__(parent)

@@ -13,7 +13,7 @@ _keys = {
     '4B', '5B', '6B', '8B', 'NM', 'HD', 'MX', 'SC',
     'RP', 'P1', 'P2', 'P3', 'TR', 'CE', 'BS', 'VE',
     'ES', 'T1', 'T2', 'T3', 'GG', 'GC', 'DM', 'CY',
-    'GF', 'CHU',
+    'GF', 'CHU', 'ESTI',
     'MIN', 'MAX', 'BEGINNER', 'MASTER', 'FREESTYLE',
     'INPUT DELAY', 'PREVIOUS', 'TRAY', 'FAVORITE', 'AUTO START'
     }
@@ -31,13 +31,6 @@ VERSION_URL = "https://raw.githubusercontent.com/wowvv0w/DJMAX_Random_Selector/m
 DATABASE_URL = 'https://raw.githubusercontent.com/wowvv0w/DJMAX_Random_Selector/main/data/AllTrackData.csv'
 
 def read_data(test):
-    """
-    Return dataframe.
-
-    - `test` defines if this run is for test or not.
-
-    If `test` is True, return `TEST_DATA`. Otherwise, return `YOUR_DATA`.
-    """
 
     if not test:
         data = pd.read_csv(YOUR_DATA, names = _column)
@@ -47,9 +40,6 @@ def read_data(test):
     return data
 
 def edit_data(series_filter, test):
-    """
-    Edit YourData.csv
-    """
 
     if not test:
         db = YOUR_DATA
@@ -65,9 +55,6 @@ def edit_data(series_filter, test):
     filtered.to_csv(db, index=None, header=None)
 
 def update_database():
-    """
-    Updates database from remote repository.
-    """
 
     try:
         response = requests.get(DATABASE_URL)
@@ -104,9 +91,6 @@ def update_version(rs, db):
 
 
 def filtering(func):
-        """
-        Return music list filtered.
-        """
 
         def wrapper(self, *args):
             func(self, *args)
@@ -136,9 +120,6 @@ def filtering(func):
 
 @filtering
 def import_config(self, json_, init=False):
-    """
-    Import config.
-    """
 
     self.is_init = True
 
@@ -178,9 +159,6 @@ def import_config(self, json_, init=False):
     self.is_init = False
 
 def export_config(self, json_):
-    """
-    Export config.
-    """
 
     config = {}
 
@@ -243,9 +221,6 @@ def generate_title_list():
 
 
 def _generate_title_filter(series):
-    """
-    Generates title filter.
-    """
 
     title_filter = set()
     # RP in DLC
