@@ -568,6 +568,29 @@ QLabel{
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QPushButton" name="yd_cb_esti">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>60</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton:checked {
+	border-color: #c0c0c0;
+ 	color: #e6ce99;
+    background-color: rgba(0, 0, 0, 87);
+}</string>
+     </property>
+     <property name="text">
+      <string>ESTI</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
    <widget class="QLabel" name="label_3">
     <property name="geometry">

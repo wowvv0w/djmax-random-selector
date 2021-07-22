@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>DJMAX Random Selector V1.0.1</string>
+   <string>DJMAX Random Selector V1.1.0</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color:qlineargradient(spread:repeat, x1:0.99, y1:0.007, x2:1, y2:0, stop:0 rgba(45, 46, 47, 255), stop:0.4 rgba(45, 46, 47, 255), stop:0.475 rgba(42, 43, 44, 255), stop:0.525 rgba(42, 43, 44, 255), stop:0.6 rgba(45, 46, 47, 255), stop:1 rgba(45, 46, 47, 255));</string>
@@ -501,14 +501,14 @@ QLabel{
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>10</y>
+          <y>5</y>
           <width>120</width>
-          <height>25</height>
+          <height>20</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">QPushButton {
-    border: 3px solid #5e5e5e;
+    border: 2px solid #5e5e5e;
 	color: #5e5e5e;
     background-color: transparent;
 	font: 12px &quot;Lato Black&quot;
@@ -533,14 +533,14 @@ QPushButton:checked {
         <property name="geometry">
          <rect>
           <x>150</x>
-          <y>10</y>
+          <y>5</y>
           <width>120</width>
-          <height>25</height>
+          <height>20</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">QPushButton {
-    border: 3px solid #5e5e5e;
+    border: 2px solid #5e5e5e;
 	color: #5e5e5e;
     background-color: transparent;
 	font: 12px &quot;Lato Black&quot;
@@ -567,14 +567,14 @@ QPushButton:disabled{
         <property name="geometry">
          <rect>
           <x>150</x>
-          <y>80</y>
+          <y>65</y>
           <width>120</width>
-          <height>25</height>
+          <height>20</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">QPushButton {
-    border: 3px solid #5e5e5e;
+    border: 2px solid #5e5e5e;
 	color: #5e5e5e;
     background-color: transparent;
 	font: 12px &quot;Lato Black&quot;
@@ -601,14 +601,14 @@ QPushButton:disabled{
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>45</y>
+          <y>35</y>
           <width>120</width>
-          <height>25</height>
+          <height>20</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">QPushButton {
-    border: 3px solid #5e5e5e;
+    border: 2px solid #5e5e5e;
 	color: #5e5e5e;
     background-color: transparent;
 	font: 12px &quot;Lato Black&quot;
@@ -635,14 +635,14 @@ QPushButton:disabled{
         <property name="geometry">
          <rect>
           <x>150</x>
-          <y>45</y>
+          <y>35</y>
           <width>120</width>
-          <height>25</height>
+          <height>20</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">QPushButton {
-    border: 3px solid #5e5e5e;
+    border: 2px solid #5e5e5e;
 	color: #5e5e5e;
     background-color: transparent;
 	font: 12px &quot;Lato Black&quot;
@@ -669,14 +669,14 @@ QPushButton:disabled{
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>80</y>
+          <y>65</y>
           <width>120</width>
-          <height>25</height>
+          <height>20</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">QPushButton {
-    border: 3px solid #5e5e5e;
+    border: 2px solid #5e5e5e;
 	color: #5e5e5e;
     background-color: transparent;
 	font: 12px &quot;Lato Black&quot;
@@ -699,12 +699,47 @@ QPushButton:disabled{
          <bool>true</bool>
         </property>
        </widget>
+       <widget class="QPushButton" name="cb_esti">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>95</y>
+          <width>120</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    border: 2px solid #5e5e5e;
+	color: #5e5e5e;
+    background-color: transparent;
+	font: 12px &quot;Lato Black&quot;
+}
+QPushButton:checked {
+	border-color: #e6ce99;
+ 	color: #e6ce99;
+    background-color: rgba(0, 0, 0, 87);
+}
+QPushButton:disabled{
+	color: #242526;
+    background-color: transparent;
+	border-color: #242526;
+}</string>
+        </property>
+        <property name="text">
+         <string>ESTIMATE</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
        <zorder>cb_gg</zorder>
        <zorder>cb_gc</zorder>
        <zorder>cb_dm</zorder>
        <zorder>cb_cy</zorder>
        <zorder>cb_gf</zorder>
        <zorder>cb_chu</zorder>
+       <zorder>cb_esti</zorder>
       </widget>
       <widget class="QPushButton" name="cb_collab">
        <property name="geometry">
@@ -916,9 +951,9 @@ QPushButton:disabled{
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>325</y>
+         <y>310</y>
          <width>20</width>
-         <height>25</height>
+         <height>20</height>
         </rect>
        </property>
        <property name="pixmap">
@@ -932,9 +967,9 @@ QPushButton:disabled{
        <property name="geometry">
         <rect>
          <x>210</x>
-         <y>290</y>
+         <y>280</y>
          <width>20</width>
-         <height>25</height>
+         <height>20</height>
         </rect>
        </property>
        <property name="pixmap">
@@ -948,9 +983,9 @@ QPushButton:disabled{
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>290</y>
+         <y>280</y>
          <width>20</width>
-         <height>25</height>
+         <height>20</height>
         </rect>
        </property>
        <property name="pixmap">
@@ -964,9 +999,9 @@ QPushButton:disabled{
        <property name="geometry">
         <rect>
          <x>210</x>
-         <y>255</y>
+         <y>250</y>
          <width>20</width>
-         <height>25</height>
+         <height>20</height>
         </rect>
        </property>
        <property name="pixmap">
@@ -980,9 +1015,9 @@ QPushButton:disabled{
        <property name="geometry">
         <rect>
          <x>210</x>
-         <y>325</y>
+         <y>310</y>
          <width>20</width>
-         <height>25</height>
+         <height>20</height>
         </rect>
        </property>
        <property name="pixmap">
@@ -1000,6 +1035,22 @@ QPushButton:disabled{
          <width>20</width>
          <height>30</height>
         </rect>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lock_esti">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>340</y>
+         <width>20</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="pixmap">
+        <pixmap>../images/lock.png</pixmap>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1034,6 +1085,7 @@ QPushButton:disabled{
       <zorder>lock_cy</zorder>
       <zorder>lock_gc</zorder>
       <zorder>lock___</zorder>
+      <zorder>lock_esti</zorder>
      </widget>
      <widget class="QGroupBox" name="bt_groupbox">
       <property name="geometry">
@@ -2964,7 +3016,7 @@ QPushButton:hover{
 font: 15px &quot;Lato Black&quot;;</string>
      </property>
      <property name="text">
-      <string>DJMAX Random Selector V1.0.1</string>
+      <string>DJMAX Random Selector V1.1.0</string>
      </property>
     </widget>
     <widget class="QPushButton" name="update_button">
