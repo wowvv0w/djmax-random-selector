@@ -1,5 +1,6 @@
+## THIS PROGRAM IS NO LONGER UPDATED. PLEASE USE [NEW VERSION](https://github.com/wowvv0w/djmax-random-selector-v).
+
 # DJMAX Random Selector
-![Alt Text](images/preview1.png)
 
 * This program is for DJMAX RESPECT V, selecting music randomly
 * It uses keyboard macro so DO NOT run at other apps to prevent from eventualities
